@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ item.title }} — Мерч{% endblock %}
+{% block content %}
+<article class="product">
+  <div class="media">
+    <img class="cover" src="{{ item.cover.url }}" alt="{{ item.title }}">
+    {% if item.images.all %}
+      <div class="thumbs">
+        {% for img in item.images.all %}
+          <img src="{{ img.image.url }}" alt="{{ img.alt }}">
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+  <div class="info">
+    <h1>{{ item.title }}</h1>
+    <div class="price big">{{ item.price }} ₽</div>
+    {% if item.description %}<p>{{ item.description|linebreaks }}</p>{% endif %}
+    <a class="btn" href="#">В корзину</a>
+  </div>
+</article>
+{% endblock %}
