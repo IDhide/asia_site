@@ -1,0 +1,68 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.siteFooter {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: max(clamp(0.2rem, 1vw, 1rem) * 1.2, env(safe-area-inset-bottom));
+  padding-inline: clamp(0.75rem, 2.5vw, 2rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem;
+  z-index: 5;
+
+  @media (max-width: 480px) {
+    padding-inline: clamp(0.5rem, 4vw, 1rem);
+    bottom: max(clamp(0.6rem, 5vw, 1rem), env(safe-area-inset-bottom));
+  }
+}
+
+.socialMedia {
+  display: inline-flex;
+  align-items: center;
+  justify-content: left;
+  position: relative;
+  white-space: nowrap;
+  width: auto;
+  padding: 0.45em 2.7em;
+  color: #eaeaea;
+  justify-self: start;
+
+  @media (max-width: 480px) {
+    padding: 0.25em 1em;
+  }
+}
+
+.contacts {
+  justify-self: center;
+  text-transform: uppercase;
+  color: #eaeaea;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  font-size: clamp(0.65rem, 0.9vw, 0.8rem);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  padding-block: 0.15rem;
+  white-space: nowrap;
+
+  @media (max-width: 480px) {
+    font-size: clamp(0.6rem, 3.2vw, 0.72rem);
+  }
+}
+
+.faq {
+  display: inline-flex;
+  align-items: center;
+  justify-content: right;
+  white-space: nowrap;
+  width: auto;
+  padding: 0.45em 2.7em;
+  color: #eaeaea;
+  justify-self: end;
+
+  @media (max-width: 480px) {
+    padding: 0.25em 1em;
+  }
+}

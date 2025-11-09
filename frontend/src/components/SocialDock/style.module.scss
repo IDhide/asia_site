@@ -1,0 +1,72 @@
+@use '@/styles/variables' as *;
+
+.socialDock {
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  transform: translate(-50%, calc(-1 * var(--dock-gap, clamp(0.7rem, 2.2vw, 1.225rem))));
+  display: grid;
+  gap: var(--dock-gap, clamp(0.7rem, 2.2vw, 1.225rem));
+  justify-items: center;
+  padding: 0;
+  pointer-events: none;
+  z-index: 10;
+
+  @media (max-width: 480px) {
+    --dock-gap: clamp(0.5rem, 5.5vw, 1rem);
+  }
+}
+
+.socialDockBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: clamp(32px, 4.6vw, 40px);
+  min-block-size: clamp(32px, 4.6vw, 40px);
+  transform: translateY(16px);
+  opacity: 0;
+  transition: transform 0.30s linear, opacity 0.30s linear;
+  transition-delay: var(--delay, 0ms);
+
+  img {
+    inline-size: clamp(20px, 3.8vw, 26px);
+    block-size: auto;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.35));
+    transition: transform 0.2s linear;
+  }
+
+  @media (hover: hover) {
+    &:hover img {
+      transform: scale(1.06);
+    }
+  }
+
+  @media (max-width: 480px) {
+    min-inline-size: clamp(28px, 7vw, 36px);
+    min-block-size: clamp(28px, 7vw, 36px);
+
+    img {
+      inline-size: clamp(18px, 5.5vw, 24px);
+    }
+  }
+}
+
+// Parent element with .is-open class
+:global(.site-footer__social-media.is-open) .socialDock {
+  pointer-events: auto;
+}
+
+:global(.site-footer__social-media.is-open) .socialDockBtn {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .socialDockBtn {
+    transition: none;
+
+    img {
+      transition: none;
+    }
+  }
+}

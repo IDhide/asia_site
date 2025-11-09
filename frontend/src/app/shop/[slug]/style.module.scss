@@ -1,0 +1,55 @@
+@use '@/styles/variables' as *;
+
+.productDetail {
+  min-block-size: 100svh;
+  padding-inline: clamp(16px, 3vw, 32px);
+  padding-block: clamp(120px, 12vw, 160px) calc($bottom-blur-height + clamp(40px, 5vw, 70px));
+}
+
+.productLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 5vw, 64px);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.loadingContainer,
+.errorContainer {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 2rem;
+}
+
+.errorContainer p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  text-align: center;
+}
+
+.backButton {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 12px 24px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(14px, 2vw, 16px);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+@media (max-width: 1024px) {
+  .productLayout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}

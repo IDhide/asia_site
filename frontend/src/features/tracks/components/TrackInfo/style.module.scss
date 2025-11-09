@@ -1,0 +1,129 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.trackInfo {
+  @include glass-effect;
+  border-radius: 20px;
+  padding: clamp(20px, 3vw, 32px);
+  width: 100%;
+  max-width: clamp(400px, 90%, 700px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 3vh, 28px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.textSection {
+  text-align: center;
+}
+
+.trackTitle {
+  font-size: clamp(24px, 3.5vw, 36px);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0 0 clamp(8px, 1.2vh, 12px) 0;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.trackArtist {
+  font-size: clamp(16px, 2.3vw, 20px);
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+  font-weight: 500;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2.5vh, 20px);
+  align-items: center;
+}
+
+.lyricsButton {
+  @include glass-effect;
+  width: clamp(48px, 6vw, 56px);
+  height: clamp(48px, 6vw, 56px);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  font-size: clamp(18px, 2.5vw, 22px);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  cursor: pointer;
+  transition: all $transition-fast;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.98);
+  }
+}
+
+.socialButtons {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: clamp(10px, 1.8vw, 16px);
+  width: 100%;
+  max-width: clamp(320px, 80%, 480px);
+}
+
+.socialButton {
+  @include glass-effect;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all $transition-fast;
+  padding: clamp(8px, 1.5vw, 12px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(0.9);
+    transition: filter $transition-fast;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+
+    img {
+      filter: brightness(1.1);
+    }
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+}
+
+// Mobile
+@media (max-width: 640px) {
+  .trackInfo {
+    padding: clamp(16px, 4vw, 24px);
+    gap: clamp(16px, 2.5vh, 20px);
+  }
+
+  .socialButtons {
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(8px, 2vw, 12px);
+    max-width: 100%;
+  }
+}

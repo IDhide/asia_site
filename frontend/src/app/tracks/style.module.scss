@@ -1,0 +1,79 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.tracksPage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(100px, 12vh, 140px) clamp(20px, 3vw, 40px) clamp(40px, 6vh, 60px);
+  gap: clamp(20px, 3vh, 32px);
+}
+
+// Переключатель треки/альбомы
+.viewToggle {
+  display: flex;
+  gap: clamp(12px, 2vw, 20px);
+  justify-content: center;
+  align-items: center;
+}
+
+.toggleButton {
+  @include glass-effect;
+  padding: clamp(10px, 1.5vw, 14px) clamp(24px, 3.5vw, 40px);
+  border-radius: $radius-pill;
+  font-size: clamp(14px, 1.8vw, 18px);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: all $transition-fast;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.85);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+  }
+
+  &.active {
+    color: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 0 24px rgba(255, 255, 255, 0.15);
+  }
+}
+
+// Обертка слайдера
+.sliderWrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 0;
+}
+
+// Стили для компонента TrackInfo будут в отдельном файле
+
+// Стили для модального окна будут в отдельном файле
+
+.loading {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(18px, 2.8vw, 22px);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+// Mobile
+@media (max-width: 640px) {
+  .tracksPage {
+    padding: clamp(80px, 12vh, 100px) clamp(16px, 4vw, 24px) clamp(30px, 5vh, 50px);
+    gap: clamp(16px, 2.5vh, 24px);
+  }
+
+  .viewToggle {
+    gap: clamp(8px, 1.5vw, 12px);
+  }
+}

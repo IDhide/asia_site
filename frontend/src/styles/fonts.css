@@ -1,0 +1,8 @@
+/* System fonts - no custom fonts needed for now */
+/* Using system-ui for optimal performance and native look */
+
+:root {
+  --font-family-base: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+/* If custom fonts are needed in the future, add @font-face rules here */

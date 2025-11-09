@@ -1,0 +1,43 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.card {
+  @include glass-effect;
+  border-radius: $radius-md;
+  padding: 1.5rem;
+  transition: transform $transition-fast, box-shadow $transition-fast;
+}
+
+.card--default {
+  // Базовый вариант без дополнительных эффектов
+}
+
+.card--hover {
+  @include hover-supported {
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 12px 32px rgba(0, 0, 0, 0.6),
+        0 0 28px rgba(255, 255, 255, 0.12),
+        inset 0 2px 12px rgba(255, 255, 255, 0.12);
+    }
+  }
+}
+
+.card--clickable {
+  cursor: pointer;
+
+  @include hover-supported {
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 12px 32px rgba(0, 0, 0, 0.6),
+        0 0 28px rgba(255, 255, 255, 0.12),
+        inset 0 2px 12px rgba(255, 255, 255, 0.12);
+    }
+  }
+
+  &:active {
+    transform: translateY(-2px);
+  }
+}

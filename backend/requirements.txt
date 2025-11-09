@@ -1,0 +1,10 @@
+Django==4.2.*
+Pillow
+django-sass-processor
+libsass
+django-cleanup
+gunicorn
+python-dotenv
+djangorestframework
+django-cors-headers
+unidecode

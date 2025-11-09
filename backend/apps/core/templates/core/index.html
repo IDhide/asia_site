@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}АСИЯ — Главная{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-inner">
+    <h1 class="logo">асия</h1>
+    <p>Треки · Концерты · Мерч</p>
+    <nav class="hero-nav">
+      <a class="btn" href="{% url 'playlist' %}">Слушать</a>
+      <a class="btn" href="{% url 'product_list' %}">Мерч</a>
+      <a class="btn" href="{% url 'contacts' %}">Контакты</a>
+    </nav>
+  </div>
+</section>
+{% endblock %}

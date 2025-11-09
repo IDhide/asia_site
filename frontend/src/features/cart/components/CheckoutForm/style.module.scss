@@ -1,0 +1,177 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.checkoutForm {
+  background: rgba(20, 20, 20, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: clamp(32px, 5vw, 48px);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  position: sticky;
+  top: clamp(120px, 12vw, 160px);
+  align-self: start;
+  backdrop-filter: blur(20px);
+}
+
+.formTitle {
+  font-size: clamp(20px, 3vw, 24px);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.deliveryIcon {
+  font-size: clamp(20px, 3vw, 24px);
+  opacity: 0.9;
+}
+
+.deliveryMethods {
+  display: none;
+}
+
+.formFields {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.fieldLabel {
+  font-size: clamp(12px, 2vw, 14px);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.5px;
+  min-width: 100px;
+  text-align: left;
+}
+
+.input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 14px 20px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: clamp(14px, 2vw, 16px);
+  font-family: inherit;
+  transition: all 0.3s ease;
+
+  &:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+  }
+}
+
+.phoneInput {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .phonePrefix {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 14px 16px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: clamp(14px, 2vw, 16px);
+    white-space: nowrap;
+  }
+
+  .input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 14px 20px;
+
+    &:focus {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+  }
+}
+
+.inputError {
+  border-color: rgba(255, 100, 100, 0.5);
+}
+
+.orderSummary {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: clamp(13px, 2vw, 15px);
+  color: rgba(255, 255, 255, 0.6);
+
+  &.total {
+    font-size: clamp(18px, 3vw, 22px);
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.95);
+    padding-top: 16px;
+    margin-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+}
+
+.submitButton {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 18px 32px;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: clamp(16px, 2.5vw, 18px);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 8px;
+
+  &:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .checkoutForm {
+    position: static;
+  }
+}

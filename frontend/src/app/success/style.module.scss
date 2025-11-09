@@ -1,0 +1,97 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.success {
+  min-block-size: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.successCard {
+  @include glass-effect;
+  border-radius: 16px;
+  padding: clamp(32px, 5vw, 64px);
+  max-width: 600px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.successIcon {
+  width: clamp(80px, 15vw, 120px);
+  height: clamp(80px, 15vw, 120px);
+  border-radius: 50%;
+  background: rgba(100, 255, 100, 0.2);
+  border: 3px solid rgba(100, 255, 100, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(48px, 10vw, 72px);
+  color: rgba(150, 255, 150, 0.9);
+  animation: scaleIn 0.5s ease;
+}
+
+.successTitle {
+  font-size: clamp(28px, 5vw, 40px);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0;
+}
+
+.successText {
+  font-size: clamp(16px, 2.5vw, 20px);
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.successActions {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.homeLink,
+.shopLink {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 14px 28px;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: clamp(15px, 2.5vw, 17px);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .successActions {
+    flex-direction: column;
+    width: 100%;
+
+    a {
+      width: 100%;
+    }
+  }
+}

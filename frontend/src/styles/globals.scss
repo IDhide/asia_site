@@ -1,0 +1,183 @@
+@use './variables' as *;
+@use './mixins' as *;
+
+// ========== CSS Reset ==========
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  color: $color-text-primary;
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  background: $color-bg-primary;
+  overflow: hidden; // Нет скролла на главной странице
+}
+
+// ========== Typography ==========
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+p {
+  margin-bottom: 1em;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity $transition-fast;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+// ========== Images ==========
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+// ========== Buttons ==========
+button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+// ========== Lists ==========
+ul, ol {
+  list-style: none;
+}
+
+// ========== Forms ==========
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+// ========== Utility Classes ==========
+.visually-hidden {
+  @include visually-hidden;
+}
+
+.truncate {
+  @include truncate;
+}
+
+// ========== Main Content ==========
+.main-content {
+  min-height: 100vh;
+}
+
+// ========== Page-specific body classes ==========
+body.page-scrollable {
+  overflow: auto; // Разрешаем скролл на страницах с контентом
+}
+
+body.page-scrollable::after {
+  content: '';
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: $bottom-blur-height;
+  pointer-events: none;
+  z-index: 4;
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.2) 45%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 1) 58%,
+    rgba(0, 0, 0, 1) 100%
+  );
+}
+
+// ========== Accessibility ==========
+// Focus visible styles
+:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+// Reduce motion for users who prefer it
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// ========== Backdrop Filter Fallback ==========
+@supports not (backdrop-filter: blur(14px)) {
+  .glass-effect {
+    background: rgba(18, 18, 18, 0.85) !important;
+  }
+}
+
+// ========== Selection ==========
+::selection {
+  background: rgba(255, 255, 255, 0.2);
+  color: $color-text-primary;
+}
+
+// ========== Scrollbar ==========
+body {
+  @include custom-scrollbar;
+}
+
+// Main content wrapper
+.main-content {
+  min-height: 100vh;
+}
+
+// ========== Swiper Styles ==========
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+@import 'swiper/css/effect-coverflow';

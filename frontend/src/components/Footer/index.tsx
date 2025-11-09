@@ -1,0 +1,71 @@
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
+import { SocialDock } from '@/components/SocialDock';
+import styles from './style.module.scss';
+
+export function Footer() {
+  const [isOpen, setIsOpen] = useState(false);
+  const anchorRef = useRef<HTMLButtonElement>(null);
+
+  const toggleDock = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const closeDock = () => {
+    setIsOpen(false);
+  };
+
+  // Закрытие при клике вне
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (anchorRef.current && !anchorRef.current.contains(e.target as Node)) {
+        closeDock();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('click', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isOpen]);
+
+  // Закрытие по Escape
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        closeDock();
+        anchorRef.current?.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen]);
+
+  return (
+    <footer className={styles.siteFooter} role="contentinfo">
+      <button
+        ref={anchorRef}
+        type="button"
+        className={`${styles.socialMedia} ${isOpen ? 'is-open' : ''}`}
+        onClick={toggleDock}
+        aria-label="Соцсети"
+        aria-expanded={isOpen}
+      >
+        <img src="/assets/main/link.svg" alt="" />
+        <SocialDock />
+      </button>
+      <Link href="/contacts" className={styles.contacts}>
+        контакты
+      </Link>
+      <Link href="/faq" className={styles.faq} aria-label="FAQ">
+        <img src="/assets/main/FAQ.svg" alt="FAQ" />
+      </Link>
+    </footer>
+  );
+}

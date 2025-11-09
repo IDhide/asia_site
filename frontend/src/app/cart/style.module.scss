@@ -1,0 +1,72 @@
+@use '@/styles/variables' as *;
+
+.cart {
+  min-block-size: 100svh;
+  padding-inline: clamp(16px, 3vw, 48px);
+  padding-block: clamp(120px, 12vw, 160px) calc($bottom-blur-height + clamp(40px, 5vw, 70px));
+}
+
+.pageTitle {
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  text-align: center;
+  margin-bottom: clamp(32px, 5vw, 48px);
+}
+
+.cartLayout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: clamp(32px, 5vw, 64px);
+  max-width: 1600px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.emptyCart {
+  min-block-size: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 2rem;
+}
+
+.emptyTitle {
+  font-size: clamp(28px, 5vw, 40px);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.emptyText {
+  font-size: clamp(16px, 2.5vw, 20px);
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  max-width: 500px;
+}
+
+.shopLink {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 16px 32px;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: clamp(16px, 2.5vw, 18px);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+  }
+}
+
+@media (max-width: 1024px) {
+  .cartLayout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
