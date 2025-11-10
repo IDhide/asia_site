@@ -1,5 +1,6 @@
 @use '@/styles/variables' as *;
 @use '@/styles/mixins' as *;
+@use '@/styles/components' as *;
 
 .concertsPage {
   min-height: 100vh;
@@ -47,21 +48,12 @@
 }
 
 .ticketButton {
-  @include glass-effect;
-  @include button-glow;
-
-  padding: clamp(10px, 1.5vw, 14px) clamp(24px, 3vw, 32px);
-  border-radius: 24px;
-  font-size: clamp(13px, 1.8vw, 15px);
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.95);
-  text-decoration: none;
+  @include button-glass('md');
   letter-spacing: 1px;
-  transition: all 0.3s ease;
   white-space: nowrap;
+  text-decoration: none;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.2);
     transform: scale(1.05);
   }
 }
@@ -95,7 +87,10 @@
   }
 }
 
-.loading,
+.loading {
+  @include state-loading;
+}
+
 .error,
 .empty {
   text-align: center;

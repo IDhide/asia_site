@@ -1,102 +1,91 @@
 @use '@/styles/variables' as *;
-@use '@/styles/mixins' as *;
 
 .navMenu {
-  @include glass-effect;
-
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: clamp(12svh, 14svh, 16svh);
-  display: inline-flex;
-  align-items: center;
-  gap: clamp(0.75rem, 2vw, 1.25rem);
-  padding-block: clamp(0.6rem, 1.2vw, 0.9rem);
-  padding-inline: clamp(1rem, 4vw, 2rem);
-  border-radius: 9999px;
-
-  @media (max-width: 480px) {
-    top: 72%;
-    bottom: auto;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 0;
-  }
+  bottom: clamp(12vh, 14vh, 16vh);
 }
 
 .nav {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: clamp(1rem, 3vw, 1.75rem);
+  gap: clamp(1rem, 3vw, 2rem);
   margin: 0;
   padding: 0;
   list-style: none;
-
-  @media (max-width: 480px) {
-    flex-direction: column;
-    gap: clamp(0.75rem, 6.5vw, 1.5rem);
-  }
-}
-
-.navLink {
-  display: flex;
-  align-items: center;
 }
 
 .navMenuItem {
-  display: inline-flex;
+  display: flex;
   align-items: center;
 
   &:not(:last-child) {
     position: relative;
-    margin-inline-end: clamp(0.25rem, 1vw, 0.75rem);
-    padding-inline-end: clamp(0.75rem, 2vw, 1.25rem);
+    padding-right: clamp(1rem, 3vw, 2rem);
 
     &::after {
       content: '';
       position: absolute;
-      inset-inline-end: 0;
-      inset-block: 35% 35%;
-      inline-size: 1px;
-      background: rgba(255, 255, 255, 0.35);
+      right: 0;
+      top: 30%;
+      bottom: 30%;
+      width: 1px;
+      background: rgba(255, 255, 255, 0.3);
     }
+  }
+}
 
-    @media (max-width: 480px) {
-      margin: 0;
-      padding: 0;
+.navLink {
+  display: block;
+  transition: transform $transition-fast;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.navLabel {
+  display: block;
+  height: clamp(4rem, 9vw, 5.5rem);
+  width: auto;
+  object-fit: contain;
+}
+
+// Mobile
+@media (max-width: 768px) {
+  .navMenu {
+    top: 50%;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+  }
+
+  .nav {
+    flex-direction: column;
+    gap: clamp(1.5rem, 5vw, 2.5rem);
+  }
+
+  .navMenuItem {
+    &:not(:last-child) {
+      padding-right: 0;
 
       &::after {
         display: none;
       }
     }
   }
-}
 
-.navLabel {
-  inline-size: auto;
-  block-size: clamp(4rem, 9vw, 5.2rem);
-  object-fit: contain;
-  display: block;
-  height: 120%;
-  width: auto;
-
-  @media (hover: hover) and (pointer: fine) {
-    transition: transform 140ms cubic-bezier(0.2, 0.8, 0.2, 1);
-    transform-origin: center center;
-    will-change: transform;
-  }
-
-  @media (max-width: 480px) {
-    block-size: clamp(3.6rem, 13.5vw, 4.75rem);
-  }
-
-  @media (max-width: 360px) {
-    block-size: clamp(3.1rem, 16vw, 4.25rem);
+  .navLabel {
+    height: clamp(3.5rem, 12vw, 5rem);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .navLabel {
+  .navLink {
     transition: none !important;
   }
 }

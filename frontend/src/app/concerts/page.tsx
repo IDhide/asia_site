@@ -1,10 +1,19 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useData } from '@/contexts/DataContext';
 import styles from './style.module.scss';
 
 export default function ConcertsPage() {
   const { data, loading, error } = useData();
+
+  useEffect(() => {
+    // Enable scrolling
+    document.body.classList.add('page-scrollable');
+    return () => {
+      document.body.classList.remove('page-scrollable');
+    };
+  }, []);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
