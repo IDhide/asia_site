@@ -54,6 +54,14 @@
   --z-dropdown: 50;
   --z-overlay: 999;
 
+  // Container max-widths
+  --container-xs: 480px;   // Мини-блоки, узкие формы
+  --container-s: 640px;    // Карточки, небольшие блоки
+  --container-m: 770px;    // Текстовый контент, формы
+  --container-l: 1000px;   // Основной контент, сетки
+  --container-xl: 1200px;  // Широкие галереи
+  --container-xxl: 1600px; // Максимально широкий контент
+
   // Typography
   --font-family-base: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
   --font-size-base: clamp(14px, 1.05vw, 16px);
@@ -178,10 +186,76 @@ select {
 }
 
 // ========== Container Utilities ==========
-// Узкий контейнер (для текста, форм)
+// Мини контейнер (для узких форм, модальных окон)
+.container-xs {
+  width: 100%;
+  max-width: var(--container-xs);
+  margin: 0 auto;
+  padding: 0 clamp(20px, 3vw, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-m);
+}
+
+// Малый контейнер (для карточек, небольших блоков)
+.container-s {
+  width: 100%;
+  max-width: var(--container-s);
+  margin: 0 auto;
+  padding: 0 clamp(20px, 3vw, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-m);
+}
+
+// Средний контейнер (для текста, форм)
+.container-m {
+  width: 100%;
+  max-width: var(--container-m);
+  margin: 0 auto;
+  padding: 0 clamp(20px, 3vw, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-m);
+}
+
+// Большой контейнер (для карточек, контента)
+.container-l {
+  width: 100%;
+  max-width: var(--container-l);
+  margin: 0 auto;
+  padding: 0 clamp(20px, 3vw, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-m);
+}
+
+// Очень большой контейнер (для галерей)
+.container-xl {
+  width: 100%;
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  padding: 0 clamp(20px, 3vw, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-m);
+}
+
+// Максимально широкий контейнер (для больших секций)
+.container-xxl {
+  width: 100%;
+  max-width: var(--container-xxl);
+  margin: 0 auto;
+  padding: 0 clamp(20px, 3vw, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-m);
+}
+
+// Алиасы для обратной совместимости
 .container-narrow {
   width: 100%;
-  max-width: 800px;
+  max-width: var(--container-m);
   margin: 0 auto;
   padding: 0 clamp(20px, 3vw, 40px);
   display: flex;
@@ -189,10 +263,9 @@ select {
   gap: var(--gap-m);
 }
 
-// Средний контейнер (для карточек, контента)
 .container-medium {
   width: 100%;
-  max-width: 1200px;
+  max-width: var(--container-xl);
   margin: 0 auto;
   padding: 0 clamp(20px, 3vw, 40px);
   display: flex;
@@ -200,10 +273,9 @@ select {
   gap: var(--gap-m);
 }
 
-// Широкий контейнер (для галерей, больших секций)
 .container-wide {
   width: 100%;
-  max-width: 1600px;
+  max-width: var(--container-xxl);
   margin: 0 auto;
   padding: 0 clamp(20px, 3vw, 40px);
   display: flex;
@@ -222,6 +294,12 @@ select {
 
 // Мобильные паддинги и gap
 @media (max-width: 640px) {
+  .container-xs,
+  .container-s,
+  .container-m,
+  .container-l,
+  .container-xl,
+  .container-xxl,
   .container-narrow,
   .container-medium,
   .container-wide,

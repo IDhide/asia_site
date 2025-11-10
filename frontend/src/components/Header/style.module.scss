@@ -4,12 +4,17 @@
 .siteHeader {
   position: fixed;
   top: clamp(1.25rem, 3.5vw, 2.5rem);
-  left: clamp(1.75rem, 4vw, 2.75rem);
-  right: clamp(1.75rem, 4vw, 2.75rem);
+  left: 0;
+  right: 0;
   z-index: 100;
+  display: flex;
+  justify-content: center;
+  padding: 0 clamp(1.75rem, 4vw, 2.75rem);
 }
 
 .siteNav {
+  width: 100%;
+  max-width: var(--container-xl);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -53,6 +58,7 @@
 
   .caret {
     transition: transform var(--transition-fast);
+    scale: 2;
   }
 
   &[aria-expanded="true"] .caret {
@@ -119,7 +125,6 @@
 @media (max-width: 768px) {
   .siteHeader {
     top: 1rem;
-    left: 1rem;
-    right: 1rem;
+    padding: 0 1rem;
   }
 }

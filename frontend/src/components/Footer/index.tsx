@@ -49,23 +49,25 @@ export function Footer() {
 
   return (
     <footer className={styles.siteFooter} role="contentinfo">
-      <button
-        ref={anchorRef}
-        type="button"
-        className={`${styles.socialMedia} ${isOpen ? 'is-open' : ''}`}
-        onClick={toggleDock}
-        aria-label="Соцсети"
-        aria-expanded={isOpen}
-      >
-        <img src="/assets/main/link.svg" alt="" />
-        <SocialDock />
-      </button>
-      <Link href="/contacts" className={styles.contacts}>
-        контакты
-      </Link>
-      <Link href="/faq" className={styles.faq} aria-label="FAQ">
-        <img src="/assets/main/FAQ.svg" alt="FAQ" />
-      </Link>
+      <div className={styles.footerContent}>
+        <button
+          ref={anchorRef}
+          type="button"
+          className={`${styles.socialMedia} ${isOpen ? 'is-open' : ''}`}
+          onClick={toggleDock}
+          aria-label="Соцсети"
+          aria-expanded={isOpen}
+        >
+          <img src="/assets/main/link.svg" alt="" />
+          <SocialDock />
+        </button>
+        <Link href="/contacts" className={styles.contacts}>
+          контакты
+        </Link>
+        <Link href="/faq" className={styles.faq} aria-label="FAQ">
+          <img src="/assets/main/FAQ.svg" alt="FAQ" />
+        </Link>
+      </div>
     </footer>
   );
 }

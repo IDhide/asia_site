@@ -5,17 +5,24 @@
   left: 0;
   right: 0;
   bottom: max(var(--space-xs) * 1.2, env(safe-area-inset-bottom));
+  display: flex;
+  justify-content: center;
   padding-inline: var(--space-page-x);
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  align-items: center;
-  gap: var(--gap-s);
   z-index: 5;
 
   @media (max-width: 480px) {
     padding-inline: var(--gap-s);
     bottom: max(var(--space-xs) * 3, env(safe-area-inset-bottom));
   }
+}
+
+.footerContent {
+  width: 100%;
+  max-width: var(--container-xl);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--gap-s);
 }
 
 .socialMedia {

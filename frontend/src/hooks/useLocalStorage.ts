@@ -35,8 +35,10 @@ export function useLocalStorage<T>(
         // Сохранить в localStorage
         if (typeof window !== 'undefined') {
           window.localStorage.setItem(key, JSON.stringify(valueToStore));
-          // Диспатчим кастомное событие для синхронизации между компонентами
-          window.dispatchEvent(new CustomEvent('local-storage', { detail: { key, value: valueToStore } }));
+          // Диспатчим кастомное событие асинхронно для избежания проблем с setState во время рендера
+          setTimeout(() => {
+            window.dispatchEvent(new CustomEvent('local-storage', { detail: { key, value: valueToStore } }));
+          }, 0);
         }
 
         return valueToStore;

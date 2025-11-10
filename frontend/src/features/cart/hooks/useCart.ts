@@ -1,22 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import type { Product } from '@/types/product';
 import type { CartItem, Cart } from '@/types/cart';
 
 export function useCart() {
   const [cart, setCart] = useLocalStorage<CartItem[]>('asia-cart', []);
-  const [itemCount, setItemCount] = useState(0);
-  const [total, setTotal] = useState(0);
 
-  // Calculate totals
-  useEffect(() => {
-    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-    const totalPrice = cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
-    setItemCount(count);
-    setTotal(totalPrice);
-  }, [cart]);
+  // Calculate totals directly (no useState/useEffect to avoid render issues)
+  const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const total = cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
 
   const addToCart = (product: Product, quantity: number = 1) => {
     setCart((prevCart) => {

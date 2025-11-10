@@ -52,22 +52,24 @@ export default function ConcertsPage() {
 
   return (
     <div className={styles.concertsPage}>
-      <div className={styles.concertsGrid}>
-        {concerts.map((concert) => (
-          <div key={concert.id} className={styles.concertRow}>
-            <div className={styles.concertDate}>{formatDate(concert.date)}</div>
-            <div className={styles.concertCity}>{concert.city}</div>
-            <div className={styles.concertVenue}>{concert.venue}</div>
-            <a
-              href={concert.ticket_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.ticketButton}
-            >
-              БИЛЕТЫ
-            </a>
-          </div>
-        ))}
+      <div className="container-medium">
+        <div className={styles.concertsGrid}>
+          {concerts.map((concert) => (
+            <div key={concert.id} className={styles.concertRow}>
+              <div className={styles.concertDate}>{formatDate(concert.date)}</div>
+              <div className={styles.concertCity}>{concert.city}</div>
+              <div className={styles.concertVenue}>{concert.venue}</div>
+              <a
+                href={concert.ticket_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.ticketButton}
+              >
+                БИЛЕТЫ
+              </a>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
