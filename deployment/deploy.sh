@@ -20,6 +20,16 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
+# Check for required packages
+echo -e "${YELLOW}🔍 Checking required packages...${NC}"
+if ! dpkg -l | grep -q python3-venv; then
+    echo -e "${RED}❌ python3-venv is not installed${NC}"
+    echo -e "${YELLOW}Installing python3-venv...${NC}"
+    apt update
+    apt install -y python3.10-venv
+    echo -e "${GREEN}✅ python3-venv installed${NC}"
+fi
+
 echo -e "${YELLOW}📥 Pulling latest code...${NC}"
 cd $PROJECT_DIR
 git pull origin main || echo "No git repository found, skipping pull"
