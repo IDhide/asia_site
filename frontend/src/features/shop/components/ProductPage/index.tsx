@@ -13,12 +13,12 @@ interface ProductPageProps {
 }
 
 export function ProductPage({ product, allProducts, onClose }: ProductPageProps) {
+  const sizes = ['XS', 'S', 'M', 'L', 'XL'];
   const [activeIndex, setActiveIndex] = useState(0);
-  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [selectedSize, setSelectedSize] = useState<string>(sizes[2]); // По умолчанию 'M'
   const { addToCart, isInCart } = useCart();
 
   const images = product.images || [];
-  const sizes = ['XS', 'S', 'M', 'L', 'XL'];
 
   const formatPrice = (price: number) => {
     return `${price.toLocaleString('ru-RU')} ₽`;
