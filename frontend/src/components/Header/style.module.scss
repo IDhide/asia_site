@@ -1,5 +1,6 @@
 @use '@/styles/variables' as *;
 @use '@/styles/mixins' as *;
+@use '@/styles/components' as *;
 
 .siteHeader {
   position: fixed;
@@ -42,17 +43,7 @@
 
 
 .menuToggle {
-  @include glass-effect;
-  @include button-glow;
-
-  display: flex;
-  align-items: center;
-  gap: clamp(0.5rem, 1.5vw, 0.75rem);
-  padding: clamp(0.5rem, 1.5vw, 0.75rem) clamp(1rem, 2.5vw, 1.5rem);
-  border-radius: $radius-pill;
-  cursor: pointer;
-  border: none;
-  background: transparent;
+  @include header-menu-button;
 
   .currentPageImage {
     height: clamp(1.5rem, 3vw, 2rem);
@@ -60,6 +51,7 @@
     max-width: none;
     object-fit: contain;
   }
+
   .caret {
     transition: transform $transition-fast;
   }
@@ -70,14 +62,7 @@
 }
 
 .dropdown {
-  position: absolute;
-  top: calc(100% + 0.5rem);
-  left: 50%;
-  transform: translateX(-50%);
-  @include glass-effect;
-  border-radius: $radius-md;
-  padding: 0.5rem;
-  animation: fadeIn $transition-fast;
+  @include header-dropdown;
 
   ul {
     list-style: none;
@@ -116,47 +101,19 @@
 
 
 .cartIcon {
-  @include button-glow;
-  @include glass-effect;
-
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: clamp(2.6rem, 6.2vw, 3.25rem);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  text-decoration: none;
-  transition: transform $transition-fast;
-
-  &:hover {
-    transform: scale(1.05);
-  }
+  @include cart-icon;
 
   .badge {
-    position: absolute;
-    top: -4px;
-    right: -4px;
-    background: #ff4444;
-    color: white;
-    font-size: 10px;
-    font-weight: 600;
-    padding: 2px 6px;
-    border-radius: 10px;
-    min-width: 18px;
-    text-align: center;
+    @include badge;
   }
 }
 
-@keyframes fadeIn {
+@keyframes dropdownFadeIn {
   from {
     opacity: 0;
-    transform: translateX(-50%) translateY(-8px);
   }
   to {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
   }
 }
 
@@ -165,12 +122,5 @@
     top: 1rem;
     left: 1rem;
     right: 1rem;
-  }
-
-  .dropdown {
-    left: 0;
-    right: 0;
-    transform: none;
-    min-width: auto;
   }
 }

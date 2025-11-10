@@ -1,5 +1,6 @@
 @use "@/styles/variables" as *;
 @use "@/styles/mixins" as *;
+@use "@/styles/components" as *;
 
 .tracksPage {
   min-height: 100vh;
@@ -30,29 +31,8 @@
 }
 
 .toggleButton {
-  @include glass-effect;
-  padding: clamp(10px, 1.5vw, 14px) clamp(24px, 3.5vw, 40px);
-  border-radius: $radius-pill;
-  font-size: clamp(14px, 1.8vw, 18px);
-  font-weight: 700;
+  @include button-toggle;
   letter-spacing: 0.05em;
-  color: rgba(255, 255, 255, 0.6);
-  cursor: pointer;
-  transition: all $transition-fast;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-
-  &:hover {
-    color: rgba(255, 255, 255, 0.85);
-    border-color: rgba(255, 255, 255, 0.25);
-    transform: translateY(-2px);
-  }
-
-  &.active {
-    color: rgba(255, 255, 255, 0.95);
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.35);
-    box-shadow: 0 0 24px rgba(255, 255, 255, 0.15);
-  }
 }
 
 // Обертка слайдера
@@ -71,12 +51,7 @@
 // Стили для модального окна будут в отдельном файле
 
 .loading {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: clamp(18px, 2.8vw, 22px);
-  color: rgba(255, 255, 255, 0.7);
+  @include state-loading;
 }
 
 // Когда места достаточно - центрируем все
@@ -100,12 +75,7 @@
 
 // Mobile
 @media (max-width: 640px) {
-  .tracksPage {
-    padding: clamp(80px, 12vh, 100px) clamp(16px, 4vw, 24px)
-      clamp(30px, 5vh, 50px);
-  //  gap: clamp(16px, 2.5vh, 24px);
-    justify-content: flex-start;
-  }
+
 
   .viewToggle {
     gap: clamp(8px, 1.5vw, 12px);

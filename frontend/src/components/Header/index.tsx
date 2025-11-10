@@ -64,6 +64,11 @@ export function Header() {
                       </Link>
                     </li>
                     <li role="none">
+                      <Link href="/concerts" onClick={() => setMenuOpen(false)} role="menuitem">
+                        <img src="/assets/linked/Concerts.svg" alt="Концерты" />
+                      </Link>
+                    </li>
+                    <li role="none">
                       <Link href="/shop" onClick={() => setMenuOpen(false)} role="menuitem">
                         <img src="/assets/linked/Merch.svg" alt="Мерч" />
                       </Link>
