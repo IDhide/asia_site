@@ -20,21 +20,27 @@
 }
 
 // Стеклянная кнопка (средний размер по умолчанию)
-@mixin button-glass($size: 'md') {
+@mixin button-glass($size: 'm') {
   @include button-base;
   @include glass-effect;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-full);
   border: 1px solid rgba(255, 255, 255, 0.2);
 
-  @if $size == 'sm' {
+  @if $size == 'xs' {
+    padding: clamp(6px, 1vw, 8px) clamp(12px, 2vw, 16px);
+    font-size: clamp(11px, 1.3vw, 13px);
+  } @else if $size == 's' {
     padding: clamp(8px, 1.2vw, 10px) clamp(16px, 2.5vw, 20px);
     font-size: clamp(12px, 1.5vw, 14px);
-  } @else if $size == 'md' {
+  } @else if $size == 'm' {
     padding: clamp(10px, 1.5vw, 14px) clamp(20px, 3vw, 28px);
     font-size: clamp(14px, 1.8vw, 16px);
-  } @else if $size == 'lg' {
+  } @else if $size == 'l' {
     padding: clamp(12px, 1.8vw, 16px) clamp(24px, 3.5vw, 36px);
     font-size: clamp(16px, 2vw, 18px);
+  } @else if $size == 'xl' {
+    padding: clamp(14px, 2vw, 20px) clamp(28px, 4vw, 44px);
+    font-size: clamp(18px, 2.3vw, 20px);
   }
 
   &:hover:not(:disabled) {
@@ -49,7 +55,7 @@
 }
 
 // Кнопка-переключатель (toggle)
-@mixin button-toggle($size: 'md') {
+@mixin button-toggle($size: 'm') {
   @include button-glass($size);
   color: rgba(255, 255, 255, 0.6);
   border-color: rgba(255, 255, 255, 0.15);
@@ -68,7 +74,7 @@
 }
 
 // Кнопка "Назад"
-@mixin button-back($size: 'md') {
+@mixin button-back($size: 'm') {
   @include button-glass($size);
 
   &:hover:not(:disabled) {
@@ -81,7 +87,7 @@
   @include glass-effect;
   width: $size;
   height: $size;
-  border-radius: 14px;
+  border-radius: var(--radius-l);
   border: 1px solid rgba(255, 255, 255, 0.25);
   font-size: clamp(18px, 2.5vw, 22px);
   font-weight: 700;
@@ -111,7 +117,7 @@
 // Базовая стеклянная карточка
 @mixin card-glass {
   @include glass-effect;
-  border-radius: 20px;
+  border-radius: var(--radius-xl);
   padding: clamp(20px, 3vw, 32px);
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
@@ -139,7 +145,7 @@
 // Компактная карточка
 @mixin card-compact {
   @include glass-effect;
-  border-radius: 16px;
+  border-radius: var(--radius-l);
   padding: clamp(12px, 2vw, 18px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all var(--transition-fast);
@@ -149,7 +155,7 @@
 @mixin cover-wrapper {
   width: 100%;
   aspect-ratio: 1;
-  border-radius: 24px;
+  border-radius: var(--radius-xl);
   overflow: hidden;
   background: #0e0e10;
   box-shadow:
@@ -172,7 +178,7 @@
   display: block;
   cursor: pointer;
   transition: all var(--transition-fast);
-  border-radius: clamp(12px, 2vw, 16px);
+  border-radius: var(--radius-l);
   border: 1px solid rgba(255, 255, 255, 0.15);
   overflow: hidden;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
@@ -253,23 +259,31 @@
 
 // Состояние загрузки
 @mixin state-loading {
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: clamp(18px, 2.8vw, 22px);
   color: rgba(255, 255, 255, 0.7);
+  
+  @supports not (min-height: 100dvh) {
+    min-height: 100vh;
+  }
 }
 
 // Состояние ошибки
 @mixin state-error {
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: clamp(20px, 3vh, 32px);
   padding: clamp(20px, 3vw, 40px);
+  
+  @supports not (min-height: 100dvh) {
+    min-height: 100vh;
+  }
 
   h1 {
     font-size: clamp(24px, 4vw, 36px);
@@ -280,10 +294,26 @@
 
 // ========== Layout Helpers ==========
 
-// Контейнер страницы
+// Базовый контейнер страницы (используй это для всех страниц!)
 @mixin page-container {
-  min-height: 100vh;
-  padding: clamp(100px, 12vh, 140px) clamp(20px, 3vw, 40px) clamp(60px, 8vh, 100px);
+  min-height: 100dvh; // Dynamic viewport height (учитывает мобильные браузеры)
+  padding: var(--space-page-top) var(--space-page-x) var(--space-page-bottom);
+  
+  // Fallback для старых браузеров
+  @supports not (min-height: 100dvh) {
+    min-height: 100vh;
+  }
+}
+
+// Компактный контейнер (для модальных окон, попапов)
+@mixin page-container-compact {
+  min-height: 100dvh; // Dynamic viewport height
+  padding: clamp(80px, 10vh, 100px) var(--space-page-x) clamp(40px, 6vh, 60px);
+  
+  // Fallback для старых браузеров
+  @supports not (min-height: 100dvh) {
+    min-height: 100vh;
+  }
 }
 
 // Сетка контента (2 колонки)
@@ -316,7 +346,7 @@
 
 // Кнопка меню в хедере (просто стеклянная кнопка)
 @mixin header-menu-button {
-  @include button-glass('md');
+  @include button-glass('m');
   display: flex;
   align-items: center;
   gap: clamp(0.5rem, 1.5vw, 0.75rem);
@@ -328,7 +358,7 @@
   top: calc(100% + 0.5rem);
   left: 50%;
   @include glass-effect;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-m);
   padding: 0.5rem;
   
   // Используем только opacity для анимации, чтобы не конфликтовать с transform
@@ -337,12 +367,6 @@
   
   // Позиционирование без анимации
   transform: translateX(-50%);
-
-  @media (max-width: 768px) {
-    left: 0;
-    right: 0;
-    transform: none;
-  }
 }
 
 // Иконка корзины
@@ -375,7 +399,7 @@
   font-size: 10px;
   font-weight: 600;
   padding: 2px 6px;
-  border-radius: 10px;
+  border-radius: var(--radius-full);
   min-width: 18px;
   text-align: center;
 }

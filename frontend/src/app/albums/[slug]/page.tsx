@@ -44,12 +44,9 @@ export default function AlbumDetailPage() {
   const albumTracks = data?.tracks.filter(t => t.album?.id === album.id) || [];
 
   return (
-    <div className={styles.albumDetailPage}>
-      <button className={styles.backButton} onClick={() => router.back()}>
-        ← Назад
-      </button>
-
-      <div className={styles.contentGrid}>
+    <div className={`${styles.albumDetailPage} detail-page-no-scroll`}>
+      <div className="container-medium">
+        <div className={styles.contentGrid}>
         {/* Левая колонка: обложка */}
         <div className={styles.coverSection}>
           <div className={styles.coverWrapper}>
@@ -118,6 +115,7 @@ export default function AlbumDetailPage() {
             <p className={styles.noTracks}>В альбоме пока нет треков</p>
           )}
         </div>
+      </div>
       </div>
     </div>
   );

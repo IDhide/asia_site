@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { useCart } from '@/features/cart/hooks/useCart';
 import { CartList } from '@/features/cart/components/CartList';
@@ -8,6 +9,13 @@ import styles from './style.module.scss';
 
 export default function CartPage() {
   const { items, itemCount } = useCart();
+
+  useEffect(() => {
+    document.body.classList.add('page-scrollable');
+    return () => {
+      document.body.classList.remove('page-scrollable');
+    };
+  }, []);
 
   if (itemCount === 0) {
     return (
@@ -24,7 +32,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className={styles.cart}>
+    <div className="container-medium">
       <h1 className={styles.pageTitle}>Корзина</h1>
       <div className={styles.cartLayout}>
         <CartList />

@@ -12,26 +12,36 @@
   --overlay-dark: linear-gradient(0deg, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0.62));
   --overlay-page: linear-gradient(0deg, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65));
 
-  // Spacing
+  // Spacing (унифицированная система: xs, s, m, l, xl)
   --space-xs: clamp(0.2rem, 1vw, 1rem);
-  --space-sm: clamp(8px, 2vw, 24px);
-  --space-md: clamp(24px, 5vw, 64px);
-  --space-lg: clamp(120px, 12vw, 160px);
+  --space-s: clamp(8px, 2vw, 24px);
+  --space-m: clamp(24px, 5vw, 64px);
+  --space-l: clamp(120px, 12vw, 160px);
+  --space-xl: clamp(160px, 15vw, 200px);
 
   // Gaps (для flexbox/grid)
   --gap-xs: clamp(8px, 1.5vw, 12px);
-  --gap-sm: clamp(12px, 2vw, 16px);
-  --gap-md: clamp(16px, 2.5vw, 24px);
-  --gap-lg: clamp(24px, 3.5vw, 36px);
+  --gap-s: clamp(12px, 2vw, 16px);
+  --gap-m: clamp(16px, 2.5vw, 24px);
+  --gap-l: clamp(24px, 3.5vw, 36px);
   --gap-xl: clamp(32px, 5vw, 48px);
+
+  // Page spacing (для layout страниц)
+  --space-page-top: clamp(100px, 12vh, 140px);
+  --space-page-bottom: clamp(60px, 8vh, 100px);
+  --space-page-x: clamp(20px, 3vw, 40px);
 
   // Blur
   --bottom-blur-height: clamp(90px, 12svh, 140px);
 
-  // Border Radius
-  --radius-pill: 9999px;
-  --radius-md: 12px;
-  --radius-sm: 8px;
+  // Border Radius (унифицированная система: xs, s, m, l, xl, xxl, full)
+  --radius-xs: clamp(3px, 0.5vw, 4px);
+  --radius-s: clamp(6px, 1vw, 8px);
+  --radius-m: clamp(10px, 1.5vw, 12px);
+  --radius-l: clamp(21px, 3vw, 24px);
+  --radius-xl: clamp(30px, 4.5vw, 36px);
+  --radius-xxl: clamp(36px, 6vw, 48px);
+  --radius-full: 9999px;
 
   // Transitions
   --transition-fast: 0.22s ease;
@@ -47,7 +57,21 @@
   // Typography
   --font-family-base: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
   --font-size-base: clamp(14px, 1.05vw, 16px);
+  --font-size-xs: clamp(12px, 2vw, 16px);
+  --font-size-s: clamp(13px, 2vw, 15px);
+  --font-size-m: clamp(15px, 2vw, 17px);
+  --font-size-l: clamp(16px, 2.5vw, 20px);
+  --font-size-xl: clamp(16px, 2.5vw, 24px);
+  --font-size-xxl: clamp(18px, 3vw, 32px);
   --line-height-base: 1.5;
+  
+  // Padding (для форм и кнопок)
+  --padding-input-y: clamp(10px, 2vw, 14px);
+  --padding-input-x: clamp(16px, 3vw, 20px);
+  --padding-input-x-sm: clamp(12px, 2.5vw, 16px);
+  --padding-button-y: clamp(16px, 3vw, 20px);
+  --padding-button-x: clamp(36px, 6vw, 48px);
+  --padding-container: clamp(32px, 6vw, 48px);
 }
 
 // ========== CSS Reset ==========
@@ -162,7 +186,7 @@ select {
   padding: 0 clamp(20px, 3vw, 40px);
   display: flex;
   flex-direction: column;
-  gap: var(--gap-md);
+  gap: var(--gap-m);
 }
 
 // Средний контейнер (для карточек, контента)
@@ -173,7 +197,7 @@ select {
   padding: 0 clamp(20px, 3vw, 40px);
   display: flex;
   flex-direction: column;
-  gap: var(--gap-md);
+  gap: var(--gap-m);
 }
 
 // Широкий контейнер (для галерей, больших секций)
@@ -184,7 +208,7 @@ select {
   padding: 0 clamp(20px, 3vw, 40px);
   display: flex;
   flex-direction: column;
-  gap: var(--gap-md);
+  gap: var(--gap-m);
 }
 
 // Полная ширина с паддингами
@@ -193,7 +217,7 @@ select {
   padding: 0 clamp(20px, 3vw, 40px);
   display: flex;
   flex-direction: column;
-  gap: var(--gap-md);
+  gap: var(--gap-m);
 }
 
 // Мобильные паддинги и gap
@@ -203,7 +227,7 @@ select {
   .container-wide,
   .container-full {
     padding: 0 clamp(16px, 4vw, 24px);
-    gap: var(--gap-sm);
+    gap: var(--gap-s);
   }
 }
 

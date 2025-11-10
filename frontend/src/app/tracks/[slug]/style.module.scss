@@ -1,140 +1,83 @@
 @use '@/styles/mixins' as *;
+@use '@/styles/components' as *;
 
-
-
-.backButton {
-  @include glass-effect;
-  padding: clamp(10px, 1.5vw, 14px) clamp(20px, 3vw, 28px);
-  border-radius: var(--radius-pill);
-  font-size: clamp(14px, 1.8vw, 16px);
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  margin-bottom: clamp(24px, 4vh, 40px);
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.35);
-    transform: translateX(-4px);
+.trackDetailPage {
+  height: 100dvh;
+  overflow: hidden;
+  padding: clamp(100px, 12vh, 140px) 0 clamp(60px, 8vh, 100px);
+  
+  @supports not (height: 100dvh) {
+    height: 100vh;
+  }
+  
+  :global(.container-medium) {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: start;
+    box-sizing: border-box;
+    overflow: hidden;
   }
 }
 
 .contentGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(40px, 6vw, 80px);
-  align-items: start;
+  display: contents; // Убираем обертку, используем grid из container-medium
 }
 
 .coverSection {
   display: flex;
   flex-direction: column;
   gap: clamp(24px, 3.5vh, 36px);
-  position: sticky;
-  top: clamp(100px, 12vh, 140px);
+  // Не используем sticky - пусть скроллится вместе с контентом
 }
 
 .coverWrapper {
-  width: 100%;
-  aspect-ratio: 1;
-  border-radius: 24px;
-  overflow: hidden;
-  background: #0e0e10;
-  box-shadow:
-    0 24px 72px rgba(0, 0, 0, 0.7),
-    0 0 60px rgba(255, 255, 255, 0.1);
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
+  @include cover-wrapper;
 }
 
 .trackInfo {
-  @include glass-effect;
-  padding: clamp(24px, 3.5vw, 36px);
-  border-radius: 20px;
+  @include card-glass;
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .title {
-  font-size: clamp(28px, 4.5vw, 42px);
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.95);
-  margin: 0 0 clamp(10px, 1.5vh, 14px) 0;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  @include heading-page;
 }
 
 .artist {
-  font-size: clamp(18px, 2.8vw, 24px);
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0;
-  font-weight: 500;
+  @include text-subtitle;
 }
 
 .year {
-  font-size: clamp(14px, 2vw, 16px);
-  color: rgba(255, 255, 255, 0.5);
-  margin: clamp(8px, 1.2vh, 12px) 0 0 0;
+  @include text-meta;
+  margin: var(--gap-xs) 0 0 0;
 }
 
 .socialButtons {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(12px, 2vw, 16px);
+  @include social-buttons-grid;
 }
 
 .socialButton {
-  @include glass-effect;
-  aspect-ratio: 1;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  padding: clamp(10px, 1.8vw, 14px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    filter: brightness(0.9);
-    transition: filter var(--transition-fast);
-  }
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-
-    img {
-      filter: brightness(1.1);
-    }
-  }
+  @include social-button;
 }
 
 .lyricsSection {
-
-  max-height: calc(100vh - clamp(200px, 24vh, 280px));
+  height: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
+  
+  // Скрываем scrollbar
+  scrollbar-width: none; // Firefox
+  -ms-overflow-style: none; // IE and Edge
+  
+  &::-webkit-scrollbar {
+    display: none; // Chrome, Safari, Opera
+  }
 }
 
 .lyricsTitle {
-  font-size: clamp(24px, 3.5vw, 32px);
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.95);
-  margin: 0 0 clamp(24px, 3.5vh, 36px) 0;
-  letter-spacing: -0.01em;
+  @include heading-section;
   text-align: center;
 }
 
@@ -161,48 +104,20 @@
   margin: 0;
 }
 
-.loading,
-.error {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(20px, 3vh, 32px);
-  padding: clamp(20px, 3vw, 40px);
+.loading {
+  @include state-loading;
+}
 
-  h1 {
-    font-size: clamp(24px, 4vw, 36px);
-    color: rgba(255, 255, 255, 0.9);
-    margin: 0;
-  }
+.error {
+  @include state-error;
 
   button {
-    @include glass-effect;
-    padding: clamp(12px, 1.8vw, 16px) clamp(24px, 3.5vw, 36px);
-    border-radius: var(--radius-pill);
-    font-size: clamp(14px, 1.8vw, 16px);
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.9);
-    cursor: pointer;
-    transition: all var(--transition-fast);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: rgba(255, 255, 255, 0.4);
-      transform: translateY(-2px);
-    }
+    @include button-glass('l');
   }
 }
 
 // Tablet
 @media (max-width: 1024px) {
-  .contentGrid {
-    grid-template-columns: 1fr;
-    gap: clamp(32px, 5vh, 48px);
-  }
-
   .coverSection {
     position: static;
   }
@@ -218,13 +133,27 @@
 }
 
 // Mobile
-@media (max-width: 640px) {
-
-
-  .contentGrid {
-    gap: clamp(24px, 4vh, 36px);
+@media (max-width: 1024px) {
+  .trackDetailPage {
+    height: auto;
+    overflow: visible;
+    
+    :global(.container-medium) {
+      grid-template-columns: 1fr; // Одна колонка на мобиле
+      overflow: visible;
+    }
   }
+  
+  .contentGrid {
+    overflow: visible;
+  }
+  
+  .lyricsSection {
+    height: auto;
+  }
+}
 
+@media (max-width: 640px) {
   .coverWrapper {
     max-width: 100%;
   }
@@ -235,5 +164,6 @@
 
   .lyricsSection {
     max-height: none;
+    overflow: visible;
   }
 }

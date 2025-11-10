@@ -2,11 +2,10 @@
 @use '@/styles/components' as *;
 
 .concertsPage {
-  min-height: 100vh;
-  padding: clamp(120px, 15vw, 180px) clamp(20px, 4vw, 60px) clamp(40px, 6vw, 80px);
   display: flex;
   align-items: center;
   justify-content: center;
+
 }
 
 .concertsGrid {
@@ -14,20 +13,17 @@
   max-width: 1400px;
   display: flex;
   flex-direction: column;
-  gap: clamp(1px, 0.2vw, 2px);
+  gap: var(--gap-xs);
 }
 
 .concertRow {
-//  @include glass-effect;
   display: grid;
   grid-template-columns: 140px 140px 1fr auto;
   align-items: center;
-  gap: clamp(20px, 3vw, 40px);
-  padding: clamp(16px, 2.5vw, 24px) clamp(24px, 4vw, 40px);
-  border-radius: 12px;
-  transition: all 0.3s ease;
-
-
+  gap: var(--gap-m);
+  padding: var(--gap-s) var(--gap-m);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-normal);
 }
 
 .concertDate,
@@ -47,7 +43,7 @@
 }
 
 .ticketButton {
-  @include button-glass('md');
+  @include button-glass('m');
   letter-spacing: 1px;
   white-space: nowrap;
   text-decoration: none;
@@ -58,19 +54,15 @@
 }
 
 @media (max-width: 768px) {
-  .concertsPage {
-    padding: clamp(100px, 12vw, 140px) clamp(16px, 4vw, 24px) clamp(32px, 5vw, 48px);
-  }
-
   .concertsGrid {
-    gap: clamp(12px, 3vw, 16px);
+    gap: var(--gap-s);
   }
 
   .concertRow {
     grid-template-columns: 1fr;
-    gap: clamp(8px, 2vw, 12px);
+    gap: var(--gap-xs);
     text-align: center;
-    padding: clamp(20px, 4vw, 28px) clamp(16px, 3vw, 24px);
+    padding: var(--gap-s) var(--gap-s);
   }
 
   .concertDate,
@@ -81,8 +73,6 @@
 
   .ticketButton {
     justify-self: center;
-    padding: clamp(12px, 2.5vw, 16px) clamp(32px, 6vw, 48px);
-    font-size: clamp(14px, 3vw, 16px);
   }
 }
 

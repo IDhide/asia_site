@@ -7,22 +7,34 @@
   animation: spin 0.8s linear infinite;
 }
 
-.spinner--small {
+.spinner--xs {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+}
+
+.spinner--s {
   width: 20px;
   height: 20px;
   border-width: 2px;
 }
 
-.spinner--medium {
+.spinner--m {
   width: 40px;
   height: 40px;
   border-width: 3px;
 }
 
-.spinner--large {
+.spinner--l {
   width: 60px;
   height: 60px;
   border-width: 4px;
+}
+
+.spinner--xl {
+  width: 80px;
+  height: 80px;
+  border-width: 5px;
 }
 
 .fullScreen {

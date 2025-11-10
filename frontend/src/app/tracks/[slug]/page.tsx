@@ -64,12 +64,9 @@ export default function TrackDetailPage() {
   const hasLyrics = track.lyrics && track.lyrics.trim().length > 0;
 
   return (
-    <div className='container-medium'>
-      <button className={styles.backButton} onClick={() => router.back()}>
-        ← Назад
-      </button>
-
-      <div className={styles.contentGrid}>
+    <div className={`${styles.trackDetailPage} detail-page-no-scroll`}>
+      <div className="container-medium">
+        <div className={styles.contentGrid}>
         {/* Левая колонка: обложка */}
         <div className={styles.coverSection}>
           <div className={styles.coverWrapper}>
@@ -99,6 +96,7 @@ export default function TrackDetailPage() {
             )}
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

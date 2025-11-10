@@ -1,12 +1,12 @@
+@use '@/styles/components' as *;
+
 .shopPage {
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: var(--space-page-top) var(--space-page-x) var(--space-page-bottom);
 }
 
 .loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  color: #fff;
-  font-size: 16px;
+  @include state-loading;
 }

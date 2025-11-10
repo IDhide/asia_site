@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, ReactNode } from 'react';
 import styles from './style.module.scss';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost';
-export type ButtonSize = 'small' | 'medium' | 'large';
+export type ButtonSize = 'xs' | 's' | 'm' | 'l' | 'xl';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
@@ -14,7 +14,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export function Button({
   variant = 'primary',
-  size = 'medium',
+  size = 'm',
   children,
   fullWidth = false,
   loading = false,

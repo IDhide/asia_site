@@ -1,10 +1,9 @@
-
 .cartItem {
   position: relative;
   aspect-ratio: 1;
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   overflow: hidden;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity var(--transition-normal), transform var(--transition-normal);
 
   &.removed {
     opacity: 0.5;
@@ -37,8 +36,8 @@
 
 .removeButton {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: var(--gap-xs);
+  right: var(--gap-xs);
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -52,7 +51,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
   opacity: 0.8;
 
   &:hover {

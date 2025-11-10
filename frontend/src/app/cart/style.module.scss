@@ -1,71 +1,41 @@
-
-.cart {
-  min-block-size: 100svh;
-  padding-inline: clamp(16px, 3vw, 48px);
-  padding-block: clamp(120px, 12vw, 160px) calc(var(--bottom-blur-height) + clamp(40px, 5vw, 70px));
-}
+@use '@/styles/components' as *;
 
 .pageTitle {
-  font-size: clamp(32px, 5vw, 48px);
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.95);
+  @include heading-page;
   text-align: center;
-  margin-bottom: clamp(32px, 5vw, 48px);
+  margin-bottom: var(--gap-xl);
 }
 
 .cartLayout {
   display: grid;
   grid-template-columns: 1.5fr 1fr;
-  gap: clamp(32px, 5vw, 64px);
-  max-width: 1600px;
-  margin: 0 auto;
+  gap: var(--gap-xl);
   align-items: start;
 }
 
 .emptyCart {
-  min-block-size: 100svh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  padding: 2rem;
+  @include state-loading;
+  gap: var(--gap-m);
 }
 
 .emptyTitle {
-  font-size: clamp(28px, 5vw, 40px);
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.95);
+  @include heading-page;
 }
 
 .emptyText {
-  font-size: clamp(16px, 2.5vw, 20px);
-  color: rgba(255, 255, 255, 0.7);
+  @include text-subtitle;
   text-align: center;
   max-width: 500px;
 }
 
 .shopLink {
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 12px;
-  padding: 16px 32px;
-  color: rgba(255, 255, 255, 0.95);
-  font-size: clamp(16px, 2.5vw, 18px);
-  font-weight: 600;
+  @include button-glass('l');
   text-decoration: none;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.25);
-    border-color: rgba(255, 255, 255, 0.4);
-    transform: translateY(-2px);
-  }
 }
 
 @media (max-width: 1024px) {
   .cartLayout {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: var(--gap-l);
   }
 }

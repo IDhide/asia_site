@@ -1,8 +1,9 @@
+@use '@/styles/mixins' as *;
 
 .cartList {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--gap-s);
   height: 100%;
 }
 
@@ -21,29 +22,12 @@
 .items {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 16px;
+  gap: var(--gap-s);
   overflow-y: auto;
   max-height: calc(100vh - 300px);
   padding: 4px;
 
-  /* Custom scrollbar */
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 4px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.3);
-    }
-  }
+  @include custom-scrollbar;
 }
 
 @media (max-width: 1024px) {
@@ -56,6 +40,6 @@
 @media (max-width: 640px) {
   .items {
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: var(--gap-xs);
   }
 }

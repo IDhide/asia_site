@@ -99,7 +99,7 @@ export function CheckoutForm() {
     <form className={styles.checkoutForm} onSubmit={handleSubmit}>
       <h2 className={styles.formTitle}>
         <span>Данные для доставки</span>
-        <span className={styles.deliveryIcon}>📦 СДЭК</span>
+        <span className={styles.deliveryIcon}>СДЭК</span>
       </h2>
 
       <div className={styles.formFields}>
@@ -159,30 +159,19 @@ export function CheckoutForm() {
         </div>
       </div>
 
-      <div className={styles.orderSummary}>
-        <div className={styles.summaryRow}>
-          <span>ДОСТАВКА</span>
-          <span>{deliveryCost} ₽</span>
-        </div>
-        {items.map((item) => (
-          <div key={item.product.id} className={styles.summaryRow}>
-            <span>{item.product.title}</span>
-            <span>{formatPrice(item.product.price * item.quantity)} ₽</span>
-          </div>
-        ))}
+      <div className={styles.checkoutActions}>
         <div className={`${styles.summaryRow} ${styles.total}`}>
-          <span>ИТОГО:</span>
-          <span>{formatPrice(finalTotal)} ₽</span>
+          <span>ИТОГО: {formatPrice(finalTotal)} ₽</span>
         </div>
-      </div>
 
-      <button
-        type="submit"
-        className={styles.submitButton}
-        disabled={loading || items.length === 0}
-      >
-        {loading ? 'ОФОРМЛЕНИЕ...' : 'КУПИТЬ'}
-      </button>
+        <button
+          type="submit"
+          className={styles.submitButton}
+          disabled={loading || items.length === 0}
+        >
+          {loading ? 'ОФОРМЛЕНИЕ...' : 'КУПИТЬ'}
+        </button>
+      </div>
     </form>
   );
 }

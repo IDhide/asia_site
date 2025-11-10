@@ -1,33 +1,40 @@
 @use '@/styles/mixins' as *;
+@use '@/styles/components' as *;
 
 .checkoutForm {
-  background: rgba(20, 20, 20, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
-  padding: clamp(32px, 5vw, 48px);
-  display: flex;
+  background: rgba(15, 15, 15, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xxl);
+  padding: var(--gap-l);
+  display: block;
   flex-direction: column;
-  gap: 28px;
+  gap: var(--gap-l);
   position: sticky;
-  top: clamp(120px, 12vw, 160px);
+  top: var(--space-page-top);
   align-self: start;
   backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 .formTitle {
-  font-size: clamp(20px, 3vw, 24px);
-  font-weight: 600;
+  font-size: var(--font-size-xxl);
+  font-weight: 400;
   color: rgba(255, 255, 255, 0.95);
-  margin: 0;
+  margin: 0 0 var(--gap-m) 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--gap-s);
+  letter-spacing: -0.5px;
 }
 
 .deliveryIcon {
-  font-size: clamp(20px, 3vw, 24px);
-  opacity: 0.9;
+  font-size: var(--font-size-xl);
+  opacity: 0.85;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: var(--gap-xs);
 }
 
 .deliveryMethods {
@@ -37,39 +44,38 @@
 .formFields {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--gap-m);
 }
 
 .formRow {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--gap-m);
 }
 
 .fieldLabel {
-  font-size: clamp(12px, 2vw, 14px);
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.7);
-  letter-spacing: 0.5px;
-  min-width: 100px;
+  font-size: var(--font-size-l);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.3px;
   text-align: left;
 }
 
 .input {
   flex: 1;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 12px;
-  padding: 14px 20px;
+  background: rgba(30, 30, 30, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-full);
+  padding: var(--padding-input-y) var(--padding-input-x);
   color: rgba(255, 255, 255, 0.5);
-  font-size: clamp(14px, 2vw, 16px);
+  font-size: var(--font-size-m);
   font-family: inherit;
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal);
 
   &:focus {
     outline: none;
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.25);
+    background: rgba(35, 35, 35, 0.9);
+    border-color: rgba(255, 255, 255, 0.2);
     color: rgba(255, 255, 255, 0.9);
   }
 
@@ -79,7 +85,7 @@
   }
 
   &::placeholder {
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.4);
   }
 }
 
@@ -87,28 +93,28 @@
   flex: 1;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--gap-xs);
 
   .phonePrefix {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 12px;
-    padding: 14px 16px;
+    background: rgba(30, 30, 30, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-full);
+    padding: var(--padding-input-y) var(--padding-input-x-sm);
     color: rgba(255, 255, 255, 0.5);
-    font-size: clamp(14px, 2vw, 16px);
+    font-size: var(--font-size-m);
     white-space: nowrap;
   }
 
   .input {
     flex: 1;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 12px;
-    padding: 14px 20px;
+    background: rgba(30, 30, 30, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-full);
+    padding: var(--padding-input-y) var(--padding-input-x);
 
     &:focus {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(255, 255, 255, 0.25);
+      background: rgba(35, 35, 35, 0.9);
+      border-color: rgba(255, 255, 255, 0.2);
     }
   }
 }
@@ -118,59 +124,110 @@
 }
 
 .orderSummary {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding-top: 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: none;
 }
 
 .summaryRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: clamp(13px, 2vw, 15px);
+  font-size: var(--font-size-s);
   color: rgba(255, 255, 255, 0.6);
 
   &.total {
-    font-size: clamp(18px, 3vw, 22px);
-    font-weight: 700;
+    font-size: var(--font-size-xxl);
+    font-weight: 400;
     color: rgba(255, 255, 255, 0.95);
-    padding-top: 16px;
-    margin-top: 8px;
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 0;
+  //  margin-top: var(--gap-l);
+    margin-bottom: 0;
+    border-top: none;
+    letter-spacing: -0.5px;
   }
 }
 
+.checkoutActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-m);
+  margin-top: var(--gap-m);
+}
+
 .submitButton {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 16px;
-  padding: 18px 32px;
-  color: rgba(255, 255, 255, 0.95);
-  font-size: clamp(16px, 2.5vw, 18px);
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 8px;
-
-  &:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-  }
-
-  &:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-    transform: none;
-  }
+  @include button-glass('l');
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  flex-shrink: 0;
 }
 
 @media (max-width: 1024px) {
   .checkoutForm {
     position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .checkoutForm {
+    padding: var(--gap-m);
+    border-radius: var(--radius-xl);
+  }
+
+  .formTitle {
+    font-size: var(--font-size-xl);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gap-xs);
+  }
+
+  .deliveryIcon {
+    font-size: var(--font-size-l);
+  }
+
+  .formRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--gap-xs);
+  }
+
+  .fieldLabel {
+    font-size: var(--font-size-m);
+  }
+
+  .input {
+    width: 100%;
+    font-size: var(--font-size-s);
+    padding: 10px var(--padding-input-x-sm);
+  }
+
+  .phoneInput {
+    width: 100%;
+
+    .phonePrefix {
+      font-size: var(--font-size-s);
+      padding: 10px var(--padding-input-x-sm);
+    }
+
+    .input {
+      font-size: var(--font-size-s);
+      padding: 10px var(--padding-input-x-sm);
+    }
+  }
+
+  .summaryRow {
+    &.total {
+      font-size: var(--font-size-xl);
+    //  margin-top: var(--gap-m);
+      margin-bottom: 0;
+    }
+  }
+
+  .checkoutActions {
+    flex-direction: column;
+    gap: var(--gap-s);
+  }
+
+  .submitButton {
+    width: 100%;
   }
 }

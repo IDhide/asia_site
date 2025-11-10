@@ -24,10 +24,8 @@ export default function ShopPage() {
   }
 
   return (
-    <div className='container-medium'>
     <div className={styles.shopPage}>
       <ProductsGrid products={data?.products || []} />
-    </div>
     </div>
   );
 }

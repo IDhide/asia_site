@@ -4,17 +4,17 @@
   position: fixed;
   left: 0;
   right: 0;
-  bottom: max(clamp(0.2rem, 1vw, 1rem) * 1.2, env(safe-area-inset-bottom));
-  padding-inline: clamp(0.75rem, 2.5vw, 2rem);
+  bottom: max(var(--space-xs) * 1.2, env(safe-area-inset-bottom));
+  padding-inline: var(--space-page-x);
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
-  gap: 1rem;
+  gap: var(--gap-s);
   z-index: 5;
 
   @media (max-width: 480px) {
-    padding-inline: clamp(0.5rem, 4vw, 1rem);
-    bottom: max(clamp(0.6rem, 5vw, 1rem), env(safe-area-inset-bottom));
+    padding-inline: var(--gap-s);
+    bottom: max(var(--space-xs) * 3, env(safe-area-inset-bottom));
   }
 }
 
@@ -26,7 +26,7 @@
   white-space: nowrap;
   width: auto;
   padding: 0.45em 2.7em;
-  color: #eaeaea;
+  color: var(--color-text-primary);
   justify-self: start;
 
   @media (max-width: 480px) {
@@ -37,7 +37,7 @@
 .contacts {
   justify-self: center;
   text-transform: uppercase;
-  color: #eaeaea;
+  color: var(--color-text-primary);
   text-decoration: none;
   font-weight: 600;
   letter-spacing: 0.06em;
@@ -45,6 +45,11 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.35);
   padding-block: 0.15rem;
   white-space: nowrap;
+  transition: opacity var(--transition-fast);
+
+  &:hover {
+    opacity: 0.8;
+  }
 
   @media (max-width: 480px) {
     font-size: clamp(0.6rem, 3.2vw, 0.72rem);
@@ -58,7 +63,7 @@
   white-space: nowrap;
   width: auto;
   padding: 0.45em 2.7em;
-  color: #eaeaea;
+  color: var(--color-text-primary);
   justify-self: end;
 
   @media (max-width: 480px) {

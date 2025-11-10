@@ -58,23 +58,35 @@
   }
 }
 
-// Sizes
-.button--small {
+// Sizes (унифицированная система: xs, s, m, l, xl)
+.button--xs {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8125rem;
+  min-height: 32px;
+}
+
+.button--s {
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
   min-height: 36px;
 }
 
-.button--medium {
+.button--m {
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
   min-height: 44px;
 }
 
-.button--large {
+.button--l {
   padding: 1rem 2rem;
   font-size: 1.125rem;
   min-height: 52px;
+}
+
+.button--xl {
+  padding: 1.25rem 2.5rem;
+  font-size: 1.25rem;
+  min-height: 60px;
 }
 
 // Full width

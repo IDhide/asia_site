@@ -2,28 +2,43 @@
 @use "@/styles/components" as *;
 
 .tracksPage {
-//  min-height: 100vh;
   display: flex;
   flex-direction: column;
   gap: 0;
   margin: auto;
   justify-content: space-between;
-//  overflow-x: hidden;
   width: 100%;
+  min-height: 100dvh;
+  
+  // Компенсируем padding родительского .page-content
+  margin-top: calc(-1 * clamp(100px, 12vh, 140px));
+  margin-bottom: calc(-1 * clamp(60px, 8vh, 100px));
+
+  
+  @supports not (min-height: 100dvh) {
+    min-height: 100vh;
+  }
+  
+  @media (max-width: 640px) {
+    margin-top: calc(-1 * clamp(80px, 12vh, 100px));
+    margin-bottom: calc(-1 * clamp(40px, 6vh, 60px));
+    padding-top: clamp(80px, 12vh, 100px);
+    padding-bottom: clamp(40px, 6vh, 60px);
+  }
 }
 
 // Переключатель треки/альбомы
 .viewToggle {
   display: flex;
-  gap: clamp(12px, 2vw, 20px);
+  gap: var(--gap-s);
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
-  margin-bottom: clamp(20px, 3vh, 32px);
+  margin-bottom: var(--gap-m);
 }
 
 .trackInfoWrapper {
- max-width: clamp(370px, 90%, 600px);
+  max-width: clamp(370px, 90%, 600px);
   width: calc(50% - min(27.5vh, 37.5vw, 300px));
   margin: 0 auto 0;
   width: 100%;
@@ -31,7 +46,7 @@
 }
 
 .toggleButton {
-  @include button-toggle;
+  @include button-toggle('m');
   letter-spacing: 0.05em;
 }
 
@@ -42,14 +57,9 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-//  max-width: 80vw;
-//  margin: var(--space-md) 0;
   min-height: 0;
-//  overflow: visible;
   position: relative;
 }
-
-// Стили для модального окна будут в отдельном файле
 
 .loading {
   @include state-loading;
@@ -59,7 +69,6 @@
 @media (min-height: 900px) {
   .tracksPage {
     justify-content: center;
-//   gap: clamp(32px, 5vh, 48px);
   }
 
   .sliderWrapper {
@@ -67,19 +76,14 @@
   }
 }
 
-
 // Mobile
 @media (max-width: 640px) {
-
-
   .viewToggle {
-    gap: clamp(8px, 1.5vw, 12px);
-    margin-bottom: clamp(16px, 2.5vh, 24px);
+    gap: var(--gap-xs);
+    margin-bottom: var(--gap-s);
   }
 
   .sliderWrapper {
     flex: 0 1 auto;
   }
-
-
 }
