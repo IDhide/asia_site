@@ -11,6 +11,8 @@
 
 .header {
   @include card-glass;
+  padding: var( --gap-xs) var( --gap-m);
+  border-radius: var( --radius-l);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -25,6 +27,7 @@
 
 .trackTitle {
   @include heading-card;
+  margin-bottom: 0
 }
 
 .trackArtist {

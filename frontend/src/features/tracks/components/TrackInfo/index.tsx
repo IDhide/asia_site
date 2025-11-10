@@ -30,7 +30,9 @@ export function TrackInfo({ track, onLyricsClick }: TrackInfoProps) {
         </div>
 
         <div className={styles.rightSection}>
-          {hasLyrics && (
+{/*           хардкод тт */}
+
+{/*           {hasLyrics && (
             <button
               className={styles.lyricsButton}
               onClick={onLyricsClick}
@@ -38,7 +40,7 @@ export function TrackInfo({ track, onLyricsClick }: TrackInfoProps) {
             >
               Тт
             </button>
-          )}
+          )} */}
           {track.year && (
             <span className={styles.year}>{track.year}</span>
           )}

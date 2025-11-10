@@ -3,6 +3,7 @@
 
 .tracksPage {
   @include page-fullscreen;
+  padding-top: var( --space-m);
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -37,7 +38,7 @@
 // Обертка слайдера
 .sliderWrapper {
   flex: 1;
-  display: flex;
+//  display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -57,6 +58,46 @@
 
   .sliderWrapper {
     flex: 0 1 auto;
+  }
+}
+
+// Узкие по высоте экраны
+@media (max-height: 800px) {
+  .tracksPage {
+    justify-content: flex-start;
+    gap: var(--gap-s);
+  }
+
+  .viewToggle {
+    margin-bottom: var(--gap-s);
+  }
+
+  .sliderWrapper {
+    flex: 0 1 auto;
+    max-height: 50vh;
+  }
+
+  .trackInfoWrapper {
+    margin-top: var(--gap-s);
+  }
+}
+
+// Очень узкие по высоте экраны
+@media (max-height: 650px) {
+  .tracksPage {
+    gap: var(--gap-xs);
+  }
+
+  .viewToggle {
+    margin-bottom: var(--gap-xs);
+  }
+
+  .sliderWrapper {
+    max-height: 45vh;
+  }
+
+  .trackInfoWrapper {
+    margin-top: var(--gap-xs);
   }
 }
 

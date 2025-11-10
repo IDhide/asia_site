@@ -13,8 +13,7 @@
 .swiper {
   width: 100%;
   // Высота равна размеру активной карточки
-  height: min(55vh, 75vw);
-  max-height: 600px;
+  height: min(50vh, 70vw, 500px);
   overflow: visible;
   position: relative;
 
@@ -25,23 +24,21 @@
   }
 
   :global(.swiper-slide) {
-    width: min(55vh, 75vw);
-    height: min(55vh, 75vw);
-    max-width: 600px;
-    max-height: 600px;
+    width: min(50vh, 70vw, 500px);
+    height: min(50vh, 70vw, 500px);
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
     opacity: 0.4;
     filter: blur(4px);
-    transform: scale(0.85);
+    transform: scale(0.75);
   }
 
   :global(.swiper-slide-active) {
     opacity: 1;
     filter: blur(0);
-    transform: scale(1);
+    transform: scale(0.9);
     z-index: 10;
   }
 
@@ -49,7 +46,7 @@
   :global(.swiper-slide-next) {
     opacity: 0.7;
     filter: blur(2px);
-    transform: scale(0.2); // 30% меньше активной (1 - 0.3 = 0.7)
+    transform: scale(0.65);
   }
 }
 
@@ -173,6 +170,38 @@
     min-width: 40px;
   }
 } */
+
+// Узкие по высоте экраны (ноутбуки, планшеты в landscape)
+@media (max-height: 800px) {
+  .swiper {
+    height: min(40vh, 60vw, 380px);
+
+    :global(.swiper-slide) {
+      width: min(40vh, 60vw, 380px);
+      height: min(40vh, 60vw, 380px);
+    }
+  }
+
+  .navZone {
+    width: calc(50% - min(20vh, 30vw, 190px));
+  }
+}
+
+// Очень узкие по высоте экраны
+@media (max-height: 650px) {
+  .swiper {
+    height: min(35vh, 50vw, 300px);
+
+    :global(.swiper-slide) {
+      width: min(35vh, 50vw, 300px);
+      height: min(35vh, 50vw, 300px);
+    }
+  }
+
+  .navZone {
+    width: calc(50% - min(17.5vh, 25vw, 150px));
+  }
+}
 
 // Accessibility
 @media (prefers-reduced-motion: reduce) {
