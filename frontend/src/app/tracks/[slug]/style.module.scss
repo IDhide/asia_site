@@ -2,16 +2,26 @@
 @use '@/styles/components' as *;
 
 .trackDetailPage {
-  @include page-fullscreen;
+  min-height: 100dvh;
+  padding: 0;
+  
+  @supports not (min-height: 100dvh) {
+    min-height: 100vh;
+  }
   
   :global(.container-medium) {
-    height: 100%;
+    height: 100dvh;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: clamp(40px, 6vw, 80px);
     align-items: start;
     box-sizing: border-box;
-    overflow: hidden;
+    padding-top: var(--space-page-top);
+    padding-bottom: var(--space-page-bottom);
+    
+    @supports not (height: 100dvh) {
+      height: 100vh;
+    }
   }
 }
 
@@ -23,7 +33,7 @@
   display: flex;
   flex-direction: column;
   gap: clamp(24px, 3.5vh, 36px);
-  // Не используем sticky - пусть скроллится вместе с контентом
+  align-self: center;
 }
 
 .coverWrapper {
@@ -57,9 +67,17 @@
 }
 
 .lyricsSection {
-  height: 100%;
+  height: 100dvh;
   overflow-y: auto;
   overflow-x: hidden;
+  padding-top: var(--space-page-top);
+  padding-bottom: var(--space-page-bottom);
+  margin-top: calc(var(--space-page-top) * -1);
+  margin-bottom: calc(var(--space-page-bottom) * -1);
+  
+  @supports not (height: 100dvh) {
+    height: 100vh;
+  }
   
   // Скрываем scrollbar
   scrollbar-width: none; // Firefox

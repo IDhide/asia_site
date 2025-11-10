@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { AudioPlayer } from '@/components/AudioPlayer';
 import { useCart } from '@/features/cart/hooks/useCart';
+import GradualBlur from '@/components/GradualBlur';
 import styles from './style.module.scss';
 
 export function Header() {
@@ -23,8 +24,20 @@ export function Header() {
   const currentPageImage = getPageImage(pathname);
 
   return (
-    <header className={styles.siteHeader}>
-      <nav className={styles.siteNav} aria-label="Главная навигация">
+    <>
+      <GradualBlur
+        target="page"
+        position="top"
+        height="var(--header-blur-height)"
+        strength={2.5}
+        divCount={8}
+        curve="ease-out"
+        exponential={true}
+        opacity={1}
+        zIndex={10}
+      />
+      <header className={styles.siteHeader}>
+        <nav className={styles.siteNav} aria-label="Главная навигация">
         {/* Логотип */}
         <Link href="/" className={styles.brand}>
           <Image
@@ -90,5 +103,6 @@ export function Header() {
         </div>
       </nav>
     </header>
+    </>
   );
 }

@@ -3,7 +3,7 @@
 
 .tracksPage {
   @include page-fullscreen;
-  padding-top: var( --space-m);
+  padding-top: var(--space-m);
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -14,12 +14,14 @@
 
 // Переключатель треки/альбомы
 .viewToggle {
-  display: flex;
-  gap: var(--gap-s);
+  @include toggle-group('m');
   justify-content: center;
-  align-items: center;
   flex-shrink: 0;
-  margin-bottom: var(--gap-m);
+  margin: 0 auto var(--gap-m);
+}
+
+.toggleButton {
+  @include toggle-pill('m');
 }
 
 .trackInfoWrapper {
@@ -28,11 +30,6 @@
   margin: 0 auto 0;
   width: 100%;
   flex-shrink: 0;
-}
-
-.toggleButton {
-  @include button-toggle('m');
-  letter-spacing: 0.05em;
 }
 
 // Обертка слайдера

@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { SocialDock } from '@/components/SocialDock';
+import GradualBlur from '@/components/GradualBlur';
 import styles from './style.module.scss';
 
 export function Footer() {
@@ -48,8 +49,20 @@ export function Footer() {
   }, [isOpen]);
 
   return (
-    <footer className={styles.siteFooter} role="contentinfo">
-      <div className={styles.footerContent}>
+    <>
+      <GradualBlur
+        target="page"
+        position="bottom"
+        height="clamp(2.8rem, 7vh, 4.9rem)"
+        strength={2.5}
+        divCount={8}
+        curve="ease-out"
+        exponential={true}
+        opacity={1}
+        zIndex={1}
+      />
+      <footer className={styles.siteFooter} role="contentinfo">
+        <div className={styles.footerContent}>
         <button
           ref={anchorRef}
           type="button"
@@ -69,5 +82,6 @@ export function Footer() {
         </Link>
       </div>
     </footer>
+    </>
   );
 }

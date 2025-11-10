@@ -32,6 +32,7 @@
 
 .brand {
   display: block;
+  cursor: pointer;
   transition: opacity var(--transition-fast);
 
   &:hover {
@@ -122,9 +123,3 @@
   }
 }
 
-@media (max-width: 768px) {
-  .siteHeader {
-    top: 1rem;
-    padding: 0 1rem;
-  }
-}

@@ -26,8 +26,14 @@
   --gap-l: clamp(24px, 3.5vw, 36px);
   --gap-xl: clamp(32px, 5vw, 48px);
 
+  // Header
+  --header-top-offset: clamp(1.25rem, 3.5vw, 2.5rem);
+  --header-content-height: clamp(2.5rem, 5vw, 3.5rem);
+  --header-total-height: calc(var(--header-top-offset) + var(--header-content-height));
+  --header-blur-height: clamp(4.9rem, 10.5vh, 7.7rem);
+
   // Page spacing (для layout страниц)
-  --space-page-top: clamp(100px, 12vh, 140px);
+  --space-page-top: calc(var(--header-total-height) + clamp(2rem, 4vh, 3rem));
   --space-page-bottom: clamp(60px, 8vh, 100px);
   --space-page-x: clamp(20px, 3vw, 40px);
 
@@ -89,6 +95,8 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
 }
 
 html {

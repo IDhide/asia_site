@@ -16,6 +16,22 @@ export default function TracksPage() {
   const [viewMode, setViewMode] = useState<ViewMode>('tracks');
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // Поднимаем страницу над блюром хедера
+  useEffect(() => {
+    const main = document.querySelector('main');
+    if (main) {
+      main.classList.add('page-content-above-blur');
+      main.classList.remove('page-content');
+    }
+    return () => {
+      const main = document.querySelector('main');
+      if (main) {
+        main.classList.remove('page-content-above-blur');
+        main.classList.add('page-content');
+      }
+    };
+  }, []);
+
   // Сбрасываем индекс при смене режима просмотра
   useEffect(() => {
     setCurrentIndex(0);

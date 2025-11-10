@@ -145,24 +145,16 @@ $breakpoint-wide: 1440px;
 // ========== Page Padding ==========
 // Стандартные отступы для страниц с контентом
 @mixin page-padding {
-  padding: clamp(100px, 12vh, 140px) 0 clamp(60px, 8vh, 100px);
-  
-  @media (max-width: 640px) {
-    padding: clamp(80px, 12vh, 100px) 0 clamp(40px, 6vh, 60px);
-  }
+  padding: var(--space-page-top) 0 var(--space-page-bottom);
 }
 
 // Для страниц без скролла (fullscreen)
 @mixin page-fullscreen {
   height: 100dvh;
   overflow: hidden;
-  padding: clamp(100px, 12vh, 140px) 0 clamp(60px, 8vh, 100px);
+  padding: var(--space-page-top) 0 var(--space-page-bottom);
   
   @supports not (height: 100dvh) {
     height: 100vh;
-  }
-  
-  @media (max-width: 640px) {
-    padding: clamp(80px, 12vh, 100px) 0 clamp(40px, 6vh, 60px);
   }
 }

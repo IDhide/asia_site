@@ -35,3 +35,13 @@
     min-height: 100vh;
   }
 }
+
+.page-content-above-blur {
+  position: relative;
+  min-height: 100dvh;
+  z-index: 20;
+  
+  @supports not (min-height: 100dvh) {
+    min-height: 100vh;
+  }
+}
