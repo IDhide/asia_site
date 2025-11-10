@@ -2,20 +2,27 @@
 @use '@/styles/mixins' as *;
 
 .trackInfo {
-  @include glass-effect;
-  border-radius: 20px;
-  padding: clamp(20px, 3vw, 32px);
   width: 100%;
-  max-width: clamp(400px, 90%, 700px);
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: clamp(20px, 3vh, 28px);
+}
+
+.header {
+  @include glass-effect;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: clamp(16px, 2vw, 24px);
+  border-radius: 20px;
+  padding: clamp(20px, 3vw, 32px);
+  width: 100%;
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .textSection {
-  text-align: center;
+  flex: 1;
+  text-align: left;
 }
 
 .trackTitle {
@@ -34,11 +41,10 @@
   font-weight: 500;
 }
 
-.actions {
+.rightSection {
   display: flex;
-  flex-direction: column;
-  gap: clamp(16px, 2.5vh, 20px);
   align-items: center;
+  gap: clamp(12px, 1.5vw, 16px);
 }
 
 .lyricsButton {
@@ -56,6 +62,7 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
 
   &:hover {
     background: rgba(255, 255, 255, 0.15);
@@ -69,48 +76,45 @@
   }
 }
 
+.year {
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+}
+
 .socialButtons {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: clamp(10px, 1.8vw, 16px);
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(12px, 2vw, 16px);
   width: 100%;
-  max-width: clamp(320px, 80%, 480px);
 }
 
 .socialButton {
   @include glass-effect;
-  aspect-ratio: 1;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   cursor: pointer;
   transition: all $transition-fast;
-  padding: clamp(8px, 1.5vw, 12px);
+  border-radius: clamp(12px, 2vw, 16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  overflow: hidden;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 
   img {
     width: 100%;
-    height: 100%;
-    object-fit: contain;
-    filter: brightness(0.9);
-    transition: filter $transition-fast;
+    height: auto;
+    display: block;
   }
 
   &:hover {
     background: rgba(255, 255, 255, 0.12);
     border-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-
-    img {
-      filter: brightness(1.1);
-    }
   }
 
   &:active {
-    transform: translateY(-1px);
+    transform: translateY(0);
   }
 }
 
@@ -119,11 +123,5 @@
   .trackInfo {
     padding: clamp(16px, 4vw, 24px);
     gap: clamp(16px, 2.5vh, 20px);
-  }
-
-  .socialButtons {
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(8px, 2vw, 12px);
-    max-width: 100%;
   }
 }

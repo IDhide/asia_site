@@ -88,26 +88,6 @@
   margin: clamp(8px, 1.2vh, 12px) 0 0 0;
 }
 
-.albumLink {
-  @include glass-effect;
-  display: inline-block;
-  margin-top: clamp(16px, 2.5vh, 24px);
-  padding: clamp(10px, 1.5vw, 14px) clamp(20px, 3vw, 28px);
-  border-radius: $radius-pill;
-  font-size: clamp(14px, 1.8vw, 16px);
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.85);
-  cursor: pointer;
-  transition: all $transition-fast;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.35);
-    transform: translateY(-2px);
-  }
-}
-
 .socialButtons {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -247,6 +227,7 @@
 @media (max-width: 640px) {
   .trackDetailPage {
     padding: clamp(80px, 12vh, 100px) clamp(16px, 4vw, 24px) clamp(40px, 6vh, 60px);
+    min-height: auto;
   }
 
   .contentGrid {

@@ -4,16 +4,8 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import type { Track } from '@/types/track';
 import { useMediaUrl } from '@/hooks/useMediaUrl';
+import { TrackInfo } from '@/features/tracks';
 import styles from './style.module.scss';
-
-const SOCIAL_LINKS = [
-  { name: 'YouTube Music', icon: '/assets/social_icons/social_youtube.svg', url: '#' },
-  { name: 'Spotify', icon: '/assets/social_icons/spotify.svg', url: '#' },
-  { name: 'Apple Music', icon: '/assets/social_icons/apple-music.svg', url: '#' },
-  { name: 'Сбер Звук', icon: '/assets/social_icons/sber.svg', url: '#' },
-  { name: 'Яндекс Музыка', icon: '/assets/social_icons/yandex-music.svg', url: '#' },
-  { name: 'VK Музыка', icon: '/assets/social_icons/social_vk.svg', url: '#' },
-];
 
 export default function TrackDetailPage() {
   const params = useParams();
@@ -22,6 +14,14 @@ export default function TrackDetailPage() {
   const [track, setTrack] = useState<Track | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Enable scrolling
+    document.body.classList.add('page-scrollable');
+    return () => {
+      document.body.classList.remove('page-scrollable');
+    };
+  }, []);
 
   useEffect(() => {
     const fetchTrack = async () => {
@@ -70,7 +70,7 @@ export default function TrackDetailPage() {
       </button>
 
       <div className={styles.contentGrid}>
-        {/* Левая колонка: обложка и инфо */}
+        {/* Левая колонка: обложка */}
         <div className={styles.coverSection}>
           <div className={styles.coverWrapper}>
             <img
@@ -79,36 +79,13 @@ export default function TrackDetailPage() {
             />
           </div>
 
-          <div className={styles.trackInfo}>
-            <h1 className={styles.title}>{track.title}</h1>
-            <p className={styles.artist}>{track.artist}</p>
-            {track.year && <p className={styles.year}>{track.year}</p>}
-
-            {track.album && (
-              <button
-                className={styles.albumLink}
-                onClick={() => router.push(`/albums/${track.album!.slug}`)}
-              >
-                Альбом: {track.album.title}
-              </button>
-            )}
-          </div>
-
-          {/* Кнопки соцсетей */}
-          <div className={styles.socialButtons}>
-            {SOCIAL_LINKS.map((social) => (
-              <a
-                key={social.name}
-                href={social.url}
-                className={styles.socialButton}
-                aria-label={social.name}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img src={social.icon} alt="" />
-              </a>
-            ))}
-          </div>
+          <TrackInfo
+            track={track}
+            onLyricsClick={() => {
+              const lyricsSection = document.querySelector(`.${styles.lyricsSection}`);
+              lyricsSection?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          />
         </div>
 
         {/* Правая колонка: текст песни */}

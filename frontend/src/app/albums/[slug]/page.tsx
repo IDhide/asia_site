@@ -1,24 +1,25 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useData } from '@/contexts/DataContext';
 import { useMediaUrl } from '@/hooks/useMediaUrl';
+import { TrackInfo } from '@/features/tracks';
 import styles from './style.module.scss';
-
-const SOCIAL_LINKS = [
-  { name: 'YouTube Music', icon: '/assets/social_icons/social_youtube.svg', url: '#' },
-  { name: 'Spotify', icon: '/assets/social_icons/spotify.svg', url: '#' },
-  { name: 'Apple Music', icon: '/assets/social_icons/apple-music.svg', url: '#' },
-  { name: 'Сбер Звук', icon: '/assets/social_icons/sber.svg', url: '#' },
-  { name: 'Яндекс Музыка', icon: '/assets/social_icons/yandex-music.svg', url: '#' },
-  { name: 'VK Музыка', icon: '/assets/social_icons/social_vk.svg', url: '#' },
-];
 
 export default function AlbumDetailPage() {
   const params = useParams();
   const router = useRouter();
   const { getMediaUrl } = useMediaUrl();
   const { data, loading } = useData();
+
+  useEffect(() => {
+    // Enable scrolling
+    document.body.classList.add('page-scrollable');
+    return () => {
+      document.body.classList.remove('page-scrollable');
+    };
+  }, []);
 
   if (loading) {
     return <div className={styles.loading}>Загрузка...</div>;
@@ -49,7 +50,7 @@ export default function AlbumDetailPage() {
       </button>
 
       <div className={styles.contentGrid}>
-        {/* Левая колонка: обложка и инфо */}
+        {/* Левая колонка: обложка */}
         <div className={styles.coverSection}>
           <div className={styles.coverWrapper}>
             <img
@@ -58,30 +59,17 @@ export default function AlbumDetailPage() {
             />
           </div>
 
-          <div className={styles.albumInfo}>
-            <h1 className={styles.title}>{album.title}</h1>
-            <p className={styles.artist}>{album.artist}</p>
-            {album.year && <p className={styles.year}>{album.year}</p>}
-            {album.description && (
-              <p className={styles.description}>{album.description}</p>
-            )}
-          </div>
+          {album.description && (
+            <p className={styles.description}>{album.description}</p>
+          )}
 
-          {/* Кнопки соцсетей */}
-          <div className={styles.socialButtons}>
-            {SOCIAL_LINKS.map((social) => (
-              <a
-                key={social.name}
-                href={social.url}
-                className={styles.socialButton}
-                aria-label={social.name}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img src={social.icon} alt="" />
-              </a>
-            ))}
-          </div>
+          <TrackInfo
+            track={album}
+            onLyricsClick={() => {
+              const tracksSection = document.querySelector(`.${styles.tracksSection}`);
+              tracksSection?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          />
         </div>
 
         {/* Правая колонка: список треков */}

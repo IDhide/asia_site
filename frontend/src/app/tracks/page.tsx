@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useData } from '@/contexts/DataContext';
+import styles from './style.module.scss';
 import { ReleasesSlider } from '@/features/tracks/components/ReleasesSlider';
 import { TrackInfo } from '@/features/tracks/components/TrackInfo';
-import styles from './style.module.scss';
+
 
 type ViewMode = 'tracks' | 'albums';
 
@@ -15,13 +16,18 @@ export default function TracksPage() {
   const [viewMode, setViewMode] = useState<ViewMode>('tracks');
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // Сбрасываем индекс при смене режима просмотра
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [viewMode]);
+
   if (loading) return <div className={styles.loading}>Загрузка...</div>;
 
   const tracks = data?.tracks || [];
   const albums = data?.albums || [];
 
   const displayItems = viewMode === 'tracks' ? tracks : albums;
-  const currentItem = displayItems[currentIndex];
+  const currentItem = displayItems[currentIndex] || displayItems[0];
 
   const handleItemClick = () => {
     if (!currentItem) return;
@@ -33,19 +39,23 @@ export default function TracksPage() {
     }
   };
 
+  const handleViewModeChange = (mode: ViewMode) => {
+    setViewMode(mode);
+  };
+
   return (
     <div className={styles.tracksPage}>
       {/* Переключатель треки/альбомы */}
       <div className={styles.viewToggle}>
         <button
           className={`${styles.toggleButton} ${viewMode === 'tracks' ? styles.active : ''}`}
-          onClick={() => setViewMode('tracks')}
+          onClick={() => handleViewModeChange('tracks')}
         >
           ТРЕКИ
         </button>
         <button
           className={`${styles.toggleButton} ${viewMode === 'albums' ? styles.active : ''}`}
-          onClick={() => setViewMode('albums')}
+          onClick={() => handleViewModeChange('albums')}
         >
           АЛЬБОМЫ
         </button>
@@ -54,6 +64,7 @@ export default function TracksPage() {
       {/* Слайдер с обложками */}
       <div className={styles.sliderWrapper}>
         <ReleasesSlider
+          key={viewMode}
           tracks={displayItems}
           onSlideChange={setCurrentIndex}
           onSlideClick={handleItemClick}
@@ -61,12 +72,16 @@ export default function TracksPage() {
       </div>
 
       {/* Информация о треке/альбоме и кнопки */}
-      {currentItem && (
-        <TrackInfo
-          track={currentItem}
-          onLyricsClick={handleItemClick}
-        />
-      )}
+      <div className={styles.trackInfoWrapper}>
+        {currentItem && (
+          <TrackInfo
+            track={currentItem}
+            onLyricsClick={handleItemClick}
+          />
+        )}
+      </div>
     </div>
+
+
   );
 }
