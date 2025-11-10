@@ -24,13 +24,6 @@ cp .env.example .env.local
 ### 2. Запуск для разработки
 
 ```bash
-# Backend (в одном терминале)
-cd backend
-source venv/bin/activate
-python manage.py runserver 8000
-
-# Frontend (в другом терминале)
-cd frontend
 npm run dev
 ```
 
@@ -42,4 +35,4 @@ npm run dev
 
 - Django 4.2 + Django REST Framework
 - Next.js 15.3 + React 19 + TypeScript
-- SQLite (dev) / PostgreSQL (production)
+- SQLite (dev)
