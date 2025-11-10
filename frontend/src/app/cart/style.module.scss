@@ -1,4 +1,9 @@
+@use '@/styles/mixins' as *;
 @use '@/styles/components' as *;
+
+.cartPage {
+  @include page-padding;
+}
 
 .pageTitle {
   @include heading-page;

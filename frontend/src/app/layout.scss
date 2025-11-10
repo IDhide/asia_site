@@ -30,41 +30,8 @@
   position: relative;
   min-height: 100dvh;
   z-index: 0;
-  box-sizing: border-box; // Padding включается в высоту
-  
-  // Вертикальные отступы: сверху под хедер, снизу над футером
-  padding: clamp(100px, 12vh, 140px) 0 clamp(60px, 8vh, 100px);
-  
-  // Дочерние элементы с gap
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-l);
   
   @supports not (min-height: 100dvh) {
     min-height: 100vh;
-  }
-  
-  @media (max-width: 640px) {
-    padding: clamp(80px, 12vh, 100px) 0 clamp(40px, 6vh, 60px);
-    gap: var(--gap-m);
-  }
-  
-  // Переопределение для детальных страниц (tracks/albums detail)
-  &:has(.detail-page-no-scroll) {
-    height: 100dvh;
-    min-height: auto;
-    padding: 0;
-    overflow: hidden;
-    
-    @supports not (height: 100dvh) {
-      height: 100vh;
-    }
-    
-    @media (max-width: 1024px) {
-      height: auto;
-      min-height: 100dvh;
-      padding: clamp(100px, 12vh, 140px) 0 clamp(60px, 8vh, 100px);
-      overflow: visible;
-    }
   }
 }

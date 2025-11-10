@@ -2,29 +2,13 @@
 @use "@/styles/components" as *;
 
 .tracksPage {
+  @include page-fullscreen;
   display: flex;
   flex-direction: column;
   gap: 0;
   margin: auto;
   justify-content: space-between;
   width: 100%;
-  min-height: 100dvh;
-  
-  // Компенсируем padding родительского .page-content
-  margin-top: calc(-1 * clamp(100px, 12vh, 140px));
-  margin-bottom: calc(-1 * clamp(60px, 8vh, 100px));
-
-  
-  @supports not (min-height: 100dvh) {
-    min-height: 100vh;
-  }
-  
-  @media (max-width: 640px) {
-    margin-top: calc(-1 * clamp(80px, 12vh, 100px));
-    margin-bottom: calc(-1 * clamp(40px, 6vh, 60px));
-    padding-top: clamp(80px, 12vh, 100px);
-    padding-bottom: clamp(40px, 6vh, 60px);
-  }
 }
 
 // Переключатель треки/альбомы

@@ -2,6 +2,7 @@
 @use '@/styles/components' as *;
 
 .success {
+  @include page-padding;
   @include state-loading;
 }
 

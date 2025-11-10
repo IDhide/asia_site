@@ -1,0 +1,15 @@
+@use '@/styles/mixins' as *;
+@use '@/styles/components' as *;
+
+.hero {
+  @include page-fullscreen;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroContent {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 var(--space-page-x);
+}

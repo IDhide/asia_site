@@ -24,7 +24,7 @@
   align-items: center;
   justify-content: center;
   @include glass-effect;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-l);
   overflow: hidden;
   aspect-ratio: 1/1;
 }
@@ -220,7 +220,7 @@
   height: 80px;
   background: #1a1a1a;
   border: 2px solid transparent;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-s);
   overflow: hidden;
   cursor: pointer;
   transition: all var(--transition-fast);

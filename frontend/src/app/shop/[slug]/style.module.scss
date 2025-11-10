@@ -1,7 +1,8 @@
+@use '@/styles/mixins' as *;
 @use '@/styles/components' as *;
 
 .productDetail {
-  @include page-container;
+  @include page-padding;
 }
 
 .productLayout {

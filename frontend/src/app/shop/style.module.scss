@@ -1,10 +1,13 @@
+@use '@/styles/mixins' as *;
 @use '@/styles/components' as *;
 
 .shopPage {
+  @include page-padding;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: var(--space-page-top) var(--space-page-x) var(--space-page-bottom);
+  padding-left: var(--space-page-x);
+  padding-right: var(--space-page-x);
 }
 
 .loading {

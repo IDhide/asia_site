@@ -4,6 +4,7 @@ import { use, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { ProductPage } from '@/features/shop';
 import { useData } from '@/contexts/DataContext';
+import styles from './style.module.scss';
 
 interface ProductPageProps {
   params: Promise<{
@@ -79,10 +80,12 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
   }
 
   return (
-    <ProductPage
-      product={product}
-      allProducts={data?.products || []}
-      onClose={handleClose}
-    />
+    <div className={styles.productDetail}>
+      <ProductPage
+        product={product}
+        allProducts={data?.products || []}
+        onClose={handleClose}
+      />
+    </div>
   );
 }

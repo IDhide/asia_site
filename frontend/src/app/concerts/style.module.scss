@@ -2,10 +2,10 @@
 @use '@/styles/components' as *;
 
 .concertsPage {
+  @include page-padding;
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 
 .concertsGrid {

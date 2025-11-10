@@ -32,11 +32,13 @@ export default function CartPage() {
   }
 
   return (
-    <div className="container-medium">
-      <h1 className={styles.pageTitle}>Корзина</h1>
-      <div className={styles.cartLayout}>
-        <CartList />
-        <CheckoutForm />
+    <div className={styles.cartPage}>
+      <div className="container-medium">
+        <h1 className={styles.pageTitle}>Корзина</h1>
+        <div className={styles.cartLayout}>
+          <CartList />
+          <CheckoutForm />
+        </div>
       </div>
     </div>
   );
