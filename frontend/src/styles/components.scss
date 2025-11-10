@@ -128,14 +128,10 @@
 
 @mixin badge {
   position: absolute;
-  top: -4px;
-  right: -4px;
-  background: #ff4444;
+  bottom: 0.5rem;
+  right: 0.5rem;
   color: white;
-  font-size: 10px;
-  font-weight: 600;
-  padding: 2px 6px;
-  border-radius: var(--radius-full);
-  min-width: 18px;
-  text-align: center;
+  font-size: clamp(9px, 1.2vw, 14px);
+  font-weight: 700;
+  line-height: 1;
 }

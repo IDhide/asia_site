@@ -96,7 +96,13 @@ export function Header() {
           <AudioPlayer />
           {itemCount > 0 && (
             <Link href="/cart" className={styles.cartIcon} aria-label={`Корзина (${itemCount})`}>
-              🛒
+              <Image
+                src="/assets/main/cart_icon.svg"
+                alt="Корзина"
+                width={24}
+                height={24}
+                className={styles.cartIconImage}
+              />
               <span className={styles.badge}>{itemCount}</span>
             </Link>
           )}

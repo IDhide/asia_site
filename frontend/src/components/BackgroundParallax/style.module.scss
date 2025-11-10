@@ -1,0 +1,65 @@
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100svh;
+  z-index: -2;
+  overflow: hidden;
+  transition: filter 0.3s ease;
+  
+  @supports not (height: 100svh) {
+    height: 100vh;
+  }
+  
+  &.blurred {
+    filter: blur(10px);
+  }
+}
+
+.mainImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  
+  img {
+    object-fit: cover;
+  }
+}
+
+.overlayImage {
+  position: absolute;
+  inset: -3%;
+  width: 106%;
+  height: 106%;
+  will-change: transform;
+  pointer-events: none;
+  
+  img {
+    object-fit: cover;
+  }
+  
+  // На мобиле: анимация левитации
+  @media (max-width: 768px) {
+    animation: float 8s ease-in-out infinite;
+  }
+}
+
+// Анимация левитации для мобильных
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+// Оптимизация производительности
+@media (prefers-reduced-motion: reduce) {
+  .overlayImage {
+    animation: none !important;
+    transition: none !important;
+  }
+}

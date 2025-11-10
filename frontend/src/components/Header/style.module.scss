@@ -132,6 +132,15 @@
 .cartIcon {
   @include cart-icon;
   
+  .cartIconImage {
+    width: 50%;
+    height: 50%;
+    object-fit: contain;
+ position: absolute;
+ top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  }
 
   .badge {
     @include badge;

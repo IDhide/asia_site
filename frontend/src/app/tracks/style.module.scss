@@ -100,6 +100,11 @@
 
 // Mobile
 @media (max-width: 640px) {
+  .tracksPage {
+    justify-content: center;
+    padding-top: var(--gap-m);
+  }
+
   .viewToggle {
     gap: var(--gap-xs);
     margin-bottom: var(--gap-s);

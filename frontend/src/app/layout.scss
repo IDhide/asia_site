@@ -5,13 +5,28 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  // Используем 100svh для стабильного размера на мобиле
+  height: 100svh;
   z-index: -2;
-  filter: blur(10px);
-
+  transition: filter 0.3s ease;
+  
+  // Fallback для браузеров без поддержки svh
+  @supports not (height: 100svh) {
+    height: 100vh;
+  }
 
   img {
     object-fit: cover;
+  }
+  
+  // Блюр по умолчанию для всех страниц кроме главной
+  &:not(.no-blur) {
+    filter: blur(10px);
+  }
+  
+  // Без блюра на главной странице
+  &.no-blur {
+    filter: none;
   }
 }
 
@@ -20,9 +35,13 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100svh;
   background: rgba(0, 0, 0, 0.4);
   z-index: -1;
+  
+  @supports not (height: 100svh) {
+    height: 100vh;
+  }
 }
 
 
