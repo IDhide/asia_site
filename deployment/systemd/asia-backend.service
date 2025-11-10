@@ -1,15 +1,25 @@
 [Unit]
-Description=Asia Site Django Backend
+Description=Asia Site Backend (Django/Gunicorn)
 After=network.target
 
 [Service]
 Type=simple
 User=www-data
+Group=www-data
 WorkingDirectory=/var/www/asia-site/backend
-Environment="PATH=/var/www/asia-site/backend/venv/bin"
-Environment="DJANGO_SETTINGS_MODULE=config.settings"
-EnvironmentFile=/var/www/asia-site/backend/.env
-ExecStart=/var/www/asia-site/backend/venv/bin/gunicorn config.wsgi:application --bind 127.0.0.1:8000 --workers 3
+Environment="PATH=/var/www/asia-site/backend/venv/bin:/usr/local/bin:/usr/bin:/bin"
+ExecStart=/var/www/asia-site/backend/venv/bin/gunicorn \
+    --workers 3 \
+    --bind 127.0.0.1:8000 \
+    --timeout 120 \
+    --access-logfile - \
+    --error-logfile - \
+    --log-level info \
+    config.wsgi:application
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
 Restart=always
 RestartSec=10
 StandardOutput=journal

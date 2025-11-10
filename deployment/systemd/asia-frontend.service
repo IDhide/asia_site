@@ -1,14 +1,14 @@
 [Unit]
-Description=Asia Site Next.js Frontend
+Description=Asia Site Frontend (Next.js)
 After=network.target
 
 [Service]
 Type=simple
 User=www-data
+Group=www-data
 WorkingDirectory=/var/www/asia-site/frontend
 Environment="NODE_ENV=production"
 Environment="PORT=3010"
-EnvironmentFile=/var/www/asia-site/frontend/.env.local
 ExecStart=/usr/bin/npm start
 Restart=always
 RestartSec=10

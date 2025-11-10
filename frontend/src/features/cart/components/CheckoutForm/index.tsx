@@ -76,11 +76,10 @@ export function CheckoutForm() {
         customer_name: formData.name,
         customer_email: formData.email,
         customer_phone: formData.phone,
-        shipping_address: formData.address,
+        delivery_address: formData.address,
         items: items.map((item) => ({
           product_id: item.product.id,
           quantity: item.quantity,
-          price: item.product.price,
         })),
         total_amount: finalTotal,
       };

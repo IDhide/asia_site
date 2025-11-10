@@ -10,7 +10,8 @@
     "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
     "start:backend": "cd backend && source venv/bin/activate && gunicorn config.wsgi:application --bind 0.0.0.0:8000",
     "start:frontend": "cd frontend && npm start",
-    "deploy": "chmod +x deployment/deploy-to-server.sh && ./deployment/deploy-to-server.sh"
+    "deploy": "chmod +x deployment/deploy-to-server.sh && ./deployment/deploy-to-server.sh",
+    "data:upload": "chmod +x deployment/sync-database.sh && ./deployment/sync-database.sh"
   },
   "keywords": ["django", "nextjs", "fullstack"],
   "author": "",

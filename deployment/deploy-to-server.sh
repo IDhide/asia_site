@@ -19,7 +19,7 @@ echo ""
 
 # Проверка SSH подключения
 echo -e "${YELLOW}🔐 Checking SSH connection...${NC}"
-if ! ssh -o ConnectTimeout=5 $SERVER "echo 'SSH connection successful'" > /dev/null 2>&1; then
+if ! ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no $SERVER "echo 'SSH connection successful'" > /dev/null 2>&1; then
     echo -e "${RED}❌ Cannot connect to server${NC}"
     echo "Please check:"
     echo "  - Server is running"
@@ -37,6 +37,8 @@ ssh $SERVER "mkdir -p $PROJECT_DIR"
 # Синхронизация файлов
 echo -e "${YELLOW}📤 Syncing files to server...${NC}"
 rsync -avz --progress \
+    --timeout=300 \
+    -e "ssh -o ConnectTimeout=30 -o ServerAliveInterval=10 -o ServerAliveCountMax=3" \
     --exclude 'node_modules' \
     --exclude '.next' \
     --exclude 'venv' \
@@ -55,34 +57,25 @@ rsync -avz --progress \
 echo -e "${GREEN}✅ Files synced${NC}"
 echo ""
 
-# Создание .env файлов на сервере (если не существуют)
-echo -e "${YELLOW}⚙️  Checking environment files...${NC}"
-ssh $SERVER << 'EOF'
-    # Backend .env
-    if [ ! -f /var/www/asia-site/backend/.env ]; then
-        echo "Creating backend .env file..."
-        cat > /var/www/asia-site/backend/.env << 'ENVEOF'
-SECRET_KEY=your-secret-key-here-change-this
-DEBUG=False
-ALLOWED_HOSTS=your-domain.com,www.your-domain.com,109.69.20.147
-DATABASE_URL=sqlite:///db.sqlite3
-CORS_ALLOWED_ORIGINS=https://your-domain.com,https://www.your-domain.com
-ENVEOF
-        echo "⚠️  Backend .env created - PLEASE UPDATE IT!"
-    fi
+# Copy production environment files
+echo -e "${YELLOW}⚙️  Copying production environment files...${NC}"
 
-    # Frontend .env.local
-    if [ ! -f /var/www/asia-site/frontend/.env.local ]; then
-        echo "Creating frontend .env.local file..."
-        cat > /var/www/asia-site/frontend/.env.local << 'ENVEOF'
-NEXT_PUBLIC_API_URL=https://your-domain.com
-NEXT_PUBLIC_MEDIA_URL=https://your-domain.com/media
-PORT=3010
-NODE_ENV=production
-ENVEOF
-        echo "⚠️  Frontend .env.local created - PLEASE UPDATE IT!"
-    fi
-EOF
+# Copy backend .env.production to server as .env
+if [ -f "$LOCAL_DIR/backend/.env.production" ]; then
+    scp "$LOCAL_DIR/backend/.env.production" $SERVER:$PROJECT_DIR/backend/.env
+    echo -e "${GREEN}✅ Backend .env copied${NC}"
+else
+    echo -e "${RED}❌ backend/.env.production not found locally${NC}"
+fi
+
+# Copy frontend .env.production to server as .env.local
+if [ -f "$LOCAL_DIR/frontend/.env.production" ]; then
+    scp "$LOCAL_DIR/frontend/.env.production" $SERVER:$PROJECT_DIR/frontend/.env.local
+    echo -e "${GREEN}✅ Frontend .env.local copied${NC}"
+else
+    echo -e "${RED}❌ frontend/.env.production not found locally${NC}"
+fi
+
 echo ""
 
 # Запуск деплоя на сервере
