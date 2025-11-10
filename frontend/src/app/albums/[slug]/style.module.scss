@@ -1,4 +1,3 @@
-@use '@/styles/variables' as *;
 @use '@/styles/mixins' as *;
 
 .albumDetailPage {
@@ -9,12 +8,12 @@
 .backButton {
   @include glass-effect;
   padding: clamp(10px, 1.5vw, 14px) clamp(20px, 3vw, 28px);
-  border-radius: $radius-pill;
+  border-radius: var(--radius-pill);
   font-size: clamp(14px, 1.8vw, 16px);
   font-weight: 600;
   color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
-  transition: all $transition-fast;
+  transition: all var(--transition-fast);
   border: 1px solid rgba(255, 255, 255, 0.2);
   margin-bottom: clamp(24px, 4vh, 40px);
 
@@ -35,7 +34,7 @@
 .coverSection {
   display: flex;
   flex-direction: column;
-  gap: clamp(24px, 3.5vh, 36px);
+
   position: sticky;
   top: clamp(100px, 12vh, 140px);
 }
@@ -110,7 +109,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all $transition-fast;
+  transition: all var(--transition-fast);
   padding: clamp(10px, 1.8vw, 14px);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 
@@ -119,7 +118,7 @@
     height: 100%;
     object-fit: contain;
     filter: brightness(0.9);
-    transition: filter $transition-fast;
+    transition: filter var(--transition-fast);
   }
 
   &:hover {
@@ -164,7 +163,7 @@
   padding: clamp(12px, 2vw, 18px);
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all $transition-fast;
+  transition: all var(--transition-fast);
 
   &:hover {
     background: rgba(255, 255, 255, 0.08);
@@ -209,7 +208,7 @@
   color: rgba(255, 255, 255, 0.95);
   text-align: left;
   cursor: pointer;
-  transition: color $transition-fast;
+  transition: color var(--transition-fast);
   @include truncate;
 
   &:hover {
@@ -261,12 +260,12 @@
   button {
     @include glass-effect;
     padding: clamp(12px, 1.8vw, 16px) clamp(24px, 3.5vw, 36px);
-    border-radius: $radius-pill;
+    border-radius: var(--radius-pill);
     font-size: clamp(14px, 1.8vw, 16px);
     font-weight: 600;
     color: rgba(255, 255, 255, 0.9);
     cursor: pointer;
-    transition: all $transition-fast;
+    transition: all var(--transition-fast);
     border: 1px solid rgba(255, 255, 255, 0.25);
 
     &:hover {

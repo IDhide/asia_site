@@ -1,12 +1,5 @@
 .shopPage {
-  min-height: 100vh;
-  padding: 120px 40px 80px;
-  max-width: 1400px;
   margin: 0 auto;
-
-  @media (max-width: 768px) {
-    padding: 100px 20px 60px;
-  }
 }
 
 .loading {

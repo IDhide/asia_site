@@ -1,17 +1,14 @@
-@use "@/styles/variables" as *;
 @use "@/styles/mixins" as *;
 @use "@/styles/components" as *;
 
 .tracksPage {
-  min-height: 100vh;
+//  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: clamp(100px, 12vh, 140px) clamp(20px, 3vw, 40px)
-    clamp(40px, 6vh, 60px);
   gap: 0;
   margin: auto;
   justify-content: space-between;
-  overflow-x: hidden;
+//  overflow-x: hidden;
   width: 100%;
 }
 
@@ -26,8 +23,9 @@
 }
 
 .trackInfoWrapper {
-  max-width: clamp(400px, 90%, 700px);
-  margin: clamp(20px, 3vh, 32px) auto 0;
+ max-width: clamp(370px, 90%, 600px);
+  width: calc(50% - min(27.5vh, 37.5vw, 300px));
+  margin: 0 auto 0;
   width: 100%;
   flex-shrink: 0;
 }
@@ -44,10 +42,10 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 80vw;
-  margin: 0 auto;
+//  max-width: 80vw;
+//  margin: var(--space-md) 0;
   min-height: 0;
-  overflow: visible;
+//  overflow: visible;
   position: relative;
 }
 
@@ -69,12 +67,6 @@
   }
 }
 
-// Tablet
-@media (max-width: 1024px) {
-  .sliderWrapper {
-    max-width: 90vw;
-  }
-}
 
 // Mobile
 @media (max-width: 640px) {
@@ -86,11 +78,8 @@
   }
 
   .sliderWrapper {
-    max-width: 95vw;
     flex: 0 1 auto;
   }
 
-  .trackInfoWrapper {
-    margin-top: clamp(16px, 2.5vh, 24px);
-  }
+
 }

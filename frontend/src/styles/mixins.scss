@@ -1,9 +1,13 @@
-@use './variables' as *;
+$breakpoint-mobile: 480px;
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1024px;
+$breakpoint-wide: 1440px;
+
 
 // ========== Glass Effect Mixin ==========
-@mixin glass-effect($bg: $color-glass-bg, $border: $color-glass-border) {
-  background: $bg;
-  border: 1px solid $border;
+@mixin glass-effect($bg: null, $border: null) {
+  background: if($bg, $bg, var(--color-glass-bg));
+  border: 1px solid if($border, $border, var(--color-glass-border));
   backdrop-filter: blur(14px) saturate(120%);
   -webkit-backdrop-filter: blur(14px) saturate(120%);
   box-shadow:
@@ -15,7 +19,7 @@
 // ========== Button Glow Effect ==========
 @mixin button-glow {
   position: relative;
-  transition: box-shadow $transition-fast, transform $transition-fast;
+  transition: box-shadow var(--transition-fast), transform var(--transition-fast);
 
   &::before {
     content: "";
@@ -130,7 +134,7 @@
 
   &::-webkit-scrollbar-thumb {
     background: $thumb-color;
-    border-radius: $width / 2;
+    border-radius: calc($width / 2);
 
     &:hover {
       background: rgba(255, 255, 255, 0.5);

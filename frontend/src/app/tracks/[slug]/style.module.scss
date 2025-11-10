@@ -1,20 +1,16 @@
-@use '@/styles/variables' as *;
 @use '@/styles/mixins' as *;
 
-.trackDetailPage {
-  min-height: 100vh;
-  padding: clamp(100px, 12vh, 140px) clamp(20px, 3vw, 40px) clamp(60px, 8vh, 100px);
-}
+
 
 .backButton {
   @include glass-effect;
   padding: clamp(10px, 1.5vw, 14px) clamp(20px, 3vw, 28px);
-  border-radius: $radius-pill;
+  border-radius: var(--radius-pill);
   font-size: clamp(14px, 1.8vw, 16px);
   font-weight: 600;
   color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
-  transition: all $transition-fast;
+  transition: all var(--transition-fast);
   border: 1px solid rgba(255, 255, 255, 0.2);
   margin-bottom: clamp(24px, 4vh, 40px);
 
@@ -103,7 +99,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all $transition-fast;
+  transition: all var(--transition-fast);
   padding: clamp(10px, 1.8vw, 14px);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 
@@ -112,7 +108,7 @@
     height: 100%;
     object-fit: contain;
     filter: brightness(0.9);
-    transition: filter $transition-fast;
+    transition: filter var(--transition-fast);
   }
 
   &:hover {
@@ -128,11 +124,7 @@
 }
 
 .lyricsSection {
-  @include glass-effect;
-  padding: clamp(32px, 5vw, 48px);
-  border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  @include custom-scrollbar;
+
   max-height: calc(100vh - clamp(200px, 24vh, 280px));
   overflow-y: auto;
 }
@@ -143,6 +135,7 @@
   color: rgba(255, 255, 255, 0.95);
   margin: 0 0 clamp(24px, 3.5vh, 36px) 0;
   letter-spacing: -0.01em;
+  text-align: center;
 }
 
 .lyricsText {
@@ -150,6 +143,7 @@
   line-height: 1.9;
   color: rgba(255, 255, 255, 0.85);
   font-weight: 400;
+  text-align: center;
 
   pre {
     white-space: pre-wrap;
@@ -186,12 +180,12 @@
   button {
     @include glass-effect;
     padding: clamp(12px, 1.8vw, 16px) clamp(24px, 3.5vw, 36px);
-    border-radius: $radius-pill;
+    border-radius: var(--radius-pill);
     font-size: clamp(14px, 1.8vw, 16px);
     font-weight: 600;
     color: rgba(255, 255, 255, 0.9);
     cursor: pointer;
-    transition: all $transition-fast;
+    transition: all var(--transition-fast);
     border: 1px solid rgba(255, 255, 255, 0.25);
 
     &:hover {
@@ -225,10 +219,7 @@
 
 // Mobile
 @media (max-width: 640px) {
-  .trackDetailPage {
-    padding: clamp(80px, 12vh, 100px) clamp(16px, 4vw, 24px) clamp(40px, 6vh, 60px);
-    min-height: auto;
-  }
+
 
   .contentGrid {
     gap: clamp(24px, 4vh, 36px);

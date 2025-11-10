@@ -1,4 +1,3 @@
-@use '@/styles/variables' as *;
 @use '@/styles/mixins' as *;
 
 .audioButton {
@@ -18,7 +17,7 @@
   overflow: hidden;
   z-index: 30;
   cursor: pointer;
-  transition: box-shadow $transition-fast, transform $transition-fast;
+  transition: box-shadow var(--transition-fast), transform var(--transition-fast);
 
   &::after {
     content: "";
@@ -27,7 +26,7 @@
     border-radius: 50%;
     border: 1px solid rgba(255, 255, 255, 0.22);
     transform: scale(1);
-    transition: transform $transition-fast;
+    transition: transform var(--transition-fast);
     pointer-events: none;
   }
 
@@ -70,7 +69,7 @@
 
 .eqBar {
   width: 2px;
-  background: $color-text-primary;
+  background: var(--color-text-primary);
   border-radius: 1px;
   animation: eqBounce 0.14s ease-in-out infinite alternate;
 

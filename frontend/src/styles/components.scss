@@ -1,4 +1,3 @@
-@use './variables' as *;
 @use './mixins' as *;
 
 // ========== Buttons ==========
@@ -9,7 +8,7 @@
   font-weight: 600;
   color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
-  transition: all $transition-fast;
+  transition: all var(--transition-fast);
   border: none;
   padding: 0;
   background: none;
@@ -24,7 +23,7 @@
 @mixin button-glass($size: 'md') {
   @include button-base;
   @include glass-effect;
-  border-radius: $radius-pill;
+  border-radius: var(--radius-pill);
   border: 1px solid rgba(255, 255, 255, 0.2);
 
   @if $size == 'sm' {
@@ -88,7 +87,7 @@
   font-weight: 700;
   color: rgba(255, 255, 255, 0.95);
   cursor: pointer;
-  transition: all $transition-fast;
+  transition: all var(--transition-fast);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -121,7 +120,7 @@
 @mixin card-interactive {
   @include card-glass;
   cursor: pointer;
-  transition: all $transition-fast;
+  transition: all var(--transition-fast);
 
   &:hover {
     background: rgba(255, 255, 255, 0.08);
@@ -143,7 +142,7 @@
   border-radius: 16px;
   padding: clamp(12px, 2vw, 18px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all $transition-fast;
+  transition: all var(--transition-fast);
 }
 
 // Обертка для обложки/изображения
@@ -172,7 +171,7 @@
   @include glass-effect;
   display: block;
   cursor: pointer;
-  transition: all $transition-fast;
+  transition: all var(--transition-fast);
   border-radius: clamp(12px, 2vw, 16px);
   border: 1px solid rgba(255, 255, 255, 0.15);
   overflow: hidden;
@@ -329,12 +328,12 @@
   top: calc(100% + 0.5rem);
   left: 50%;
   @include glass-effect;
-  border-radius: $radius-md;
+  border-radius: var(--radius-md);
   padding: 0.5rem;
   
   // Используем только opacity для анимации, чтобы не конфликтовать с transform
   opacity: 0;
-  animation: dropdownFadeIn $transition-fast forwards;
+  animation: dropdownFadeIn var(--transition-fast) forwards;
   
   // Позиционирование без анимации
   transform: translateX(-50%);
@@ -359,7 +358,7 @@
   border-radius: 50%;
   font-size: clamp(1rem, 2vw, 1.25rem);
   text-decoration: none;
-  transition: transform $transition-fast;
+  transition: transform var(--transition-fast);
 
   &:hover {
     transform: scale(1.05);

@@ -1,9 +1,8 @@
-@use '@/styles/variables' as *;
 
 .cart {
   min-block-size: 100svh;
   padding-inline: clamp(16px, 3vw, 48px);
-  padding-block: clamp(120px, 12vw, 160px) calc($bottom-blur-height + clamp(40px, 5vw, 70px));
+  padding-block: clamp(120px, 12vw, 160px) calc(var(--bottom-blur-height) + clamp(40px, 5vw, 70px));
 }
 
 .pageTitle {

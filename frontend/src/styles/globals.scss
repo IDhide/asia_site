@@ -1,5 +1,54 @@
-@use './variables' as *;
 @use './mixins' as *;
+
+// ========== CSS Custom Properties ==========
+:root {
+  // Colors
+  --color-bg-primary: #000;
+  --color-text-primary: #f2f2f2;
+  --color-glass-bg: rgba(18, 18, 18, 0.52);
+  --color-glass-border: rgba(255, 255, 255, 0.18);
+
+  // Overlays
+  --overlay-dark: linear-gradient(0deg, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0.62));
+  --overlay-page: linear-gradient(0deg, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65));
+
+  // Spacing
+  --space-xs: clamp(0.2rem, 1vw, 1rem);
+  --space-sm: clamp(8px, 2vw, 24px);
+  --space-md: clamp(24px, 5vw, 64px);
+  --space-lg: clamp(120px, 12vw, 160px);
+
+  // Gaps (для flexbox/grid)
+  --gap-xs: clamp(8px, 1.5vw, 12px);
+  --gap-sm: clamp(12px, 2vw, 16px);
+  --gap-md: clamp(16px, 2.5vw, 24px);
+  --gap-lg: clamp(24px, 3.5vw, 36px);
+  --gap-xl: clamp(32px, 5vw, 48px);
+
+  // Blur
+  --bottom-blur-height: clamp(90px, 12svh, 140px);
+
+  // Border Radius
+  --radius-pill: 9999px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+
+  // Transitions
+  --transition-fast: 0.22s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  // Z-index
+  --z-header: 100;
+  --z-modal: 1000;
+  --z-dropdown: 50;
+  --z-overlay: 999;
+
+  // Typography
+  --font-family-base: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-size-base: clamp(14px, 1.05vw, 16px);
+  --line-height-base: 1.5;
+}
 
 // ========== CSS Reset ==========
 *,
@@ -19,11 +68,11 @@ html {
 body {
   height: 100%;
   margin: 0;
-  color: $color-text-primary;
-  font-family: $font-family-base;
-  font-size: $font-size-base;
-  line-height: $line-height-base;
-  background: $color-bg-primary;
+  color: var(--color-text-primary);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  background: var(--color-bg-primary);
   overflow: hidden; // Нет скролла на главной странице
 }
 
@@ -44,7 +93,7 @@ p {
 a {
   color: inherit;
   text-decoration: none;
-  transition: opacity $transition-fast;
+  transition: opacity var(--transition-fast);
 
   &:hover {
     opacity: 0.8;
@@ -104,6 +153,60 @@ select {
   min-height: 100vh;
 }
 
+// ========== Container Utilities ==========
+// Узкий контейнер (для текста, форм)
+.container-narrow {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 3vw, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+// Средний контейнер (для карточек, контента)
+.container-medium {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 3vw, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+// Широкий контейнер (для галерей, больших секций)
+.container-wide {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 3vw, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+// Полная ширина с паддингами
+.container-full {
+  width: 100%;
+  padding: 0 clamp(20px, 3vw, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+// Мобильные паддинги и gap
+@media (max-width: 640px) {
+  .container-narrow,
+  .container-medium,
+  .container-wide,
+  .container-full {
+    padding: 0 clamp(16px, 4vw, 24px);
+    gap: var(--gap-sm);
+  }
+}
+
 // ========== Page-specific body classes ==========
 body.page-scrollable {
   overflow: auto; // Разрешаем скролл на страницах с контентом
@@ -115,7 +218,7 @@ body.page-scrollable::after {
   left: 0;
   right: 0;
   bottom: 0;
-  height: $bottom-blur-height;
+  height: var(--bottom-blur-height);
   pointer-events: none;
   z-index: 4;
   backdrop-filter: blur(14px) saturate(120%);
@@ -163,7 +266,7 @@ body.page-scrollable::after {
 // ========== Selection ==========
 ::selection {
   background: rgba(255, 255, 255, 0.2);
-  color: $color-text-primary;
+  color: var(--color-text-primary);
 }
 
 // ========== Scrollbar ==========

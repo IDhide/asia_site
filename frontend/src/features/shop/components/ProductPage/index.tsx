@@ -39,7 +39,7 @@ export function ProductPage({ product, allProducts, onClose }: ProductPageProps)
   const inCart = isInCart(product.id);
 
   return (
-    <div className={styles.pageWrapper}>
+    <div className='container-medium'>
       <div className={styles.productDetail}>
         {/* Левая часть - фото */}
         <div className={styles.imageSection}>
@@ -164,7 +164,7 @@ export function ProductPage({ product, allProducts, onClose }: ProductPageProps)
       </div>
 
       {/* Сетка других товаров */}
-      <div className={styles.otherProducts}>
+      <div>
         <ProductsGrid products={allProducts} excludeId={product.id} />
       </div>
     </div>

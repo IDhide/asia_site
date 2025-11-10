@@ -1,12 +1,11 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
 import type { SliderItem } from '@/types/track';
 import { useMediaUrl } from '@/hooks/useMediaUrl';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
-import 'swiper/css/mousewheel';
 import styles from './style.module.scss';
 
 interface ReleasesSliderProps {
@@ -18,6 +17,7 @@ interface ReleasesSliderProps {
 export function ReleasesSlider({ tracks, onSlideChange, onSlideClick }: ReleasesSliderProps) {
   const swiperRef = useRef<HTMLDivElement>(null);
   const swiperInstanceRef = useRef<SwiperType | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const { getMediaUrl } = useMediaUrl();
 
   useEffect(() => {
@@ -27,51 +27,93 @@ export function ReleasesSlider({ tracks, onSlideChange, onSlideClick }: Releases
       const Swiper = (await import('swiper')).default;
       const { EffectCoverflow, Keyboard, Mousewheel } = await import('swiper/modules');
 
-      // Уничтожаем предыдущий экземпляр если есть
       if (swiperInstanceRef.current) {
         swiperInstanceRef.current.destroy(true, true);
         swiperInstanceRef.current = null;
       }
 
       if (swiperRef.current) {
+        let lastSlideTime = 0;
+        let targetIndex = 0;
+        
         const swiperInstance = new Swiper(swiperRef.current, {
           modules: [EffectCoverflow, Keyboard, Mousewheel],
           effect: 'coverflow',
           grabCursor: true,
           centeredSlides: true,
           slidesPerView: 'auto',
-          loop: false, // Отключаем loop для корректной работы прокрутки
+          slidesPerGroup: 1,
+          loop: false,
           speed: 520,
           initialSlide: 0,
-          resistanceRatio: 0.85, // Сопротивление на краях
+          resistanceRatio: 0.85,
+          allowTouchMove: true,
+          // Настройки свайпа
+          shortSwipes: true,
+          longSwipes: true,
+          longSwipesRatio: 0.25,
+          longSwipesMs: 200,
+          threshold: 5,
+          touchRatio: 1,
+          touchAngle: 45,
+          followFinger: true,
+          preventInteractionOnTransition: true,
           coverflowEffect: {
             rotate: 50,
             stretch: 0,
             depth: 120,
             modifier: 1,
             slideShadows: false,
+            scale: 0.8,
           },
           keyboard: {
             enabled: true,
+            pageUpDown: false,
           },
           mousewheel: {
             enabled: true,
             forceToAxis: true,
             sensitivity: 1,
-            thresholdDelta: 50,
-            thresholdTime: 300,
+            releaseOnEdges: true,
+            thresholdDelta: 30,
+            thresholdTime: 200,
           },
           on: {
-            slideChange: (swiper) => {
-              if (onSlideChange) {
-                onSlideChange(swiper.activeIndex);
+            touchStart: (swiper) => {
+              targetIndex = swiper.activeIndex;
+            },
+            slideChangeTransitionStart: (swiper) => {
+              const now = Date.now();
+              const timeSinceLastSlide = now - lastSlideTime;
+              
+              // Если прошло меньше 400мс с последнего переключения - отменяем
+              if (timeSinceLastSlide < 400 && lastSlideTime > 0) {
+                swiper.slideTo(targetIndex, 0);
+                return;
               }
+              
+              const currentIdx = swiper.activeIndex;
+              const diff = currentIdx - targetIndex;
+              
+              // Разрешаем только переход на +1 или -1
+              if (Math.abs(diff) > 1) {
+                const newTarget = targetIndex + (diff > 0 ? 1 : -1);
+                swiper.slideTo(newTarget, 520);
+                targetIndex = newTarget;
+              } else {
+                targetIndex = currentIdx;
+              }
+              
+              lastSlideTime = now;
+            },
+            slideChange: (swiper) => {
+              setCurrentIndex(swiper.activeIndex);
+              onSlideChange?.(swiper.activeIndex);
             },
             init: (swiper) => {
-              // Вызываем onSlideChange при инициализации
-              if (onSlideChange) {
-                onSlideChange(0);
-              }
+              setCurrentIndex(0);
+              onSlideChange?.(0);
+              targetIndex = 0;
             },
           },
         });
@@ -82,7 +124,6 @@ export function ReleasesSlider({ tracks, onSlideChange, onSlideClick }: Releases
 
     loadSwiper();
 
-    // Cleanup при размонтировании
     return () => {
       if (swiperInstanceRef.current) {
         swiperInstanceRef.current.destroy(true, true);
@@ -92,15 +133,11 @@ export function ReleasesSlider({ tracks, onSlideChange, onSlideClick }: Releases
   }, [tracks, onSlideChange]);
 
   const handlePrevClick = () => {
-    if (swiperInstanceRef.current) {
-      swiperInstanceRef.current.slidePrev();
-    }
+    swiperInstanceRef.current?.slidePrev();
   };
 
   const handleNextClick = () => {
-    if (swiperInstanceRef.current) {
-      swiperInstanceRef.current.slideNext();
-    }
+    swiperInstanceRef.current?.slideNext();
   };
 
   if (tracks.length === 0) {
@@ -111,22 +148,27 @@ export function ReleasesSlider({ tracks, onSlideChange, onSlideClick }: Releases
     );
   }
 
+  const isFirstSlide = currentIndex === 0;
+  const isLastSlide = currentIndex === tracks.length - 1;
+
   return (
     <div className={styles.releasesSlider}>
-      {/* Навигационная зона слева */}
-      <div
-        className={`${styles.navZone} ${styles.navZoneLeft}`}
-        onClick={handlePrevClick}
-        role="button"
-        aria-label="Предыдущий"
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            handlePrevClick();
-          }
-        }}
-      />
+      {/* Навигационная зона слева - только если не первый слайд */}
+      {!isFirstSlide && (
+        <div
+          className={`${styles.navZone} ${styles.navZoneLeft}`}
+          onClick={handlePrevClick}
+          role="button"
+          aria-label="Предыдущий"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              handlePrevClick();
+            }
+          }}
+        />
+      )}
 
       <div className={styles.swiper} ref={swiperRef}>
         <div className="swiper-wrapper">
@@ -155,20 +197,22 @@ export function ReleasesSlider({ tracks, onSlideChange, onSlideClick }: Releases
         </div>
       </div>
 
-      {/* Навигационная зона справа */}
-      <div
-        className={`${styles.navZone} ${styles.navZoneRight}`}
-        onClick={handleNextClick}
-        role="button"
-        aria-label="Следующий"
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            handleNextClick();
-          }
-        }}
-      />
+      {/* Навигационная зона справа - только если не последний слайд */}
+      {!isLastSlide && (
+        <div
+          className={`${styles.navZone} ${styles.navZoneRight}`}
+          onClick={handleNextClick}
+          role="button"
+          aria-label="Следующий"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              handleNextClick();
+            }
+          }}
+        />
+      )}
     </div>
   );
 }

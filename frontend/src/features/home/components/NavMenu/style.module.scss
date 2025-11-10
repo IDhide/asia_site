@@ -1,4 +1,3 @@
-@use '@/styles/variables' as *;
 
 .navMenu {
   position: absolute;
@@ -38,7 +37,7 @@
 
 .navLink {
   display: block;
-  transition: transform $transition-fast;
+  transition: transform var(--transition-fast);
 
   &:hover {
     transform: scale(1.05);

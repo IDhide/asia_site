@@ -64,7 +64,7 @@ export default function TrackDetailPage() {
   const hasLyrics = track.lyrics && track.lyrics.trim().length > 0;
 
   return (
-    <div className={styles.trackDetailPage}>
+    <div className='container-medium'>
       <button className={styles.backButton} onClick={() => router.back()}>
         ← Назад
       </button>

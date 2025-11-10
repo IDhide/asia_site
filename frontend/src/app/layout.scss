@@ -25,8 +25,26 @@
   z-index: -1;
 }
 
+
 .page-content {
   position: relative;
   min-height: 100vh;
   z-index: 0;
+  // Вертикальные отступы: сверху под хедер, снизу над футером
+  padding: clamp(100px, 12vh, 140px) 0 clamp(60px, 8vh, 100px);
+  
+  // Дочерние элементы с gap
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg);
+  
+  @media (max-width: 640px) {
+    padding: clamp(80px, 12vh, 100px) 0 clamp(40px, 6vh, 60px);
+    gap: var(--gap-md);
+  }
+  
+  // Переопределение для страницы треков
+  &:has(:global(.tracks-page-override)) {
+    padding: 0;
+  }
 }

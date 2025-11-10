@@ -1,11 +1,10 @@
-@use '@/styles/variables' as *;
 @use '@/styles/mixins' as *;
 
 .card {
   @include glass-effect;
-  border-radius: $radius-md;
+  border-radius: var(--radius-md);
   padding: 1.5rem;
-  transition: transform $transition-fast, box-shadow $transition-fast;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .card--default {

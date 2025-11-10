@@ -1,4 +1,3 @@
-@use '@/styles/variables' as *;
 @use '@/styles/mixins' as *;
 @use '@/styles/components' as *;
 
@@ -28,7 +27,7 @@
 
 .brand {
   display: block;
-  transition: opacity $transition-fast;
+  transition: opacity var(--transition-fast);
 
   &:hover {
     opacity: 0.8;
@@ -53,7 +52,7 @@
   }
 
   .caret {
-    transition: transform $transition-fast;
+    transition: transform var(--transition-fast);
   }
 
   &[aria-expanded="true"] .caret {
@@ -78,10 +77,10 @@
         align-items: center;
         justify-content: center;
         padding: clamp(0.5rem, 1.5vw, 0.75rem) clamp(0.75rem, 2vw, 1rem);
-        color: $color-text-primary;
+        color: var(--color-text-primary);
         text-decoration: none;
         border-radius: 10px;
-        transition: background $transition-fast;
+        transition: background var(--transition-fast);
 
         img {
           height: clamp(2rem, 4vw, 2.5rem);
