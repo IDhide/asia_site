@@ -50,17 +50,22 @@
 }
 
 .imageControls {
+  @include toggle-group-light('m');
   position: absolute;
   bottom: var(--gap-s);
   left: 50%;
   transform: translateX(-50%);
-  display: flex;
-  gap: var(--gap-s);
   z-index: 10;
 }
 
 .navButton {
-  @include button-icon(clamp(48px, 6vw, 56px));
+  @include toggle-pill-light('m');
+  @include toggle-separator;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
 }
 
 // Правая часть - информация
@@ -132,26 +137,25 @@
   line-height: 1.6;
 }
 
-.sizesRow {
+.sizeSelector {
   display: flex;
+  flex-direction: column;
   gap: var(--gap-xs);
-  flex-wrap: wrap;
+}
+
+.sizeLabel {
+  font-size: clamp(14px, 2vw, 16px);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.sizesToggle {
+  @include toggle-group('s');
+  width: fit-content;
 }
 
 .sizeButton {
-  @include button-glass('s');
-  color: rgba(255, 255, 255, 0.7);
-
-  &.active {
-    background: #fff;
-    color: #000;
-    border-color: #fff;
-
-    &:hover:not(:disabled) {
-      background: rgba(255, 255, 255, 0.85);
-      border-color: rgba(255, 255, 255, 0.9);
-    }
-  }
+  @include toggle-pill('s');
 }
 
 .thumbnailsWrapper {

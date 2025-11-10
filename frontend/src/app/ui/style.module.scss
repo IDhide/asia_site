@@ -1,0 +1,266 @@
+@use '@/styles/mixins' as *;
+@use '@/styles/components' as *;
+
+.uiPage {
+  @include page-container;
+  
+  :global(.container-m) {
+    max-width: var(--container-xl);
+  }
+}
+
+.pageTitle {
+  @include heading-page;
+  text-align: center;
+  margin-bottom: clamp(8px, 1vh, 12px);
+}
+
+.pageSubtitle {
+  @include text-subtitle;
+  text-align: center;
+  margin-bottom: clamp(48px, 8vh, 72px);
+}
+
+.section {
+  margin-bottom: clamp(60px, 10vh, 100px);
+}
+
+.sectionTitle {
+  @include heading-section;
+  padding-bottom: clamp(12px, 2vh, 16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.group {
+  margin-bottom: clamp(32px, 5vh, 48px);
+}
+
+.groupTitle {
+  font-size: clamp(16px, 2.2vw, 20px);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: clamp(16px, 2.5vh, 24px);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-m);
+  align-items: center;
+}
+
+// Buttons
+.buttonGlassXs {
+  @include button-glass('xs');
+}
+
+.buttonGlassS {
+  @include button-glass('s');
+}
+
+.buttonGlassM {
+  @include button-glass('m');
+}
+
+.buttonGlassL {
+  @include button-glass('l');
+}
+
+.buttonGlassXl {
+  @include button-glass('xl');
+}
+
+.buttonIcon {
+  @include button-icon;
+}
+
+.buttonGlow {
+  @include button-glass('l');
+  @include button-glow;
+}
+
+// Toggles
+.toggleGroup {
+  @include toggle-group('m');
+}
+
+.toggleGroupSmall {
+  @include toggle-group('s');
+}
+
+.togglePill {
+  @include toggle-pill('m');
+}
+
+.togglePillSmall {
+  @include toggle-pill('s');
+}
+
+.toggleGroupLight {
+  @include toggle-group-light('m');
+}
+
+.togglePillLight {
+  @include toggle-pill-light('m');
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.separator {
+  @include toggle-separator;
+}
+
+// Cards
+.cardGlass {
+  @include card-glass;
+  
+  h4 {
+    @include heading-card;
+    font-size: clamp(18px, 2.5vw, 22px);
+  }
+  
+  p {
+    @include text-subtitle;
+    font-size: clamp(14px, 2vw, 16px);
+  }
+}
+
+.cardInteractive {
+  @include card-interactive;
+  
+  h4 {
+    @include heading-card;
+    font-size: clamp(18px, 2.5vw, 22px);
+  }
+  
+  p {
+    @include text-subtitle;
+    font-size: clamp(14px, 2vw, 16px);
+  }
+}
+
+.cardCompact {
+  @include card-compact;
+  
+  p {
+    @include text-subtitle;
+    font-size: clamp(13px, 1.8vw, 15px);
+  }
+}
+
+// Typography
+.headingPage {
+  @include heading-page;
+}
+
+.headingSection {
+  @include heading-section;
+}
+
+.headingCard {
+  @include heading-card;
+}
+
+.textSubtitle {
+  @include text-subtitle;
+}
+
+.textMeta {
+  @include text-meta;
+}
+
+// Effects
+.glassDemo {
+  @include glass-effect;
+  padding: clamp(32px, 5vw, 48px);
+  border-radius: var(--radius-xl);
+  text-align: center;
+  
+  p {
+    @include text-subtitle;
+    margin: 0;
+  }
+}
+
+// Accordion
+.accordionList {
+  @include accordion-list;
+}
+
+.accordionItem {
+  @include accordion-item;
+  
+  &.open {
+    .accordionIcon {
+      transform: rotate(180deg);
+    }
+    
+    .accordionContent {
+      max-height: 1000px;
+      opacity: 1;
+    }
+  }
+}
+
+.accordionButton {
+  @include accordion-button;
+  
+  span {
+    flex: 1;
+  }
+}
+
+.accordionIcon {
+  @include accordion-icon;
+}
+
+.accordionContent {
+  @include accordion-content;
+}
+
+.accordionContentInner {
+  @include accordion-content-inner;
+}
+
+// Colors
+.colorGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--gap-m);
+}
+
+.colorSwatch {
+  @include card-glass;
+  padding: clamp(24px, 4vw, 32px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+  min-height: 120px;
+  justify-content: center;
+  
+  span {
+    font-weight: 600;
+    font-size: clamp(14px, 2vw, 16px);
+    color: #000;
+  }
+  
+  code {
+    font-size: clamp(11px, 1.5vw, 13px);
+    color: rgba(0, 0, 0, 0.7);
+    font-family: 'Courier New', monospace;
+  }
+}
+
+// Mobile
+@media (max-width: 640px) {
+  .row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .colorGrid {
+    grid-template-columns: 1fr;
+  }
+}

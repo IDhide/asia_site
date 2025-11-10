@@ -31,6 +31,8 @@
   --header-content-height: clamp(2.5rem, 5vw, 3.5rem);
   --header-total-height: calc(var(--header-top-offset) + var(--header-content-height));
   --header-blur-height: clamp(4.9rem, 10.5vh, 7.7rem);
+  --header-element-height: clamp(38px, 5vw, 48px); // Единая высота для всех элементов хедера
+  --header-logo-height: clamp(32px, 4.2vw, 42px); // Высота логотипа (чуть меньше элементов)
 
   // Page spacing (для layout страниц)
   --space-page-top: calc(var(--header-total-height) + clamp(2rem, 4vh, 3rem));

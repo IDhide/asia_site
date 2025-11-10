@@ -1,0 +1,60 @@
+@use './variables' as *;
+@use './effects' as *;
+
+// ========== Card System ==========
+
+// Base glass card
+@mixin card-glass {
+  @include glass-effect;
+  border-radius: var(--radius-xl);
+  padding: clamp(20px, 3vw, 32px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+// Interactive card with hover
+@mixin card-interactive {
+  @include card-glass;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow:
+      0 12px 32px rgba(0, 0, 0, 0.6),
+      0 0 28px rgba(255, 255, 255, 0.12);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Compact card
+@mixin card-compact {
+  @include glass-effect;
+  border-radius: var(--radius-l);
+  padding: clamp(12px, 2vw, 18px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all var(--transition-fast);
+}
+
+// Cover/Image wrapper
+@mixin cover-wrapper {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: #0e0e10;
+  box-shadow:
+    0 24px 72px rgba(0, 0, 0, 0.7),
+    0 0 60px rgba(255, 255, 255, 0.1);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}

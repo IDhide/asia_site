@@ -1,238 +1,33 @@
-@use './mixins' as *;
+// ========== Design System Components ==========
+// Централизованная система компонентов и миксинов
+// Все базовые миксины вынесены в отдельные модули для лучшей организации
 
-// ========== Buttons ==========
+// Forward all modules to make them available when importing components.scss
+@forward './variables';
+@forward './effects';
+@forward './buttons';
+@forward './toggles';
+@forward './cards';
+@forward './typography';
+@forward './layout';
+@forward './states';
 
-// Базовая кнопка
-@mixin button-base {
-  font-family: inherit;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  border: none;
-  padding: 0;
-  background: none;
+// Import for local use
+@use './variables' as *;
+@use './effects' as *;
+@use './buttons' as *;
 
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
-}
+// ========== Project-Specific Components ==========
+// Компоненты специфичные для этого проекта
 
-// Стеклянная кнопка (средний размер по умолчанию)
-@mixin button-glass($size: 'm') {
-  @include button-base;
-  @include glass-effect;
-  border-radius: var(--radius-full);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-
-  @if $size == 'xs' {
-    padding: clamp(6px, 1vw, 8px) clamp(12px, 2vw, 16px);
-    font-size: clamp(11px, 1.3vw, 13px);
-  } @else if $size == 's' {
-    padding: clamp(8px, 1.2vw, 10px) clamp(16px, 2.5vw, 20px);
-    font-size: clamp(12px, 1.5vw, 14px);
-  } @else if $size == 'm' {
-    padding: clamp(10px, 1.5vw, 14px) clamp(20px, 3vw, 28px);
-    font-size: clamp(14px, 1.8vw, 16px);
-  } @else if $size == 'l' {
-    padding: clamp(12px, 1.8vw, 16px) clamp(24px, 3.5vw, 36px);
-    font-size: clamp(16px, 2vw, 18px);
-  } @else if $size == 'xl' {
-    padding: clamp(14px, 2vw, 20px) clamp(28px, 4vw, 44px);
-    font-size: clamp(18px, 2.3vw, 20px);
-  }
-
-  &:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.35);
-    transform: translateY(-2px);
-  }
-
-  &:active:not(:disabled) {
-    transform: translateY(0);
-  }
-}
-
-// Кнопка-переключатель (toggle)
-@mixin button-toggle($size: 'm') {
-  @include button-glass($size);
-  color: rgba(255, 255, 255, 0.6);
-  border-color: rgba(255, 255, 255, 0.15);
-
-  &:hover:not(:disabled) {
-    color: rgba(255, 255, 255, 0.85);
-    border-color: rgba(255, 255, 255, 0.25);
-  }
-
-  &.active {
-    color: rgba(255, 255, 255, 0.95);
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.35);
-    box-shadow: 0 0 24px rgba(255, 255, 255, 0.15);
-  }
-}
-
-// Группа переключателей (pill-style toggle group)
-@mixin toggle-group($size: 'm') {
-  @include glass-effect;
-  display: inline-flex;
-  gap: clamp(4px, 0.8vw, 6px);
-  padding: clamp(4px, 0.8vw, 6px);
-  border-radius: var(--radius-full);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-@mixin toggle-pill($size: 'm') {
-  @include button-base;
-  border-radius: var(--radius-full);
-  color: rgba(255, 255, 255, 0.6);
-  background: transparent;
-  border: none;
-  transition: all var(--transition-fast);
-  letter-spacing: 0.05em;
-
-  @if $size == 's' {
-    padding: clamp(6px, 1vw, 8px) clamp(14px, 2.2vw, 18px);
-    font-size: clamp(11px, 1.4vw, 13px);
-  } @else if $size == 'm' {
-    padding: clamp(8px, 1.2vw, 10px) clamp(18px, 2.8vw, 24px);
-    font-size: clamp(13px, 1.6vw, 15px);
-  } @else if $size == 'l' {
-    padding: clamp(10px, 1.5vw, 14px) clamp(22px, 3.2vw, 30px);
-    font-size: clamp(15px, 1.9vw, 17px);
-  }
-
-  &:hover:not(:disabled):not(.active) {
-    color: rgba(255, 255, 255, 0.85);
-    background: rgba(255, 255, 255, 0.05);
-  }
-
-  &.active {
-    color: rgba(255, 255, 255, 0.95);
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 
-      0 2px 8px rgba(0, 0, 0, 0.3),
-      inset 0 1px 4px rgba(255, 255, 255, 0.1);
-
-    &:hover:not(:disabled) {
-      background: rgba(255, 255, 255, 0.18);
-      box-shadow: 
-        0 2px 10px rgba(0, 0, 0, 0.35),
-        inset 0 1px 5px rgba(255, 255, 255, 0.12);
-    }
-  }
-}
-
-// Кнопка "Назад"
-@mixin button-back($size: 'm') {
-  @include button-glass($size);
-
-  &:hover:not(:disabled) {
-    transform: translateX(-4px);
-  }
-}
-
-// Иконочная кнопка (квадратная)
-@mixin button-icon($size: clamp(48px, 6vw, 56px)) {
-  @include glass-effect;
-  width: $size;
-  height: $size;
-  border-radius: var(--radius-l);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  font-size: clamp(18px, 2.5vw, 22px);
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.95);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-  flex-shrink: 0;
-
-  &:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.4);
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-  }
-
-  &:active:not(:disabled) {
-    transform: translateY(0) scale(0.98);
-  }
-}
-
-// ========== Cards & Containers ==========
-
-// Базовая стеклянная карточка
-@mixin card-glass {
-  @include glass-effect;
-  border-radius: var(--radius-xl);
-  padding: clamp(20px, 3vw, 32px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-// Карточка с hover эффектом
-@mixin card-interactive {
-  @include card-glass;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
-    box-shadow:
-      0 12px 32px rgba(0, 0, 0, 0.6),
-      0 0 28px rgba(255, 255, 255, 0.12);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-}
-
-// Компактная карточка
-@mixin card-compact {
-  @include glass-effect;
-  border-radius: var(--radius-l);
-  padding: clamp(12px, 2vw, 18px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all var(--transition-fast);
-}
-
-// Обертка для обложки/изображения
-@mixin cover-wrapper {
-  width: 100%;
-  aspect-ratio: 1;
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  background: #0e0e10;
-  box-shadow:
-    0 24px 72px rgba(0, 0, 0, 0.7),
-    0 0 60px rgba(255, 255, 255, 0.1);
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-}
-
-// ========== Social Buttons ==========
-
-// Кнопка соцсети (стеклянная с иконкой)
+// Social Buttons
 @mixin social-button {
-  @include glass-effect;
+    @include button-glass('s');
   display: block;
   cursor: pointer;
   transition: all var(--transition-fast);
   border-radius: var(--radius-l);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+
 
   img {
     width: 100%;
@@ -252,7 +47,6 @@
   }
 }
 
-// Сетка кнопок соцсетей (3 в ряд)
 @mixin social-buttons-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -260,150 +54,36 @@
   width: 100%;
 }
 
-// ========== Typography ==========
-
-// Заголовок страницы
-@mixin heading-page {
-  font-size: clamp(28px, 4.5vw, 42px);
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.95);
-  margin: 0 0 clamp(10px, 1.5vh, 14px) 0;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-}
-
-// Заголовок секции
-@mixin heading-section {
-  font-size: clamp(24px, 3.5vw, 32px);
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.95);
-  margin: 0 0 clamp(24px, 3.5vh, 36px) 0;
-  letter-spacing: -0.01em;
-}
-
-// Заголовок карточки
-@mixin heading-card {
-  font-size: clamp(24px, 3.5vw, 36px);
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.95);
-  margin: 0 0 clamp(8px, 1.2vh, 12px) 0;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-}
-
-// Подзаголовок
-@mixin text-subtitle {
-  font-size: clamp(16px, 2.3vw, 20px);
-  color: rgba(255, 255, 255, 0.65);
-  margin: 0;
-  font-weight: 500;
-}
-
-// Мелкий текст (год, метаданные)
-@mixin text-meta {
-  font-size: clamp(14px, 2vw, 16px);
-  color: rgba(255, 255, 255, 0.5);
-  margin: 0;
-}
-
-// ========== Loading & Error States ==========
-
-// Состояние загрузки
-@mixin state-loading {
-  min-height: 100dvh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: clamp(18px, 2.8vw, 22px);
-  color: rgba(255, 255, 255, 0.7);
-  
-  @supports not (min-height: 100dvh) {
-    min-height: 100vh;
-  }
-}
-
-// Состояние ошибки
-@mixin state-error {
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(20px, 3vh, 32px);
-  padding: clamp(20px, 3vw, 40px);
-  
-  @supports not (min-height: 100dvh) {
-    min-height: 100vh;
-  }
-
-  h1 {
-    font-size: clamp(24px, 4vw, 36px);
-    color: rgba(255, 255, 255, 0.9);
-    margin: 0;
-  }
-}
-
-// ========== Layout Helpers ==========
-
-// Базовый контейнер страницы (используй это для всех страниц!)
-@mixin page-container {
-  min-height: 100dvh; // Dynamic viewport height (учитывает мобильные браузеры)
-  padding: var(--space-page-top) var(--space-page-x) var(--space-page-bottom);
-  
-  // Fallback для старых браузеров
-  @supports not (min-height: 100dvh) {
-    min-height: 100vh;
-  }
-}
-
-// Компактный контейнер (для модальных окон, попапов)
-@mixin page-container-compact {
-  min-height: 100dvh; // Dynamic viewport height
-  padding: clamp(80px, 10vh, 100px) var(--space-page-x) clamp(40px, 6vh, 60px);
-  
-  // Fallback для старых браузеров
-  @supports not (min-height: 100dvh) {
-    min-height: 100vh;
-  }
-}
-
-// Сетка контента (2 колонки)
-@mixin content-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(40px, 6vw, 80px);
-  align-items: start;
-
-  @media (max-width: 1024px) {
-    grid-template-columns: 1fr;
-    gap: clamp(32px, 5vh, 48px);
-  }
-}
-
-// Sticky секция (для обложек)
-@mixin sticky-section {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(24px, 3.5vh, 36px);
-  position: sticky;
-  top: clamp(100px, 12vh, 140px);
-
-  @media (max-width: 1024px) {
-    position: static;
-  }
-}
-
-// ========== Header Components ==========
-
-// Кнопка меню в хедере (просто стеклянная кнопка)
+// Header Components
 @mixin header-menu-button {
-  @include button-glass('m');
+  @include glass-effect;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: clamp(0.5rem, 1.5vw, 0.75rem);
+  height: var(--header-element-height);
+  padding: 0 clamp(16px, 2.5vw, 24px);
+  border-radius: calc(var(--header-element-height) / 2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: clamp(14px, 1.8vw, 16px);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  background: none;
+  font-family: inherit;
+
+  &:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-2px);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
 }
 
-// Dropdown меню
 @mixin header-dropdown {
   position: absolute;
   top: calc(100% + 0.5rem);
@@ -411,36 +91,40 @@
   @include glass-effect;
   border-radius: var(--radius-m);
   padding: 0.5rem;
-  
-  // Используем только opacity для анимации, чтобы не конфликтовать с transform
   opacity: 0;
   animation: dropdownFadeIn var(--transition-fast) forwards;
-  
-  // Позиционирование без анимации
   transform: translateX(-50%);
 }
 
-// Иконка корзины
-@mixin cart-icon {
-  @include button-glow;
+// Круглая иконка для хедера (универсальная)
+@mixin header-icon-button {
   @include glass-effect;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(2.6rem, 6.2vw, 3.25rem);
-  aspect-ratio: 1;
+  width: var(--header-element-height);
+  height: var(--header-element-height);
   border-radius: 50%;
-  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-size: clamp(14px, 1.8vw, 16px);
   text-decoration: none;
-  transition: transform var(--transition-fast);
+  cursor: pointer;
+  overflow: hidden;
+  transition: all var(--transition-fast);
 
   &:hover {
     transform: scale(1.05);
+    box-shadow:
+      0 0 32px rgba(255, 255, 255, 0.18),
+      inset 0 2px 12px rgba(255, 255, 255, 0.12);
   }
 }
 
-// Badge для счетчика
+// Legacy alias (для обратной совместимости)
+@mixin cart-icon {
+  @include header-icon-button;
+}
+
 @mixin badge {
   position: absolute;
   top: -4px;

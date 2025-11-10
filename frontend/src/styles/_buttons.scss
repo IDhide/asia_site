@@ -1,0 +1,121 @@
+@use './variables' as *;
+@use './effects' as *;
+
+// ========== Button System ==========
+
+// Base button (reset + common styles)
+@mixin button-base {
+  font-family: inherit;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: none;
+  padding: 0;
+  background: none;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+// Glass button with sizes
+@mixin button-glass($size: 'm') {
+  @include button-base;
+  @include glass-effect;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  @if $size == 'xs' {
+    padding: clamp(6px, 1vw, 8px) clamp(12px, 2vw, 16px);
+    font-size: clamp(11px, 1.3vw, 13px);
+  } @else if $size == 's' {
+    padding: clamp(8px, 1.2vw, 10px) clamp(16px, 2.5vw, 20px);
+    font-size: clamp(12px, 1.5vw, 14px);
+  } @else if $size == 'm' {
+    padding: clamp(10px, 1.5vw, 14px) clamp(20px, 3vw, 28px);
+    font-size: clamp(14px, 1.8vw, 16px);
+  } @else if $size == 'l' {
+    padding: clamp(12px, 1.8vw, 16px) clamp(24px, 3.5vw, 36px);
+    font-size: clamp(16px, 2vw, 18px);
+  } @else if $size == 'xl' {
+    padding: clamp(14px, 2vw, 20px) clamp(28px, 4vw, 44px);
+    font-size: clamp(18px, 2.3vw, 20px);
+  }
+
+  &:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-2px);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+}
+
+// Icon button (square/circle)
+@mixin button-icon($size: clamp(48px, 6vw, 56px)) {
+  @include glass-effect;
+  width: $size;
+  height: $size;
+  border-radius: var(--radius-l);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  font-size: clamp(18px, 2.5vw, 22px);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+
+  &:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0) scale(0.98);
+  }
+}
+
+// Back button
+@mixin button-back($size: 'm') {
+  @include button-glass($size);
+
+  &:hover:not(:disabled) {
+    transform: translateX(-4px);
+  }
+}
+
+// Button with glow effect
+@mixin button-glow {
+  position: relative;
+  transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: radial-gradient(
+      120% 120% at 50% 40%,
+      rgba(255, 255, 255, 0.18),
+      rgba(255, 255, 255, 0) 58%
+    );
+    pointer-events: none;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow:
+      0 0 32px rgba(255, 255, 255, 0.18),
+      inset 0 2px 12px rgba(255, 255, 255, 0.12);
+  }
+}

@@ -1,0 +1,29 @@
+// ========== Design Tokens ==========
+// Централизованные переменные для всей дизайн-системы
+
+// Breakpoints
+$breakpoint-mobile: 480px;
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1024px;
+$breakpoint-wide: 1440px;
+
+// Z-index Scale
+$z-index-background: -2;
+$z-index-overlay: -1;
+$z-index-base: 0;
+$z-index-blur: 10;
+$z-index-content: 20;
+$z-index-dropdown: 50;
+$z-index-header: 100;
+$z-index-modal: 1000;
+
+// Animation Durations
+$duration-fast: 0.22s;
+$duration-normal: 0.3s;
+$duration-slow: 0.5s;
+
+// Animation Easings
+$ease-default: ease;
+$ease-in: ease-in;
+$ease-out: ease-out;
+$ease-in-out: ease-in-out;

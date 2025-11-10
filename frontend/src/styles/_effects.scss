@@ -1,0 +1,119 @@
+@use './variables' as *;
+
+// ========== Visual Effects ==========
+
+// Glass morphism effect (enhanced)
+@mixin glass-effect($bg: null, $border: null, $intensity: 'normal') {
+  background: if($bg, $bg, var(--color-glass-bg));
+  border: 1px solid if($border, $border, var(--color-glass-border));
+  
+  @if $intensity == 'light' {
+    backdrop-filter: blur(10px) saturate(110%);
+    -webkit-backdrop-filter: blur(10px) saturate(110%);
+    box-shadow:
+      0 4px 16px rgba(0, 0, 0, 0.3),
+      0 0 12px rgba(255, 255, 255, 0.05),
+      inset 0 1px 6px rgba(255, 255, 255, 0.08);
+  } @else if $intensity == 'strong' {
+    backdrop-filter: blur(20px) saturate(140%) brightness(1.05);
+    -webkit-backdrop-filter: blur(20px) saturate(140%) brightness(1.05);
+    box-shadow:
+      0 12px 40px rgba(0, 0, 0, 0.6),
+      0 0 32px rgba(255, 255, 255, 0.12),
+      inset 0 3px 14px rgba(255, 255, 255, 0.12),
+      inset 0 -2px 8px rgba(0, 0, 0, 0.2);
+  } @else {
+    // Normal intensity (default)
+    backdrop-filter: blur(16px) saturate(130%) brightness(1.02);
+    -webkit-backdrop-filter: blur(16px) saturate(130%) brightness(1.02);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.5),
+      0 0 24px rgba(255, 255, 255, 0.1),
+      inset 0 2px 12px rgba(255, 255, 255, 0.12),
+      inset 0 -1px 6px rgba(0, 0, 0, 0.15);
+  }
+  
+  // Subtle gradient overlay for depth
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0) 50%,
+      rgba(0, 0, 0, 0.05) 100%
+    );
+    pointer-events: none;
+    opacity: 0.6;
+  }
+}
+
+// Custom scrollbar
+@mixin custom-scrollbar($width: 8px, $track-color: rgba(255, 255, 255, 0.1), $thumb-color: rgba(255, 255, 255, 0.3)) {
+  &::-webkit-scrollbar {
+    width: $width;
+    height: $width;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $track-color;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $thumb-color;
+    border-radius: calc($width / 2);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+  }
+}
+
+// Hide scrollbar
+@mixin hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+// Gradient mask (for fading edges)
+@mixin gradient-mask($direction: 'horizontal', $fade-size: 32px) {
+  @if $direction == 'horizontal' {
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black $fade-size,
+      black calc(100% - $fade-size),
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black $fade-size,
+      black calc(100% - $fade-size),
+      transparent 100%
+    );
+  } @else if $direction == 'vertical' {
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black $fade-size,
+      black calc(100% - $fade-size),
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black $fade-size,
+      black calc(100% - $fade-size),
+      transparent 100%
+    );
+  }
+}

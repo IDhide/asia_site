@@ -1,0 +1,50 @@
+// ========== Design System Entry Point ==========
+// Главная точка входа для всей дизайн-системы
+// Импортируйте этот файл для доступа ко всем миксинам и компонентам
+
+// Core modules
+@forward './variables';
+@forward './effects';
+@forward './buttons';
+@forward './toggles';
+@forward './cards';
+@forward './typography';
+@forward './layout';
+@forward './states';
+@forward './accordion';
+
+// Project-specific components
+@forward './components';
+
+// Responsive utilities
+@use './variables' as *;
+
+@mixin mobile {
+  @media (max-width: #{$breakpoint-tablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: $breakpoint-tablet) and (max-width: #{$breakpoint-desktop - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $breakpoint-desktop) {
+    @content;
+  }
+}
+
+@mixin wide {
+  @media (min-width: $breakpoint-wide) {
+    @content;
+  }
+}
+
+@mixin hover-supported {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}

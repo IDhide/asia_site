@@ -1,5 +1,4 @@
-@use '@/styles/mixins' as *;
-@use '@/styles/components' as *;
+@use '@/styles' as *;
 
 .siteHeader {
   position: fixed;
@@ -31,17 +30,19 @@
 }
 
 .brand {
-  display: block;
+  display: flex;
+  align-items: center;
   cursor: pointer;
   transition: opacity var(--transition-fast);
+  height: var(--header-element-height);
 
   &:hover {
     opacity: 0.8;
   }
 
   .iconBrand {
-    width: clamp(6rem, 12vw, 8.5rem);
-    height: auto;
+    height: var(--header-logo-height);
+    width: auto;
   }
 }
 
@@ -68,7 +69,29 @@
 }
 
 .dropdown {
-  @include header-dropdown;
+  position: absolute !important;
+  top: calc(100% + 0.5rem);
+  
+  // Центрирование относительно кнопки (по умолчанию)
+  left: 50%;
+  transform: translateX(-50%);
+  
+  // Раскомментируйте для выравнивания по левому краю:
+  // left: 0;
+  // transform: none;
+  
+  // Раскомментируйте для выравнивания по правому краю:
+  // right: 0;
+  // left: auto;
+  // transform: none;
+  
+  @include glass-effect;
+  border-radius: var(--radius-xl);
+  padding: 0.5rem;
+  min-width: 200px;
+  z-index: 200;
+  opacity: 0;
+  animation: dropdownFadeIn var(--transition-fast) forwards;
 
   ul {
     list-style: none;
@@ -108,6 +131,7 @@
 
 .cartIcon {
   @include cart-icon;
+  
 
   .badge {
     @include badge;

@@ -118,17 +118,20 @@ export function ProductPage({ product, allProducts, onClose }: ProductPageProps)
             )}
 
             {/* Размеры */}
-            <div className={styles.sizesRow}>
-              {sizes.map((size) => (
-                <button
-                  key={size}
-                  type="button"
-                  className={`${styles.sizeButton} ${selectedSize === size ? styles.active : ''}`}
-                  onClick={() => setSelectedSize(size)}
-                >
-                  {size}
-                </button>
-              ))}
+            <div className={styles.sizeSelector}>
+              <span className={styles.sizeLabel}>Размер:</span>
+              <div className={styles.sizesToggle}>
+                {sizes.map((size) => (
+                  <button
+                    key={size}
+                    type="button"
+                    className={`${styles.sizeButton} ${selectedSize === size ? styles.active : ''}`}
+                    onClick={() => setSelectedSize(size)}
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Галерея миниатюр */}

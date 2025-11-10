@@ -1,0 +1,64 @@
+@use '@/styles' as *;
+
+.faqPage {
+  @include page-container;
+  
+  :global(.container-m) {
+    max-width: var(--container-l);
+  }
+}
+
+.title {
+  @include heading-page;
+  text-align: center;
+  margin-bottom: clamp(40px, 6vh, 60px);
+}
+
+.faqList {
+  @include accordion-list;
+}
+
+.faqItem {
+  @include accordion-item;
+  
+  &.open {
+    .icon {
+      transform: rotate(180deg);
+    }
+    
+    .faqAnswer {
+      max-height: 1000px;
+      opacity: 1;
+    }
+  }
+}
+
+.faqQuestion {
+  @include accordion-button;
+  
+  span {
+    flex: 1;
+  }
+}
+
+.icon {
+  @include accordion-icon;
+}
+
+.faqAnswer {
+  @include accordion-content;
+}
+
+.faqAnswerContent {
+  @include accordion-content-inner;
+}
+
+// Mobile
+@media (max-width: 640px) {
+  .title {
+    font-size: clamp(24px, 6vw, 32px);
+    margin-bottom: clamp(24px, 5vh, 36px);
+  }
+  
+  @include accordion-mobile;
+}

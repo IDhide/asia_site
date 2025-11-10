@@ -1,0 +1,84 @@
+@use './variables' as *;
+
+// ========== Layout System ==========
+
+// Page container with padding
+@mixin page-container {
+  min-height: 100dvh;
+  padding: var(--space-page-top) var(--space-page-x) var(--space-page-bottom);
+  
+  @supports not (min-height: 100dvh) {
+    min-height: 100vh;
+  }
+}
+
+// Compact page container
+@mixin page-container-compact {
+  min-height: 100dvh;
+  padding: clamp(80px, 10vh, 100px) var(--space-page-x) clamp(40px, 6vh, 60px);
+  
+  @supports not (min-height: 100dvh) {
+    min-height: 100vh;
+  }
+}
+
+// Fullscreen page (no scroll)
+@mixin page-fullscreen {
+  height: 100dvh;
+  overflow: hidden;
+  padding: var(--space-page-top) 0 var(--space-page-bottom);
+  
+  @supports not (height: 100dvh) {
+    height: 100vh;
+  }
+}
+
+// Standard page padding
+@mixin page-padding {
+  padding: var(--space-page-top) 0 var(--space-page-bottom);
+}
+
+// Content grid (2 columns)
+@mixin content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: start;
+
+  @media (max-width: $breakpoint-desktop) {
+    grid-template-columns: 1fr;
+    gap: clamp(32px, 5vh, 48px);
+  }
+}
+
+// Sticky section
+@mixin sticky-section {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(24px, 3.5vh, 36px);
+  position: sticky;
+  top: clamp(100px, 12vh, 140px);
+
+  @media (max-width: $breakpoint-desktop) {
+    position: static;
+  }
+}
+
+// Aspect ratio (with fallback)
+@mixin aspect-ratio($width, $height) {
+  aspect-ratio: $width / $height;
+
+  @supports not (aspect-ratio: 1) {
+    &::before {
+      content: "";
+      float: left;
+      padding-top: calc(($height / $width) * 100%);
+    }
+
+    &::after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+  }
+}
