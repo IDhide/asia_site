@@ -2,22 +2,22 @@
 // Главная точка входа для всей дизайн-системы
 // Импортируйте этот файл для доступа ко всем миксинам и компонентам
 
-// Core modules
-@forward './variables';
-@forward './effects';
-@forward './buttons';
-@forward './toggles';
-@forward './cards';
-@forward './typography';
-@forward './layout';
-@forward './states';
-@forward './accordion';
+// Core modules (явные пути с расширениями для избежания конфликтов)
+@forward './_variables.scss';
+@forward './_effects.scss';
+@forward './_buttons.scss';
+@forward './_toggles.scss';
+@forward './_cards.scss';
+@forward './_typography.scss';
+@forward './_layout.scss';
+@forward './_states.scss';
+@forward './_accordion.scss';
 
 // Project-specific components
-@forward './components';
+@forward './components.scss';
 
 // Responsive utilities
-@use './variables' as *;
+@use './_variables.scss' as *;
 
 @mixin mobile {
   @media (max-width: #{$breakpoint-tablet - 1px}) {

@@ -3,19 +3,20 @@
 // Все базовые миксины вынесены в отдельные модули для лучшей организации
 
 // Forward all modules to make them available when importing components.scss
-@forward './variables';
-@forward './effects';
-@forward './buttons';
-@forward './toggles';
-@forward './cards';
-@forward './typography';
-@forward './layout';
-@forward './states';
+@forward './_variables.scss';
+@forward './_effects.scss';
+@forward './_buttons.scss';
+@forward './_toggles.scss';
+@forward './_cards.scss';
+@forward './_typography.scss';
+@forward './_layout.scss';
+@forward './_states.scss';
+@forward './_accordion.scss';
 
 // Import for local use
-@use './variables' as *;
-@use './effects' as *;
-@use './buttons' as *;
+@use './_variables.scss' as *;
+@use './_effects.scss' as *;
+@use './_buttons.scss' as *;
 
 // ========== Project-Specific Components ==========
 // Компоненты специфичные для этого проекта
