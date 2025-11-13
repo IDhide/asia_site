@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { SocialDock } from '@/components/SocialDock';
 import GradualBlur from '@/components/GradualBlur';
@@ -9,6 +10,8 @@ import styles from './style.module.scss';
 export function Footer() {
   const [isOpen, setIsOpen] = useState(false);
   const anchorRef = useRef<HTMLButtonElement>(null);
+  const pathname = usePathname();
+  const isHomePage = pathname === '/';
 
   const toggleDock = () => {
     setIsOpen(!isOpen);
@@ -61,7 +64,7 @@ export function Footer() {
         opacity={1}
         zIndex={1}
       />
-      <footer className={styles.siteFooter} role="contentinfo">
+      <footer className={`${styles.siteFooter} ${isHomePage ? styles.homePage : ''}`} role="contentinfo">
         <div className={styles.footerContent}>
         <button
           ref={anchorRef}

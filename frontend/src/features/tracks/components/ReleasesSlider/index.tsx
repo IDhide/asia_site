@@ -16,27 +16,27 @@ const getCoverflowConfig = () => {
   
   if (isMobile) {
     return {
-      rotateY: 105,           // Меньший угол для мобильных
-      translateZ: 240,       // Меньшая глубина
-      translateX: 1,        // Меньшее расстояние
+      rotateY: 110,      
+      translateZ: 240,   
+      translateX: 1,        
       scaleMin: 0.7,
       scaleStep: 0.12,
       opacityMin: 0.15,
       opacityStep: 0.3,
-      rotateYMax: 70,
+      rotateYMax: 80,
     };
   }
   
   if (isTablet) {
     return {
-      rotateY: 105,
+      rotateY: 110,
       translateZ: 500,
       translateX: 0,
       scaleMin: 0.72,
       scaleStep: 0.11,
       opacityMin: 0.12,
       opacityStep: 0.27,
-      rotateYMax: 70,
+      rotateYMax: 80,
     };
   }
   
@@ -145,7 +145,12 @@ export function ReleasesSlider({ tracks, onSlideChange, onSlideClick }: Releases
     // 2. rotateY - затем поворачиваем (создает веер)
     // 3. translateZ - отодвигаем боковые обложки назад
     // Инвертируем translateX и rotateY для естественного направления (первая карточка слева)
-    const rotateY = Math.max(-coverflowConfig.rotateYMax, Math.min(coverflowConfig.rotateYMax, -offset * coverflowConfig.rotateY));
+    
+    // Используем плавную кривую (easing) для более отзывчивого начала поворота
+    // Math.pow(absOffset, 0.7) создает ускорение в начале движения
+    const easedOffset = absOffset < 1 ? Math.pow(absOffset, 0.7) : absOffset;
+    const rotateY = Math.max(-coverflowConfig.rotateYMax, Math.min(coverflowConfig.rotateYMax, -Math.sign(offset) * easedOffset * coverflowConfig.rotateY));
+    
     const translateZ = -absOffset * coverflowConfig.translateZ;
     const translateX = -offset * coverflowConfig.translateX;
     const scale = Math.max(coverflowConfig.scaleMin, 1 - absOffset * coverflowConfig.scaleStep);

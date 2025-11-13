@@ -23,6 +23,14 @@
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
   gap: var(--gap-s);
+
+  // На мобильных скрываем элементы, если это не главная страница
+  @media (max-width: 768px) {
+    .siteFooter:not(.homePage) & {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
 }
 
 .socialMedia {
