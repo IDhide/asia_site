@@ -38,10 +38,10 @@
   transform-origin: center;
   transition: height 0.06s ease-out, top 0.06s ease-out;
 
-  &:nth-child(1) { left: 2px; }
+  &:nth-child(1) { left: 12px; }
   &:nth-child(2) { left: 7px; }
-  &:nth-child(3) { left: 12px; }
-  &:nth-child(4) { left: 17px; }
+  &:nth-child(3) { left: 17px; }
+  &:nth-child(4) { left: 2px; }
   &:nth-child(5) { left: 22px; }
 }
 
