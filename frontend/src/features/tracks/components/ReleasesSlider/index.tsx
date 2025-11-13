@@ -9,16 +9,48 @@ import styles from './style.module.scss';
 // НАСТРОЙКИ 3D COVERFLOW СЛАЙДЕРА
 // ============================================================================
 
-// 3D эффект (Apple Cover Flow стиль)
-const COVERFLOW_CONFIG = {
-  rotateY: 110,           // Угол поворота обложек по оси Y (градусы) - как у Apple
-  translateZ: 550,       // Глубина 3D пространства (px) - боковые обложки уходят назад
-  translateX: 80,       // Горизонтальное расстояние между обложками (px)
-  scaleMin: 0.75,        // Минимальный масштаб дальних обложек
-  scaleStep: 0.1,        // Шаг уменьшения масштаба
-  opacityMin: 0.1,       // Минимальная прозрачность дальних обложек
-  opacityStep: 0.25,     // Шаг уменьшения прозрачности
-  rotateYMax: 70,        // Максимальный угол поворота (градусы)
+// Функция для получения адаптивных настроек 3D эффекта
+const getCoverflowConfig = () => {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+  const isTablet = typeof window !== 'undefined' && window.innerWidth > 768 && window.innerWidth <= 1024;
+  
+  if (isMobile) {
+    return {
+      rotateY: 105,           // Меньший угол для мобильных
+      translateZ: 240,       // Меньшая глубина
+      translateX: 1,        // Меньшее расстояние
+      scaleMin: 0.7,
+      scaleStep: 0.12,
+      opacityMin: 0.15,
+      opacityStep: 0.3,
+      rotateYMax: 70,
+    };
+  }
+  
+  if (isTablet) {
+    return {
+      rotateY: 105,
+      translateZ: 500,
+      translateX: 0,
+      scaleMin: 0.72,
+      scaleStep: 0.11,
+      opacityMin: 0.12,
+      opacityStep: 0.27,
+      rotateYMax: 70,
+    };
+  }
+  
+  // Desktop (по умолчанию)
+  return {
+    rotateY: 110,
+    translateZ: 730,
+    translateX: 80,
+    scaleMin: 0.75,
+    scaleStep: 0.1,
+    opacityMin: 0.1,
+    opacityStep: 0.25,
+    rotateYMax: 70,
+  };
 };
 
 // Чувствительность управления
@@ -70,11 +102,22 @@ export function ReleasesSlider({ tracks, onSlideChange, onSlideClick }: Releases
     new Set(Array.from({ length: PRELOAD_CONFIG.initial }, (_, i) => i))
   );
   const [isDragging, setIsDragging] = useState(false);
+  const [coverflowConfig, setCoverflowConfig] = useState(getCoverflowConfig());
   const dragStartRef = useRef({ x: 0, scrollLeft: 0 });
   const velocityRef = useRef(0);
   const lastPosRef = useRef(0);
   const animationFrameRef = useRef<number | null>(null);
   const { getMediaUrl } = useMediaUrl();
+
+  // Обновляем конфиг при изменении размера окна
+  useEffect(() => {
+    const handleResize = () => {
+      setCoverflowConfig(getCoverflowConfig());
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Предзагрузка изображений рядом с текущим
   useEffect(() => {
@@ -102,11 +145,11 @@ export function ReleasesSlider({ tracks, onSlideChange, onSlideClick }: Releases
     // 2. rotateY - затем поворачиваем (создает веер)
     // 3. translateZ - отодвигаем боковые обложки назад
     // Инвертируем translateX и rotateY для естественного направления (первая карточка слева)
-    const rotateY = Math.max(-COVERFLOW_CONFIG.rotateYMax, Math.min(COVERFLOW_CONFIG.rotateYMax, -offset * COVERFLOW_CONFIG.rotateY));
-    const translateZ = -absOffset * COVERFLOW_CONFIG.translateZ;
-    const translateX = -offset * COVERFLOW_CONFIG.translateX;
-    const scale = Math.max(COVERFLOW_CONFIG.scaleMin, 1 - absOffset * COVERFLOW_CONFIG.scaleStep);
-    const opacity = Math.max(COVERFLOW_CONFIG.opacityMin, 1 - absOffset * COVERFLOW_CONFIG.opacityStep);
+    const rotateY = Math.max(-coverflowConfig.rotateYMax, Math.min(coverflowConfig.rotateYMax, -offset * coverflowConfig.rotateY));
+    const translateZ = -absOffset * coverflowConfig.translateZ;
+    const translateX = -offset * coverflowConfig.translateX;
+    const scale = Math.max(coverflowConfig.scaleMin, 1 - absOffset * coverflowConfig.scaleStep);
+    const opacity = Math.max(coverflowConfig.opacityMin, 1 - absOffset * coverflowConfig.opacityStep);
     
     return {
       // Порядок: translateZ -> rotateY -> translateX (справа налево!)
@@ -114,7 +157,7 @@ export function ReleasesSlider({ tracks, onSlideChange, onSlideClick }: Releases
       opacity,
       zIndex: Math.round(100 - absOffset * 10),
     };
-  }, []);
+  }, [coverflowConfig]);
 
   // Обновление позиций слайдов
   const updateSlides = useCallback(() => {

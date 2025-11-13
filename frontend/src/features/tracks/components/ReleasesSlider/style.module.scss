@@ -6,20 +6,22 @@
   display: flex;
   align-items: center;
   overflow: hidden;
-  perspective: 2000px; // Apple-стиль перспектива
+  // Адаптивная перспектива: от 800px на мобильных до 2000px на десктопе
+  perspective: clamp(800px, 100vw + 500px, 2000px);
   perspective-origin: 50% 50%;
 }
 
 .coverflowContainer {
   width: 100%;
-  height: min(60vh, 70vw, 900px);
+  // Адаптивная высота с использованием clamp
+  height: clamp(300px, 60vh, 900px);
   position: relative;
   cursor: grab;
   user-select: none;
   -webkit-user-select: none;
-  touch-action: none; // Полностью отключаем стандартные жесты браузера
-  overscroll-behavior: contain; // Предотвращаем overscroll навигацию
-  transform-style: preserve-3d; // ВАЖНО: сохраняем 3D контекст
+  touch-action: none;
+  overscroll-behavior: contain;
+  transform-style: preserve-3d;
   
   &:active {
     cursor: grabbing;
@@ -34,19 +36,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  // НЕ добавляем transform: translateZ(0) - это ломает 3D контекст!
 }
 
 .slide {
   position: absolute;
-  width: min(60vh, 70vw, 900px);
-  height: min(60vh, 70vw, 900px);
+  // Адаптивный размер слайда с использованием clamp
+  --slide-size: clamp(300px, 60vh, 900px);
+  width: var(--slide-size);
+  height: var(--slide-size);
   left: 50%;
   top: 50%;
-  margin-left: calc(min(60vh, 70vw, 900px) / -2);
-  margin-top: calc(min(60vh, 70vw, 900px) / -2);
+  margin-left: calc(var(--slide-size) / -2);
+  margin-top: calc(var(--slide-size) / -2);
   transform-style: preserve-3d;
-  transition: none; // Убираем transition для плавности при драге
+  transition: none;
   cursor: pointer;
   will-change: transform, opacity, z-index;
   backface-visibility: visible;
@@ -158,46 +161,48 @@
 // Узкие по высоте экраны (ноутбуки, планшеты в landscape)
 @media (max-height: 800px) {
   .coverflowContainer {
-    height: min(60vh, 60vw, 380px);
+    height: clamp(280px, 50vh, 380px);
   }
 
   .slide {
-    width: min(60vh, 60vw, 380px);
-    height: min(60vh, 60vw, 380px);
-    margin-left: calc(min(60vh, 60vw, 380px) / -2);
-    margin-top: calc(min(60vh, 60vw, 380px) / -2);
+    --slide-size: clamp(280px, 50vh, 380px);
   }
 }
 
 // Очень узкие по высоте экраны
 @media (max-height: 650px) {
   .coverflowContainer {
-    height: min(35vh, 50vw, 300px);
+    height: clamp(250px, 40vh, 300px);
   }
 
   .slide {
-    width: min(35vh, 50vw, 300px);
-    height: min(35vh, 50vw, 300px);
-    margin-left: calc(min(35vh, 50vw, 300px) / -2);
-    margin-top: calc(min(35vh, 50vw, 300px) / -2);
+    --slide-size: clamp(250px, 40vh, 300px);
   }
 }
 
 // Mobile
 @media (max-width: 768px) {
   .releasesSlider {
-    perspective: 800px;
+    perspective: clamp(600px, 80vw + 200px, 1000px);
   }
 
   .coverflowContainer {
-    height: min(58vh, 88vw, 420px);
+    height: clamp(280px, 65vh, 420px);
   }
 
   .slide {
-    width: min(58vh, 88vw, 420px);
-    height: min(58vh, 88vw, 420px);
-    margin-left: calc(min(58vh, 88vw, 420px) / -2);
-    margin-top: calc(min(58vh, 88vw, 420px) / -2);
+    --slide-size: clamp(280px, 65vh, 420px);
+  }
+}
+
+// Очень маленькие экраны
+@media (max-width: 480px) {
+  .coverflowContainer {
+    height: clamp(250px, 60vh, 350px);
+  }
+
+  .slide {
+    --slide-size: clamp(250px, 60vh, 350px);
   }
 }
 
