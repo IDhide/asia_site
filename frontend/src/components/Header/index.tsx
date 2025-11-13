@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -13,6 +13,8 @@ export function Header() {
   const pathname = usePathname();
   const { itemCount } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const getPageImage = (path: string): string | null => {
     if (path.startsWith('/tracks')) return '/assets/linked/Treki.svg';
@@ -22,6 +24,29 @@ export function Header() {
   };
 
   const currentPageImage = getPageImage(pathname);
+
+  // Закрытие меню при клике вне его
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        menuOpen &&
+        dropdownRef.current &&
+        buttonRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        !buttonRef.current.contains(event.target as Node)
+      ) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [menuOpen]);
+
+  // Закрытие меню при изменении роута
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
 
   return (
     <>
@@ -56,34 +81,62 @@ export function Header() {
           {pathname !== '/' && currentPageImage && (
             <div className={styles.navGroup}>
               <button
+                ref={buttonRef}
                 className={styles.menuToggle}
                 onClick={() => setMenuOpen(!menuOpen)}
                 aria-expanded={menuOpen}
                 aria-label="Открыть меню"
                 type="button"
               >
-                <img src={currentPageImage} alt="Текущая страница" className={styles.currentPageImage} />
+                <Image
+                  src={currentPageImage}
+                  alt="Текущая страница"
+                  width={120}
+                  height={40}
+                  priority
+                  className={styles.currentPageImage}
+                />
                 <svg className={styles.caret} width="16" height="16" viewBox="0 0 24 24">
                   <path fill="currentColor" d="M7 10l5 5 5-5z" />
                 </svg>
               </button>
 
               {menuOpen && (
-                <div className={styles.dropdown}>
+                <div ref={dropdownRef} className={styles.dropdown}>
                   <ul role="menu">
                     <li role="none">
                       <Link href="/tracks" onClick={() => setMenuOpen(false)} role="menuitem">
-                        <img src="/assets/linked/Treki.svg" alt="Треки" />
+                        <Image
+                          src="/assets/linked/Treki.svg"
+                          alt="Треки"
+                          width={120}
+                          height={40}
+                          priority
+                        />
                       </Link>
                     </li>
+                    <li role="none" className={styles.separator}></li>
                     <li role="none">
                       <Link href="/concerts" onClick={() => setMenuOpen(false)} role="menuitem">
-                        <img src="/assets/linked/Concerts.svg" alt="Концерты" />
+                        <Image
+                          src="/assets/linked/Concerts.svg"
+                          alt="Концерты"
+                          width={120}
+                          height={40}
+                          priority
+                        />
                       </Link>
                     </li>
+                    <li role="none" className={styles.separator}></li>
                     <li role="none">
                       <Link href="/shop" onClick={() => setMenuOpen(false)} role="menuitem">
-                        <img src="/assets/linked/Merch.svg" alt="Мерч" />
+                        <Image
+                          src="/assets/linked/Merch.svg"
+                          alt="Мерч"
+                          width={120}
+                          height={40}
+                          priority
+                        />
                       </Link>
                     </li>
                   </ul>

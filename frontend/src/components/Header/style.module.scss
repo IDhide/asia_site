@@ -95,7 +95,7 @@
 
   ul {
     list-style: none;
-    padding: 0.25rem;
+    padding: 0.05rem;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -109,7 +109,7 @@
         padding: clamp(0.5rem, 1.5vw, 0.75rem) clamp(0.75rem, 2vw, 1rem);
         color: var(--color-text-primary);
         text-decoration: none;
-        border-radius: 10px;
+        border-radius: 30px;
         transition: background var(--transition-fast);
 
         img {
@@ -122,6 +122,12 @@
         &:hover {
           background: rgba(255, 255, 255, 0.08);
         }
+      }
+
+      &.separator {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.3);
+        margin: 0.25rem 4.5rem;
       }
     }
   }

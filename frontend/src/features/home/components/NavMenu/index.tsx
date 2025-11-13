@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './style.module.scss';
 
 const navItems = [
@@ -16,10 +17,13 @@ export function NavMenu() {
         {navItems.map((item) => (
           <li key={item.href} className={styles.navMenuItem}>
             <Link href={item.href} className={styles.navLink}>
-              <img
+              <Image
                 className={styles.navLabel}
                 src={item.imageSrc}
                 alt={item.title}
+                width={200}
+                height={80}
+                priority
               />
             </Link>
           </li>

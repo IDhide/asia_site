@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import type { SliderItem } from '@/types/track';
 import styles from './style.module.scss';
 
@@ -58,7 +59,13 @@ export function TrackInfo({ track }: TrackInfoProps) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img src={social.icon} alt="" />
+            <Image
+              src={social.icon}
+              alt=""
+              width={48}
+              height={48}
+              priority
+            />
           </a>
         ))}
       </div>
