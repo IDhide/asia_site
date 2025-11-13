@@ -1,0 +1,28 @@
+/**
+ * Централизованные шрифты
+ * Импортируем из /public/apps/shared/fonts/
+ */
+
+/* Импорт всех шрифтов из централизованного файла */
+@import url('/apps/shared/fonts/fonts.css');
+
+/* Классы для использования шрифтов */
+.font-inter {
+  font-family: var(--font-inter);
+}
+
+.font-vestibule {
+  font-family: var(--font-vestibule);
+}
+
+.font-montserrat {
+  font-family: var(--font-montserrat);
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}

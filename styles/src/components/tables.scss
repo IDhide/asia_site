@@ -1,0 +1,298 @@
+/* ================================================
+   TABLES
+   Таблицы для отображения данных
+   ================================================ */
+
+/* Адаптивная обертка */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+
+    /* Кастомный scrollbar */
+    &::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: var(--card-bg-secondary);
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--border-color);
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: var(--text-quaternary-color);
+    }
+}
+
+/* Базовая таблица */
+.table {
+    width: auto;
+    margin: auto;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background: var(--card-bg);
+    color: var(--text-color);
+    font-size: var(--p3-size);
+    line-height: 1.5;
+
+    /* Заголовки */
+    thead {
+        background: var(--card-bg-secondary);
+        border-bottom: 2px solid var(--border-color);
+
+        th {
+            padding: clamp(12px, 2vw, 16px) clamp(14px, 2.5vw, 18px);
+            text-align: left;
+            font-weight: 500;
+            color: var(--text-color);
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+            background: var(--card-bg-secondary);
+            z-index: 10;
+
+            &:first-child {
+                padding-left: clamp(16px, 3vw, 24px);
+            }
+
+            &:last-child {
+                padding-right: clamp(16px, 3vw, 24px);
+            }
+        }
+    }
+
+    /* Тело таблицы */
+    tbody {
+        tr {
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.2s ease;
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+
+        td {
+            padding: clamp(12px, 2vw, 16px) clamp(14px, 2.5vw, 18px);
+            color: var(--text-color);
+            vertical-align: middle;
+
+            &:first-child {
+                padding-left: clamp(16px, 3vw, 24px);
+            }
+
+            &:last-child {
+                padding-right: clamp(16px, 3vw, 24px);
+            }
+        }
+    }
+
+    /* Футер */
+    tfoot {
+        background: var(--card-bg-secondary);
+        border-top: 2px solid var(--border-color);
+
+        td {
+            padding: clamp(12px, 2vw, 16px) clamp(14px, 2.5vw, 18px);
+            font-weight: 500;
+
+            &:first-child {
+                padding-left: clamp(16px, 3vw, 24px);
+            }
+
+            &:last-child {
+                padding-right: clamp(16px, 3vw, 24px);
+            }
+        }
+    }
+}
+
+/* Hover эффект на строках */
+.table-hover {
+    tbody tr {
+        @media (hover: hover) and (pointer: fine) {
+            &:hover {
+                background: var(--card-bg-hover);
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+/* Чередующиеся строки */
+.table-striped {
+    tbody tr:nth-child(even) {
+        background: var(--card-bg-secondary);
+    }
+}
+
+/* Таблица с границами */
+.table-bordered {
+    border: 1px solid var(--border-color);
+    border-radius: var(--card-border-radius-m);
+    overflow: hidden;
+
+    thead th,
+    tbody td,
+    tfoot td {
+        border-right: 1px solid var(--border-color);
+
+        &:last-child {
+            border-right: none;
+        }
+    }
+}
+
+/* Компактная версия */
+.table-compact {
+    thead th {
+        padding: clamp(8px, 1.5vw, 10px) clamp(10px, 2vw, 12px);
+        font-size: var(--p3-size);
+
+        &:first-child {
+            padding-left: clamp(12px, 2.5vw, 16px);
+        }
+
+        &:last-child {
+            padding-right: clamp(12px, 2.5vw, 16px);
+        }
+    }
+
+    tbody td {
+        padding: clamp(8px, 1.5vw, 10px) clamp(10px, 2vw, 12px);
+        font-size: var(--p3-size);
+
+        &:first-child {
+            padding-left: clamp(12px, 2.5vw, 16px);
+        }
+
+        &:last-child {
+            padding-right: clamp(12px, 2.5vw, 16px);
+        }
+    }
+
+    tfoot td {
+        padding: clamp(8px, 1.5vw, 10px) clamp(10px, 2vw, 12px);
+        font-size: var(--p3-size);
+
+        &:first-child {
+            padding-left: clamp(12px, 2.5vw, 16px);
+        }
+
+        &:last-child {
+            padding-right: clamp(12px, 2.5vw, 16px);
+        }
+    }
+}
+
+/* Состояния строк */
+.table tbody {
+    tr.table-row-selected {
+        background: rgba(0, 195, 255, 0.1);
+
+        &:hover {
+            background: rgba(0, 195, 255, 0.15);
+        }
+    }
+
+    tr.table-row-disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    tr.table-row-success {
+        background: rgba(46, 204, 64, 0.05);
+    }
+
+    tr.table-row-warning {
+        background: rgba(255, 170, 0, 0.05);
+    }
+
+    tr.table-row-error {
+        background: rgba(255, 30, 30, 0.05);
+    }
+}
+
+/* Кнопки сортировки */
+.sort-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0;
+    color: inherit;
+    font: inherit;
+    white-space: nowrap;
+    transition: opacity 0.2s ease;
+}
+
+.sort-button:hover {
+    opacity: 0.7;
+}
+
+.sort-button.active {
+    font-weight: 500;
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .sort-button:hover {
+        opacity: 1;
+    }
+}
+
+/* Выравнивание */
+.table-align-center {
+    text-align: center;
+}
+
+.table-align-right {
+    text-align: right;
+}
+
+/* Фиксированная ширина колонок */
+.table-fixed {
+    table-layout: fixed;
+
+    td,
+    th {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+/* Отключаем hover на touch устройствах */
+@media (hover: none) and (pointer: coarse) {
+    .table-hover tbody tr:hover {
+        background: transparent;
+        cursor: default;
+    }
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+    .table {
+        font-size: var(--p3-size);
+
+        thead th,
+        tbody td,
+        tfoot td {
+            padding: clamp(8px, 2vw, 10px) clamp(10px, 2.5vw, 12px);
+
+            &:first-child {
+                padding-left: clamp(12px, 3vw, 14px);
+            }
+
+            &:last-child {
+                padding-right: clamp(12px, 3vw, 14px);
+            }
+        }
+    }
+}

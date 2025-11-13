@@ -21,7 +21,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  @include glass-effect;
+  @include glass-real;
   border-radius: var(--radius-l);
   overflow: hidden;
   aspect-ratio: 1/1;
@@ -94,6 +94,9 @@
 .priceRow {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-m);
+  flex-wrap: wrap;
 }
 
 .price {
@@ -101,26 +104,23 @@
   font-weight: 700;
 }
 
-.actions {
-  display: flex;
-  gap: var(--gap-s);
-  flex-wrap: wrap;
-}
-
-.buyButton {
-  @include button-glass('l');
+.addToCartButton {
+  @include button-glass('m');
   background: #fff;
   color: #000;
+  display: flex;
+  align-items: center;
+  gap: var(--gap-xs);
+
+  img {
+    width: clamp(18px, 2vw, 22px);
+    height: clamp(18px, 2vw, 22px);
+    filter: invert(1);
+  }
 
   &:hover:not(:disabled) {
     background: rgba(255, 255, 255, 0.85);
-    border-color: rgba(255, 255, 255, 0.9);
   }
-}
-
-.cartBadge {
-  @include button-glass('m');
-  color: rgba(255, 255, 255, 0.8);
 }
 
 // Нижний блок: описание, размеры, галерея

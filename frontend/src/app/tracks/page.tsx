@@ -61,43 +61,44 @@ export default function TracksPage() {
 
   return (
     <div className={styles.tracksPage}>
-      {/* Переключатель треки/альбомы */}
-      <div className={styles.viewToggle}>
-        <button
-          className={`${styles.toggleButton} ${viewMode === 'tracks' ? styles.active : ''}`}
-          onClick={() => handleViewModeChange('tracks')}
-        >
-          ТРЕКИ
-        </button>
-        <button
-          className={`${styles.toggleButton} ${viewMode === 'albums' ? styles.active : ''}`}
-          onClick={() => handleViewModeChange('albums')}
-        >
-          АЛЬБОМЫ
-        </button>
-      </div>
+      {/* Контейнер для обложек и информации */}
+      <div className={styles.contentContainer}>
+        {/* Переключатель треки/альбомы */}
+        <div className={styles.toggleContainer}>
+          <div className={styles.viewToggle}>
+            <button
+              className={`${styles.toggleButton} ${viewMode === 'tracks' ? styles.active : ''}`}
+              onClick={() => handleViewModeChange('tracks')}
+            >
+              ТРЕКИ
+            </button>
+            <button
+              className={`${styles.toggleButton} ${viewMode === 'albums' ? styles.active : ''}`}
+              onClick={() => handleViewModeChange('albums')}
+            >
+              АЛЬБОМЫ
+            </button>
+          </div>
+        </div>
 
-      {/* Слайдер с обложками */}
-      <div className={styles.sliderWrapper}>
-        <ReleasesSlider
-          key={viewMode}
-          tracks={displayItems}
-          onSlideChange={setCurrentIndex}
-          onSlideClick={handleItemClick}
-        />
-      </div>
+        {/* Слайдер с обложками */}
+        <div className={styles.sliderWrapper}>
+          <ReleasesSlider
+            key={viewMode}
+            tracks={displayItems}
+            onSlideChange={setCurrentIndex}
+            onSlideClick={handleItemClick}
+          />
+        </div>
 
-      {/* Информация о треке/альбоме и кнопки */}
-      <div className={styles.trackInfoWrapper}>
-        {currentItem && (
+        {/* Информация о треке/альбоме */}
+        <div className={styles.trackInfoWrapper}>
           <TrackInfo
             track={currentItem}
             onLyricsClick={handleItemClick}
           />
-        )}
+        </div>
       </div>
     </div>
-
-
   );
 }

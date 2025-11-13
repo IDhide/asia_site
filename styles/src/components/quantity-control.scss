@@ -1,0 +1,95 @@
+/* ================================================
+   QUANTITY CONTROL
+   Компонент выбора количества товара
+   ================================================ */
+
+.quantity-control {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    border-radius: var(--card-border-radius-s);
+    overflow: hidden;
+    height: var(--button-height-s);
+    background: var(--card-bg);
+}
+
+.quantity-btn {
+    background: transparent;
+    border: none;
+    width: clamp(28px, 4vw, 32px);
+    height: 100%;
+    font-size: var(--p2-size);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s ease;
+    color: var(--text-color);
+    font-family: var(--font-primary);
+    outline: none;
+
+    &:hover:not(:disabled) {
+        background-color: var(--hover-bg);
+    }
+
+    &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--text-tertiary-color);
+        outline-offset: -2px;
+    }
+
+    &:active:not(:disabled) {
+        transform: scale(0.95);
+    }
+}
+
+.quantity-value {
+    padding: 0 clamp(8px, 1.5vw, 12px);
+    min-width: clamp(28px, 4vw, 36px);
+    text-align: center;
+    font-size: var(--p2-size);
+    color: var(--text-color);
+    user-select: none;
+}
+
+/* ================================================
+   РАЗМЕРЫ
+   ================================================ */
+
+.quantity-control-s {
+    height: var(--button-height-xs);
+
+    .quantity-btn {
+        width: clamp(24px, 3vw, 28px);
+        font-size: var(--p3-size);
+    }
+
+    .quantity-value {
+        font-size: var(--p3-size);
+        min-width: clamp(24px, 3vw, 32px);
+        padding: 0 clamp(6px, 1vw, 10px);
+    }
+}
+
+.quantity-control-m {
+    height: var(--button-height-s);
+}
+
+.quantity-control-l {
+    height: var(--button-height-m);
+
+    .quantity-btn {
+        width: clamp(32px, 5vw, 40px);
+        font-size: var(--p1-size);
+    }
+
+    .quantity-value {
+        font-size: var(--p1-size);
+        min-width: clamp(32px, 5vw, 40px);
+        padding: 0 clamp(10px, 2vw, 14px);
+    }
+}

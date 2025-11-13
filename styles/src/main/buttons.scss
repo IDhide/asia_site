@@ -1,0 +1,635 @@
+/* ================================================
+   СИСТЕМА КНОПОК 2.0 (адаптивная, модульная)
+   ================================================ */
+
+/* Базовый класс кнопки */
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    font-family: var(--font-primary);
+    font-weight: 400;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    will-change: background, color, box-shadow, transform;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.08);
+    transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.12s;
+    outline: none;
+    user-select: none;
+    text-decoration: none;
+    background: var(--card-bg);
+    color: var(--text-color);
+    box-sizing: border-box;
+
+    &:active {
+        transform: scale(0.97);
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+        background: var(--card-bg-hover, #181818);
+    }
+    &:focus-visible {
+        outline: 2px solid var(--text-tertiary-color);
+        outline-offset: 2px;
+        box-shadow: 0 0 0 2px var(--text-tertiary-color);
+    }
+}
+
+/* Размеры */
+.button-xs {
+    height: var(--button-height-xs);
+    font-size: var(--p4-size);
+    padding: 0 var(--button-padding-xs);
+    border-radius: var(--button-radius-xs);
+}
+.button-s {
+    height: var(--button-height-s);
+    font-size: var(--p3-size);
+    padding: 0 var(--button-padding-s);
+    border-radius: var(--button-radius-s);
+}
+.button-m {
+    height: var(--button-height-m);
+    font-size: var(--p2-size);
+    padding: 0 var(--button-padding-m);
+    border-radius: var(--button-radius-m);
+}
+.button-l {
+    height: var(--button-height-l);
+    font-size: var(--p1-size);
+    padding: 0 var(--button-padding-l);
+    border-radius: var(--button-radius-l);
+}
+.button-xl {
+    height: var(--button-height-xl);
+    font-size: var(--lead-size);
+    padding: 0 var(--button-padding-xl);
+    border-radius: var(--button-radius-xl);
+}
+
+/* Радиусы */
+.button-radius-full {
+    border-radius: var(--button-radius-full) !important;
+}
+
+/* Варианты оформления */
+.button-primary {
+    background: var(--button-primary-bg);
+    color: var(--button-primary-text);
+    border: none;
+
+    &:hover,
+    &:focus {
+        background: var(--button-primary-hover);
+    }
+
+    &:active {
+        background: var(--button-primary-active);
+    }
+}
+
+.button-secondary {
+    background: var(--button-secondary-bg);
+    color: var(--button-secondary-text);
+    border: 1px solid var(--button-secondary-border);
+
+    &:hover,
+    &:focus {
+        background: var(--button-secondary-hover);
+    }
+
+    &:active {
+        background: var(--button-secondary-active);
+    }
+}
+
+.button-tertiary {
+    background: var(--button-tertiary-bg);
+    color: var(--button-tertiary-text);
+    border: 1px solid var(--button-tertiary-border);
+
+    &:hover,
+    &:focus {
+        background: var(--button-tertiary-hover);
+    }
+
+    &:active {
+        background: var(--button-tertiary-active);
+    }
+}
+.button-secondary.active,
+.button-secondary.is-active,
+.button-primary.is-active,
+.button-primary.active {
+    background: var(--text-color);
+    color: var(--bg-color);
+    border: 1px solid var(--text-color);
+}
+.button-ghost {
+    background: var(--button-ghost-bg);
+    color: var(--button-ghost-text);
+    border: 1px solid transparent;
+
+    &:hover,
+    &:focus {
+        background: var(--button-ghost-hover);
+    }
+
+    &:active {
+        background: var(--button-ghost-active);
+    }
+}
+.button-danger {
+    background: var(--button-danger-bg);
+    color: var(--button-danger-text);
+    border: none;
+
+    &:hover,
+    &:focus {
+        background: var(--button-danger-hover);
+    }
+
+    &:active {
+        background: var(--button-danger-active);
+    }
+}
+
+// Кнопка для подтверждения действий (например, согласие с куки)
+.button-confirm {
+    background: #ffe51e;
+    color: #000000;
+    border: 1px solid #ffe51e;
+    &:hover,
+    &:focus {
+        background: #ffd600;
+        border-color: #ffd600;
+    }
+}
+
+.button-success {
+    background: #2ecc40;
+    color: #fff;
+    &:hover,
+    &:focus {
+        background: #51e67a;
+    }
+}
+.button-disabled,
+.button[disabled] {
+    opacity: 0.5;
+    pointer-events: none;
+}
+.button-buy {
+    background: linear-gradient(90deg, #d99c0d 0%, #ffe473 50%, #d99c0d 100%);
+    color: var(--text-color);
+    border: none;
+    font-family: var(--font-heading);
+    font-weight: 400;
+    position: relative;
+    overflow: hidden;
+    transition: background-position 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    background-size: 200% 100%;
+    background-position: 0% 0%;
+    box-shadow: 0 2px 12px rgba(250, 250, 250, 0.02), inset 0 0 0 0.75px rgba(255, 255, 255, 0.4);
+
+    padding-top: 0.12em;
+}
+.button-buy:hover,
+.button-buy:focus {
+    background-position: 100% 0%;
+}
+
+/* Модификаторы размера шрифта для .button-buy */
+.button-buy-m {
+    font-size: var(--p1-size);
+}
+.button-buy-l {
+    font-size: var(--h4-size);
+}
+
+/* Текстовые кнопки */
+.button-text {
+    background: none;
+    border: none;
+    color: var(--text-tertiary-color);
+    font-size: var(--p2-size);
+    font-weight: var(--font-regular);
+    padding: 0.1em 0.75em;
+    cursor: pointer;
+    transition: color var(--transition-normal);
+    &:hover,
+    &:focus {
+        color: var(--text-secondary-color);
+    }
+
+    &:active {
+        transform: scale(0.97);
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* Модификаторы размера для .button-text */
+.button-text-xs {
+    font-size: var(--p4-size);
+}
+.button-text-s {
+    font-size: var(--p3-size);
+}
+.button-text-m {
+    font-size: var(--p2-size);
+}
+.button-text-l {
+    font-size: var(--p1-size);
+}
+.button-text-xl {
+    font-size: var(--lead-size);
+}
+
+/* Модификаторы цвета для .button-text */
+.button-text-secondary {
+    color: var(--text-secondary-color);
+}
+.button-text-quaternary {
+    color: var(--text-quaternary-color);
+}
+.button-text-main {
+    color: var(--text-color);
+}
+
+// Ховеры для текстовых кнопок: цвет становится на ступень выше
+.button-text-secondary:hover,
+.button-text-secondary:focus-visible {
+    color: var(--text-color);
+}
+.button-text-tertiary:hover,
+.button-text-tertiary:focus-visible {
+    color: var(--text-secondary-color);
+}
+.button-text-quaternary:hover,
+.button-text-quaternary:focus-visible {
+    color: var(--text-tertiary-color);
+}
+
+/* ================================================
+   ТЕГИ (статичные и кликабельные)
+   ================================================ */
+.tag {
+    display: inline-flex;
+        align-items: center;
+        padding: var(--gap-xs) var(--gap-s);
+        background: var(--card-bg);
+        border: 0.5px solid var(--border-color);
+        border-radius: var(--card-border-radius-xs);
+        font-size: var(--p4-size);
+        color: var(--text-secondary-color);
+        font-weight: var(--font-regular);
+        transition: all 0.2s ease;
+}
+
+// Ховер для неактивных тегов теперь отдельным классом
+.tag-hover:not(.tag-selected) {
+    background: rgb(68, 68, 68);
+    color: var(--text-color);
+}
+
+// Активный тег и его ховер
+.tag-selected,
+.tag-selected:hover,
+.tag-selected:focus {
+    background: var(--card-bg-secondary, #232323);
+    color: var(--text-color);
+}
+
+.tag-xs {
+    font-size: var(--ui-text-xs);
+    padding: 0.08em 0.5em 0.16em 0.5em;
+}
+.tag-s {
+    font-size: var(--ui-text-s);
+    padding: 0.25em 0.9em;
+}
+.tag-m {
+    font-size: var(--ui-text-m);
+    padding: 0.25em 1.1em;
+}
+.tag-l {
+    font-size: var(--ui-text-l);
+    padding: 0.25em 1.3em;
+}
+
+.tag-action {
+    cursor: pointer;
+    transition: background 0.1s;
+    &.is-active,
+    :active {
+        background: var(--card-bg-secondary, #232323);
+    }
+}
+
+.tag-selected {
+    background: var(--card-bg-secondary, #232323);
+}
+
+.tag-opinion {
+    background: linear-gradient(120deg, #000000, #101010, #000000);
+    background-size: 300% 300%;
+    color: var(--text-color);
+    scale: 1.05;
+    animation: opinion-gradient-move 4.5s linear infinite;
+}
+
+@keyframes opinion-gradient-move {
+    0% {
+        background-position: 0% 100%;
+    }
+    50% {
+        background-position: 100% 0%;
+    }
+    100% {
+        background-position: 0% 100%;
+    }
+}
+
+.tag-studio {
+    background: red;
+    color: var(--text-color);
+}
+
+.tag-price {
+    background: linear-gradient(120deg, #ff003c, #ff001e, #ff003c, #ff001e);
+    background-size: 300% 300%;
+    color: var(--text-color);
+    font-weight: 400;
+    padding-top: 0.3em;
+    animation: price-gradient-move 2.5s ease-in-out infinite;
+}
+
+@keyframes price-gradient-move {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.tag-price {
+    white-space: nowrap;
+}
+
+.button-shimmer {
+    position: relative;
+    overflow: hidden;
+}
+
+.button-shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -70%;
+    width: 60%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: skewX(-20deg) translateX(0);
+}
+
+/* Shimmer эффект для всех кнопок */
+.button-shimmer::after {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+}
+
+.button-shimmer:hover::after,
+.button-shimmer:focus::after {
+    transform: skewX(-20deg) translateX(270%);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =============================================
+   ОПЦИИ ВЫБОРА (option-tag)
+   ============================================= */
+.option-tag {
+    display: inline-flex;
+    align-items: center;
+    border-radius: var(--button-radius-m);
+    font-size: var(--p2-size);
+    padding: 0 var(--button-padding-m);
+    height: var(--button-height-m);
+    background: var(--card-bg);
+    color: var(--text-tertiary-color);
+    border: 1px solid var(--border-color);
+    font-weight: 400;
+    font-family: var(--font-primary);
+    user-select: none;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    outline: none;
+
+
+    &:hover:not(.option-tag--disabled) {
+        background: var(--card-bg-hover);
+        color: var(--text-color);
+        border-color: var(--border-hover);
+    }
+
+    &:active:not(.option-tag--disabled) {
+        transform: scale(0.97);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--text-tertiary-color);
+
+    }
+}
+
+.option-tag--selected {
+    background: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+
+    &:hover:not(.option-tag--disabled) {
+        background: #ffffff;
+        color: #000000;
+        border-color: #ffffff;
+    }
+
+    &:active:not(.option-tag--disabled) {
+        transform: scale(0.97);
+    }
+}
+
+.option-tag--disabled,
+.option-tag[disabled] {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* ================================================
+   СТЕКЛЯННЫЕ КНОПКИ
+   Используют миксины из glass-effects.scss
+   ================================================ */
+
+.button-glass {
+    @include glass-real(var(--glass-color-medium), var(--glass-bg-opacity-normal), var(--glass-blur-normal));
+    color: var(--text-color) !important;
+    border-radius: var(--card-border-radius-xl);
+    cursor: pointer;
+    transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1), transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+        background-color: color-mix(in srgb, var(--glass-color-medium) calc(var(--glass-bg-opacity-normal) * 1.5), transparent) !important;
+        @include glass-shadows(calc(var(--glass-reflex-light) * 1.2), calc(var(--glass-reflex-dark) * 1.1));
+    }
+
+    &:focus-visible {
+        outline: 2px solid color-mix(in srgb, var(--glass-highlight) 40%, transparent);
+        outline-offset: 2px;
+    }
+
+    &:active {
+        transform: scale(0.97) !important;
+        background-color: color-mix(in srgb, var(--glass-color-medium) calc(var(--glass-bg-opacity-normal) * 1.8), transparent) !important;
+        @include glass-shadows(calc(var(--glass-reflex-light) * 0.9), calc(var(--glass-reflex-dark) * 1.3));
+        transition: transform 100ms cubic-bezier(1, 0, 0.4, 1), background-color 100ms cubic-bezier(1, 0, 0.4, 1), box-shadow 100ms cubic-bezier(1, 0, 0.4, 1);
+    }
+
+    &:disabled,
+    &.button-disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        pointer-events: none;
+        background-color: color-mix(in srgb, var(--glass-color-medium) calc(var(--glass-bg-opacity-normal) * 0.5), transparent) !important;
+    }
+}
+
+/* Светлый вариант */
+.button-glass-light {
+    @include glass-real(var(--glass-color-light), var(--glass-bg-opacity-normal), var(--glass-blur-normal));
+
+    &:hover {
+        background-color: color-mix(in srgb, var(--glass-color-light) calc(var(--glass-bg-opacity-normal) * 1.5), transparent) !important;
+    }
+
+    &:active {
+        background-color: color-mix(in srgb, var(--glass-color-light) calc(var(--glass-bg-opacity-normal) * 1.8), transparent) !important;
+    }
+}
+
+/* Темный вариант */
+.button-glass-dark {
+    @include glass-real(var(--glass-color-dark), var(--glass-bg-opacity-normal), var(--glass-blur-normal));
+
+    &:hover {
+        background-color: color-mix(in srgb, var(--glass-color-dark) calc(var(--glass-bg-opacity-normal) * 1.5), transparent) !important;
+    }
+
+    &:active {
+        background-color: color-mix(in srgb, var(--glass-color-dark) calc(var(--glass-bg-opacity-normal) * 1.8), transparent) !important;
+    }
+}
+
+/* Псевдо-стекло (без backdrop-filter) */
+.button-glass-fake {
+    @include glass-fake(var(--glass-color-medium), var(--glass-bg-opacity-normal));
+    color: var(--text-color) !important;
+    border-radius: var(--card-border-radius-xl);
+    cursor: pointer;
+    transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1), transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+        background-color: color-mix(in srgb, var(--glass-color-medium) calc(var(--glass-bg-opacity-normal) * 1.5), transparent) !important;
+        @include glass-shadows(calc(var(--glass-reflex-light) * 1.2), calc(var(--glass-reflex-dark) * 1.1));
+    }
+
+    &:focus-visible {
+        outline: 2px solid color-mix(in srgb, var(--glass-highlight) 40%, transparent);
+        outline-offset: 2px;
+    }
+
+    &:active {
+        transform: scale(0.97) !important;
+        background-color: color-mix(in srgb, var(--glass-color-medium) calc(var(--glass-bg-opacity-normal) * 1.8), transparent) !important;
+        @include glass-shadows(calc(var(--glass-reflex-light) * 0.9), calc(var(--glass-reflex-dark) * 1.3));
+        transition: transform 100ms cubic-bezier(1, 0, 0.4, 1), background-color 100ms cubic-bezier(1, 0, 0.4, 1), box-shadow 100ms cubic-bezier(1, 0, 0.4, 1);
+    }
+
+    &:disabled,
+    &.button-disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+}
+
+/* Светлый вариант псевдо-стекла */
+.button-glass-fake-light {
+    @include glass-fake(var(--glass-color-light), var(--glass-bg-opacity-normal));
+
+    &:hover {
+        background-color: color-mix(in srgb, var(--glass-color-light) calc(var(--glass-bg-opacity-normal) * 1.5), transparent) !important;
+    }
+
+    &:active {
+        background-color: color-mix(in srgb, var(--glass-color-light) calc(var(--glass-bg-opacity-normal) * 1.8), transparent) !important;
+    }
+}
+
+/* Темный вариант псевдо-стекла */
+.button-glass-fake-dark {
+    @include glass-fake(var(--glass-color-dark), var(--glass-bg-opacity-normal));
+
+    &:hover {
+        background-color: color-mix(in srgb, var(--glass-color-dark) calc(var(--glass-bg-opacity-normal) * 1.5), transparent) !important;
+    }
+
+    &:active {
+        background-color: color-mix(in srgb, var(--glass-color-dark) calc(var(--glass-bg-opacity-normal) * 1.8), transparent) !important;
+    }
+}
+
+/* ================================================
+   PRICE TAG - ценник для товаров
+   ================================================ */
+.price-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-weight: 400;
+    background: #ff0000;
+    border: none;
+    border-radius: var(--card-border-radius-s);
+    white-space: nowrap;
+    user-select: none;
+  /*   box-shadow:
+        0 2px 8px rgba(217, 156, 13, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4); */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Размеры */
+.price-tag-xs {
+    font-size: var(--p3-size);
+    padding: 0.2em 0.6em 0.3em 0.6em;
+    border-radius: var(--card-border-radius-xs);
+}
+
+.price-tag-s {
+    font-size: var(--p2-size);
+    padding: 0.25em 0.75em 0.01em 0.75em;
+    border-radius: var(--card-border-radius-s);
+}
+
+.price-tag-m {
+    font-size: var(--h4-size);
+    padding: 0.3em 1em 0.1em 1em;
+    border-radius: var(--card-border-radius-m);
+}

@@ -1,0 +1,215 @@
+
+/* Миксин для стеклянных теней */
+@mixin glass-shadows($reflex-light: 0.3, $reflex-dark: 2) {
+    box-shadow:
+        inset 0 0 0 1px color-mix(in srgb, var(--glass-highlight) calc($reflex-light * 10%), transparent),
+        inset 1.8px 3px 0px -2px color-mix(in srgb, var(--glass-highlight) calc($reflex-light * 90%), transparent),
+        inset -2px -2px 0px -2px color-mix(in srgb, var(--glass-highlight) calc($reflex-light * 80%), transparent),
+        inset -3px -8px 1px -6px color-mix(in srgb, var(--glass-highlight) calc($reflex-light * 60%), transparent),
+        inset -0.3px -1px 4px 0px color-mix(in srgb, var(--glass-shadow) calc($reflex-dark * 12%), transparent),
+        inset -1.5px 2.5px 0px -2px color-mix(in srgb, var(--glass-shadow) calc($reflex-dark * 20%), transparent),
+        inset 0px 3px 4px -2px color-mix(in srgb, var(--glass-shadow) calc($reflex-dark * 20%), transparent),
+        inset 2px -6.5px 1px -4px color-mix(in srgb, var(--glass-shadow) calc($reflex-dark * 10%), transparent),
+        0px 1px 5px 0px color-mix(in srgb, var(--glass-shadow) calc($reflex-dark * 10%), transparent),
+        0px 6px 16px 0px color-mix(in srgb, var(--glass-shadow) calc($reflex-dark * 8%), transparent);
+}
+
+/* Миксин для псевдо-стекла (без backdrop-filter) */
+@mixin glass-fake($color: var(--glass-color-medium), $opacity: var(--glass-bg-opacity-normal), $reflex-light: 0.3, $reflex-dark: 2) {
+    position: relative;
+    background-color: color-mix(in srgb, $color $opacity, transparent);
+    @include glass-shadows($reflex-light, $reflex-dark);
+    border: 1px solid color-mix(in srgb, var(--glass-highlight) calc($reflex-light * 10%), transparent);
+}
+
+/* Миксин для реального стекла (с backdrop-filter) */
+@mixin glass-real($color: var(--glass-color-medium), $opacity: var(--glass-bg-opacity-normal), $blur: var(--glass-blur-normal), $reflex-light: 0.3, $reflex-dark: 2) {
+    position: relative;
+    background-color: color-mix(in srgb, $color $opacity, transparent);
+    backdrop-filter: blur($blur) saturate(var(--glass-saturation));
+    -webkit-backdrop-filter: blur($blur) saturate(var(--glass-saturation));
+    @include glass-shadows($reflex-light, $reflex-dark);
+    border: 1px solid color-mix(in srgb, var(--glass-highlight) calc($reflex-light * 10%), transparent);
+}
+
+/* ================================================
+   БАЗОВЫЙ КЛАСС ДЛЯ ВСЕХ СТЕКЛЯННЫХ ЭФФЕКТОВ
+   ================================================ */
+
+%glass-base {
+    position: relative;
+    /* Без transition по умолчанию - добавляется через .glass-animated */
+}
+
+.glass-base {
+    @extend %glass-base;
+}
+
+/* ================================================
+   ПСЕВДО-СТЕКЛО (БЕЗ BACKDROP-FILTER)
+   ================================================ */
+
+.glass-fake {
+    @extend %glass-base;
+    --glass-color: var(--glass-color-medium);
+    --glass-opacity: var(--glass-bg-opacity-normal);
+
+    background-color: color-mix(in srgb, var(--glass-color) var(--glass-opacity), transparent);
+    @include glass-shadows(var(--glass-reflex-light), var(--glass-reflex-dark));
+    border: 1px solid color-mix(in srgb, var(--glass-highlight) calc(var(--glass-reflex-light) * 10%), transparent);
+}
+
+/* Варианты по цвету */
+.glass-fake-light {
+    --glass-color: var(--glass-color-light);
+}
+
+.glass-fake-medium {
+    --glass-color: var(--glass-color-medium);
+}
+
+.glass-fake-dark {
+    --glass-color: var(--glass-color-dark);
+}
+
+/* ================================================
+   РЕАЛЬНОЕ СТЕКЛО (С BACKDROP-FILTER)
+   ================================================ */
+
+.glass-real {
+    @extend %glass-base;
+    --glass-color: var(--glass-color-medium);
+    --glass-opacity: var(--glass-bg-opacity-normal);
+    --glass-blur: var(--glass-blur-normal);
+
+    background-color: color-mix(in srgb, var(--glass-color) var(--glass-opacity), transparent);
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+    @include glass-shadows(var(--glass-reflex-light), var(--glass-reflex-dark));
+    border: 1px solid color-mix(in srgb, var(--glass-highlight) calc(var(--glass-reflex-light) * 10%), transparent);
+}
+
+/* Варианты по цвету */
+.glass-real-light {
+    --glass-color: var(--glass-color-light);
+}
+
+.glass-real-medium {
+    --glass-color: var(--glass-color-medium);
+}
+
+.glass-real-dark {
+    --glass-color: var(--glass-color-dark);
+}
+
+/* ================================================
+   МОДИФИКАТОРЫ ИНТЕНСИВНОСТИ
+   ================================================ */
+
+.glass-subtle {
+    --glass-opacity: var(--glass-bg-opacity-subtle);
+    --glass-blur: var(--glass-blur-subtle);
+    --glass-reflex-light: 0.2;
+    --glass-reflex-dark: 1.5;
+}
+
+.glass-normal {
+    --glass-opacity: var(--glass-bg-opacity-normal);
+    --glass-blur: var(--glass-blur-normal);
+    --glass-reflex-light: 0.3;
+    --glass-reflex-dark: 2;
+}
+
+.glass-strong {
+    --glass-opacity: var(--glass-bg-opacity-strong);
+    --glass-blur: var(--glass-blur-strong);
+    --glass-reflex-light: 0.4;
+    --glass-reflex-dark: 2.5;
+}
+
+/* ================================================
+   МОДИФИКАТОРЫ ИНТЕРАКТИВНОСТИ
+   Добавляйте эти классы для интерактивных элементов
+   ================================================ */
+
+/* Плавные переходы */
+.glass-animated {
+    transition: background-color 400ms cubic-bezier(1, 0, 0.4, 1),
+                box-shadow 400ms cubic-bezier(1, 0, 0.4, 1),
+                transform 200ms cubic-bezier(1, 0, 0.4, 1);
+}
+
+/* Hover эффект - добавьте этот класс для элементов с hover */
+.glass-hoverable:hover {
+    --glass-opacity: calc(var(--glass-bg-opacity-normal) * 1.5);
+    @include glass-shadows(calc(var(--glass-reflex-light) * 1.2), calc(var(--glass-reflex-dark) * 1.1));
+}
+
+.glass-hoverable.glass-subtle:hover {
+    --glass-opacity: calc(var(--glass-bg-opacity-subtle) * 1.5);
+}
+
+.glass-hoverable.glass-strong:hover {
+    --glass-opacity: calc(var(--glass-bg-opacity-strong) * 1.2);
+}
+
+/* Active эффект - для кнопок и кликабельных элементов */
+.glass-pressable:active {
+    --glass-opacity: calc(var(--glass-bg-opacity-normal) * 1.8);
+    transform: scale(0.98);
+    @include glass-shadows(calc(var(--glass-reflex-light) * 0.9), calc(var(--glass-reflex-dark) * 1.3));
+    transition: background-color 100ms cubic-bezier(1, 0, 0.4, 1),
+                box-shadow 100ms cubic-bezier(1, 0, 0.4, 1),
+                transform 100ms cubic-bezier(1, 0, 0.4, 1);
+}
+
+/* Focus состояние - для доступности */
+.glass-focusable:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--glass-highlight) 40%, transparent);
+    outline-offset: 2px;
+}
+
+/* Disabled состояние */
+.glass-disabled,
+.glass-fake:disabled,
+.glass-real:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Комбинированный класс для полностью интерактивных элементов (кнопки) */
+.glass-interactive {
+    cursor: pointer;
+    transition: background-color 400ms cubic-bezier(1, 0, 0.4, 1),
+                box-shadow 400ms cubic-bezier(1, 0, 0.4, 1),
+                transform 200ms cubic-bezier(1, 0, 0.4, 1);
+
+    &:hover {
+        --glass-opacity: calc(var(--glass-bg-opacity-normal) * 1.5);
+        @include glass-shadows(calc(var(--glass-reflex-light) * 1.2), calc(var(--glass-reflex-dark) * 1.1));
+    }
+
+    &.glass-subtle:hover {
+        --glass-opacity: calc(var(--glass-bg-opacity-subtle) * 1.5);
+    }
+
+    &.glass-strong:hover {
+        --glass-opacity: calc(var(--glass-bg-opacity-strong) * 1.2);
+    }
+
+    &:active {
+        --glass-opacity: calc(var(--glass-bg-opacity-normal) * 1.8);
+        transform: scale(0.98);
+        @include glass-shadows(calc(var(--glass-reflex-light) * 0.9), calc(var(--glass-reflex-dark) * 1.3));
+        transition: background-color 100ms cubic-bezier(1, 0, 0.4, 1),
+                    box-shadow 100ms cubic-bezier(1, 0, 0.4, 1),
+                    transform 100ms cubic-bezier(1, 0, 0.4, 1);
+    }
+
+    &:focus-visible {
+        outline: 2px solid color-mix(in srgb, var(--glass-highlight) 40%, transparent);
+        outline-offset: 2px;
+    }
+}
+

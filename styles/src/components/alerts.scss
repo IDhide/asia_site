@@ -1,0 +1,242 @@
+/* ================================================
+   ALERTS
+   Алерты и уведомления
+   ================================================ */
+
+:root {
+  /* Цвета алертов */
+  --alert-info-bg: rgba(0, 195, 255, 0.1);
+  --alert-info-border: rgba(0, 195, 255, 0.3);
+  --alert-info-color: #00c3ff;
+
+  --alert-success-bg: rgba(46, 204, 64, 0.1);
+  --alert-success-border: rgba(46, 204, 64, 0.3);
+  --alert-success-color: #2ecc40;
+
+  --alert-warning-bg: rgba(255, 170, 0, 0.1);
+  --alert-warning-border: rgba(255, 170, 0, 0.3);
+  --alert-warning-color: #ffaa00;
+
+  --alert-error-bg: rgba(255, 30, 30, 0.1);
+  --alert-error-border: rgba(255, 30, 30, 0.3);
+  --alert-error-color: #ff1e1e;
+}
+
+/* Базовый alert */
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(10px, 1.5vw, 14px);
+  padding: clamp(12px, 2vw, 16px) clamp(14px, 2.5vw, 18px);
+  border-radius: var(--card-border-radius-m);
+  border: 1px solid var(--border-color);
+  background: var(--card-bg);
+  color: var(--text-color);
+  font-size: var(--p2-size);
+  line-height: 1.5;
+  position: relative;
+  animation: alert-slide-in 0.3s ease;
+
+  /* Иконка */
+  &::before {
+    content: 'ℹ';
+    flex-shrink: 0;
+    width: clamp(20px, 2.5vw, 24px);
+    height: clamp(20px, 2.5vw, 24px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--card-bg-secondary);
+    font-size: clamp(14px, 1.8vw, 16px);
+    font-weight: 600;
+  }
+}
+
+/* Анимация появления */
+@keyframes alert-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Анимация исчезновения */
+@keyframes alert-slide-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+.alert-dismissing {
+  animation: alert-slide-out 0.2s ease forwards;
+}
+
+/* Контент alert */
+.alert-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.alert-title {
+  font-weight: 500;
+  margin-bottom: 0.25em;
+  color: var(--text-color);
+}
+
+.alert-message {
+  color: var(--text-secondary-color);
+}
+
+/* Типы алертов */
+.alert-info {
+  background: var(--alert-info-bg);
+  border-color: var(--alert-info-border);
+
+  &::before {
+    content: 'ℹ';
+    background: var(--alert-info-color);
+    color: #000;
+  }
+
+  .alert-title {
+    color: var(--alert-info-color);
+  }
+}
+
+.alert-success {
+  background: var(--alert-success-bg);
+  border-color: var(--alert-success-border);
+
+  &::before {
+    content: '✓';
+    background: var(--alert-success-color);
+    color: #000;
+  }
+
+  .alert-title {
+    color: var(--alert-success-color);
+  }
+}
+
+.alert-warning {
+  background: var(--alert-warning-bg);
+  border-color: var(--alert-warning-border);
+
+  &::before {
+    content: '⚠';
+    background: var(--alert-warning-color);
+    color: #000;
+  }
+
+  .alert-title {
+    color: var(--alert-warning-color);
+  }
+}
+
+.alert-error {
+  background: var(--alert-error-bg);
+  border-color: var(--alert-error-border);
+
+  &::before {
+    content: '✕';
+    background: var(--alert-error-color);
+    color: #fff;
+  }
+
+  .alert-title {
+    color: var(--alert-error-color);
+  }
+}
+
+/* Варианты стилей */
+.alert-outline {
+  background: transparent;
+  border-width: 1.5px;
+}
+
+.alert-subtle {
+  border: none;
+  background: var(--card-bg-secondary);
+
+  &::before {
+    background: var(--card-bg-hover);
+  }
+}
+
+/* Dismissible alert */
+.alert-dismissible {
+  padding-right: clamp(40px, 5vw, 50px);
+}
+
+.alert-close {
+  position: absolute;
+  top: clamp(10px, 1.5vw, 14px);
+  right: clamp(10px, 1.5vw, 14px);
+  width: clamp(24px, 3vw, 28px);
+  height: clamp(24px, 3vw, 28px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--text-tertiary-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 1.5px;
+    background: currentColor;
+    top: 50%;
+    left: 50%;
+  }
+
+  &::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  &::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: var(--hover-bg);
+      color: var(--text-color);
+    }
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--text-tertiary-color);
+    outline-offset: 2px;
+  }
+}
+
+/* Отключаем hover на touch устройствах */
+@media (hover: none) and (pointer: coarse) {
+  .alert-close:hover {
+    background: transparent;
+    color: var(--text-tertiary-color);
+  }
+}

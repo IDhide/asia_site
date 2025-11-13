@@ -1,0 +1,413 @@
+/* ================================================
+   FORMS
+   Инпуты, текстареи, чекбоксы, радио кнопки
+   ================================================ */
+
+/* ================================================
+   INPUTS & TEXTAREAS
+   ================================================ */
+
+/* Базовый input */
+.input {
+  width: 100%;
+  height: var(--input-height-m);
+  padding: 0 clamp(12px, 1.5vw, 16px);
+  border: 1px solid var(--input-border);
+  border-radius: var(--card-border-radius-m);
+  background: var(--input-bg);
+  color: var(--text-color);
+  font-size: var(--p2-size);
+  font-family: var(--font-primary);
+  transition: all 0.2s ease;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+
+  &::placeholder {
+    color: var(--text-quaternary-color);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled) {
+      border-color: var(--border-hover);
+    }
+  }
+
+  &:focus {
+    border-color: var(--border-focus);
+    background: var(--card-bg-hover);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--card-bg-secondary);
+  }
+}
+
+/* Размеры input */
+.input-xs {
+  height: var(--input-height-xs);
+  font-size: var(--p3-size);
+  padding: 0 clamp(8px, 1.2vw, 12px);
+}
+
+.input-s {
+  height: var(--input-height-s);
+  font-size: var(--p2-size);
+  padding: 0 clamp(10px, 1.4vw, 14px);
+}
+
+.input-m {
+  height: var(--input-height-m);
+  font-size: var(--p1-size);
+}
+
+.input-l {
+  height: var(--input-height-l);
+  font-size: var(--p1-size);
+  padding: 0 clamp(14px, 1.8vw, 18px);
+}
+
+/* Состояния */
+.input-error {
+  border-color: #ff1e1e;
+
+  &:focus {
+    border-color: #ff1e1e;
+    box-shadow: 0 0 0 3px rgba(255, 30, 30, 0.1);
+  }
+}
+
+.input-success {
+  border-color: #2ecc40;
+
+  &:focus {
+    border-color: #2ecc40;
+    box-shadow: 0 0 0 3px rgba(46, 204, 64, 0.1);
+  }
+}
+
+/* Textarea */
+.textarea {
+  @extend .input;
+  height: auto;
+  min-height: clamp(80px, 15vw, 120px);
+  padding: clamp(10px, 1.5vw, 14px) clamp(12px, 1.5vw, 16px);
+  resize: vertical;
+  line-height: 1.5;
+}
+
+/* ================================================
+   SELECT
+   ================================================ */
+
+.select {
+  width: 100%;
+  height: var(--input-height-m);
+  padding: 0 clamp(32px, 4vw, 40px) 0 clamp(12px, 1.5vw, 16px);
+  border: 1px solid var(--input-border);
+  border-radius: var(--card-border-radius-m);
+  background: var(--select-bg);
+  color: var(--text-color);
+  font-size: var(--p2-size);
+  font-family: var(--font-primary);
+  transition: all 0.2s ease;
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23666' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right clamp(12px, 1.5vw, 16px) center;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled) {
+      border-color: var(--border-hover);
+      background-color: var(--card-bg-hover);
+    }
+  }
+
+  &:focus {
+    border-color: var(--border-focus);
+    background-color: var(--card-bg-hover);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: var(--card-bg-secondary);
+  }
+}
+
+/* Размеры select */
+.select-xs {
+  height: var(--input-height-xs);
+  font-size: var(--p3-size);
+  padding: 0 clamp(28px, 3.5vw, 32px) 0 clamp(8px, 1.2vw, 12px);
+  background-size: 10px;
+  background-position: right clamp(8px, 1.2vw, 12px) center;
+}
+
+.select-s {
+  height: var(--input-height-s);
+  font-size: var(--p3-size);
+  padding: 0 clamp(30px, 3.8vw, 36px) 0 clamp(10px, 1.4vw, 14px);
+  background-size: 11px;
+  background-position: right clamp(10px, 1.4vw, 14px) center;
+}
+
+.select-m {
+  height: var(--input-height-m);
+  font-size: var(--p2-size);
+}
+
+.select-l {
+  height: var(--input-height-l);
+  font-size: var(--p1-size);
+  padding: 0 clamp(36px, 4.5vw, 44px) 0 clamp(14px, 1.8vw, 18px);
+  background-size: 13px;
+  background-position: right clamp(14px, 1.8vw, 18px) center;
+}
+
+/* Input с иконкой */
+.input-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.input-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary-color);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-icon-left {
+  left: clamp(10px, 1.5vw, 14px);
+}
+
+.input-icon-right {
+  right: clamp(10px, 1.5vw, 14px);
+}
+
+.input-with-icon-left {
+  padding-left: clamp(36px, 5vw, 44px);
+}
+
+.input-with-icon-right {
+  padding-right: clamp(36px, 5vw, 44px);
+}
+
+/* ================================================
+   LABELS & HELPER TEXT
+   ================================================ */
+
+.form-label {
+  display: block;
+  margin-bottom: clamp(6px, 1vw, 8px);
+  color: var(--text-color);
+  font-size: var(--p2-size);
+  font-weight: 500;
+}
+
+.form-helper-text {
+  display: block;
+  margin-top: clamp(4px, 0.8vw, 6px);
+  color: var(--text-secondary-color);
+  font-size: var(--p3-size);
+}
+
+.form-error-text {
+  display: block;
+  margin-top: clamp(4px, 0.8vw, 6px);
+  color: #ff1e1e;
+  font-size: var(--p3-size);
+}
+
+/* ================================================
+   CHECKBOX
+   ================================================ */
+
+.checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: clamp(18px, 2.2vw, 20px);
+  height: clamp(18px, 2.2vw, 20px);
+  border: 1.5px solid var(--input-border);
+  border-radius: var(--card-border-radius-xs);
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  outline: none;
+  margin: 0;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled) {
+      border-color: var(--border-hover);
+    }
+  }
+
+  &:checked {
+    background: var(--text-color);
+    border-color: var(--text-color);
+  }
+
+  &:checked::before {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -52%);
+    color: var(--bg-color);
+    font-size: 0.85em;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--border-focus);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+}
+
+/* Размеры checkbox */
+.checkbox-s {
+  width: clamp(16px, 2vw, 18px);
+  height: clamp(16px, 2vw, 18px);
+}
+
+.checkbox-m {
+  width: clamp(18px, 2.2vw, 20px);
+  height: clamp(18px, 2.2vw, 20px);
+}
+
+.checkbox-l {
+  width: clamp(20px, 2.5vw, 22px);
+  height: clamp(20px, 2.5vw, 22px);
+}
+
+/* ================================================
+   RADIO
+   ================================================ */
+
+.radio {
+  appearance: none;
+  -webkit-appearance: none;
+  width: clamp(18px, 2.2vw, 20px);
+  height: clamp(18px, 2.2vw, 20px);
+  border: 1.5px solid var(--input-border);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  outline: none;
+  margin: 0;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled) {
+      border-color: var(--border-hover);
+    }
+  }
+
+  &:checked {
+    border-color: var(--text-color);
+  }
+
+  &:checked::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    background: var(--text-color);
+    animation: radio-pop 0.2s ease;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--border-focus);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+}
+
+@keyframes radio-pop {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Размеры radio */
+.radio-s {
+  width: clamp(16px, 2vw, 18px);
+  height: clamp(16px, 2vw, 18px);
+}
+
+.radio-m {
+  width: clamp(18px, 2.2vw, 20px);
+  height: clamp(18px, 2.2vw, 20px);
+}
+
+.radio-l {
+  width: clamp(20px, 2.5vw, 22px);
+  height: clamp(20px, 2.5vw, 22px);
+}
+
+/* ================================================
+   FORM GROUPS
+   ================================================ */
+
+.form-group {
+  margin-bottom: clamp(16px, 2.5vw, 20px);
+}
+
+.form-group-inline {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1.2vw, 12px);
+}
+
+/* Отключаем hover на touch устройствах */
+@media (hover: none) and (pointer: coarse) {
+  .input:hover:not(:disabled),
+  .checkbox:hover:not(:disabled),
+  .radio:hover:not(:disabled) {
+    border-color: var(--input-border);
+  }
+}

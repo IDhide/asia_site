@@ -2,8 +2,7 @@
 @use '@/styles/components' as *;
 
 .checkoutForm {
-  background: rgba(15, 15, 15, 0.98);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  @include glass-real(var(--glass-color-dark), var(--glass-bg-opacity-strong), var(--glass-blur-strong));
   border-radius: var(--radius-xxl);
   padding: var(--gap-l);
   display: block;
@@ -12,8 +11,8 @@
   position: sticky;
   top: var(--space-page-top);
   align-self: start;
-  backdrop-filter: blur(20px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  max-width: 600px;
+  margin: auto;
 }
 
 .formTitle {
@@ -26,6 +25,7 @@
   justify-content: space-between;
   gap: var(--gap-s);
   letter-spacing: -0.5px;
+  
 }
 
 .deliveryIcon {
@@ -35,6 +35,12 @@
   display: flex;
   align-items: center;
   gap: var(--gap-xs);
+
+  img {
+    width: clamp(20px, 2.5vw, 24px);
+    height: clamp(20px, 2.5vw, 24px);
+    object-fit: contain;
+  }
 }
 
 .deliveryMethods {
@@ -62,30 +68,20 @@
 }
 
 .input {
+  @include glass-inset;
   flex: 1;
-  background: rgba(30, 30, 30, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-full);
   padding: var(--padding-input-y) var(--padding-input-x);
-  color: rgba(255, 255, 255, 0.5);
   font-size: var(--font-size-m);
+  color: rgba(255, 255, 255, 0.7);
   font-family: inherit;
-  transition: all var(--transition-normal);
-
-  &:focus {
-    outline: none;
-    background: rgba(35, 35, 35, 0.9);
-    border-color: rgba(255, 255, 255, 0.2);
-    color: rgba(255, 255, 255, 0.9);
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
 
   &::placeholder {
     color: rgba(255, 255, 255, 0.4);
+  }
+
+  &:focus {
+    color: rgba(255, 255, 255, 0.95);
   }
 }
 
@@ -96,26 +92,16 @@
   gap: var(--gap-xs);
 
   .phonePrefix {
-    background: rgba(30, 30, 30, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    @include glass-inset;
     border-radius: var(--radius-full);
     padding: var(--padding-input-y) var(--padding-input-x-sm);
-    color: rgba(255, 255, 255, 0.5);
     font-size: var(--font-size-m);
+    color: rgba(255, 255, 255, 0.7);
     white-space: nowrap;
   }
 
   .input {
     flex: 1;
-    background: rgba(30, 30, 30, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: var(--radius-full);
-    padding: var(--padding-input-y) var(--padding-input-x);
-
-    &:focus {
-      background: rgba(35, 35, 35, 0.9);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
   }
 }
 
@@ -124,7 +110,35 @@
 }
 
 .orderSummary {
-  display: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+  margin-top: var(--gap-m);
+}
+
+.orderItem {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: var(--gap-xs);
+  font-size: var(--font-size-m);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.itemName {
+  white-space: nowrap;
+}
+
+.itemDots {
+  border-bottom: 1px dotted rgba(255, 255, 255, 0.3);
+  min-width: 20px;
+  height: 1px;
+  margin-bottom: 4px;
+}
+
+.itemPrice {
+  white-space: nowrap;
+  font-weight: 500;
 }
 
 .summaryRow {
@@ -156,9 +170,86 @@
 
 .submitButton {
   @include button-glass('l');
+  background: #fff;
+  color: #000;
   text-transform: uppercase;
   letter-spacing: 1px;
   flex-shrink: 0;
+
+  &:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.85);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Чекбокс согласия
+.consentCheckbox {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap-s);
+  cursor: pointer;
+  margin-top: var(--gap-m);
+  position: relative;
+
+  input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    width: 0;
+    height: 0;
+  }
+}
+
+.checkboxCustom {
+  @include glass-inset;
+  width: clamp(22px, 2.8vw, 26px);
+  height: clamp(22px, 2.8vw, 26px);
+  border-radius: var(--radius-s);
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::after {
+    content: '✓';
+    color: #fff;
+    font-size: clamp(14px, 1.8vw, 16px);
+    font-weight: 700;
+    opacity: 0;
+    transform: scale(0);
+    transition: all var(--transition-fast);
+  }
+
+  input[type="checkbox"]:checked ~ & {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 
+      inset 0 2px 4px rgba(0, 0, 0, 0.2),
+      inset 0 -1px 2px rgba(255, 255, 255, 0.1),
+      0 0 0 1px rgba(255, 255, 255, 0.1);
+
+    &::after {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  input[type="checkbox"]:disabled ~ & {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.consentText {
+  font-size: var(--font-size-s);
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.4;
+  flex: 1;
 }
 
 @media (max-width: 1024px) {
@@ -174,8 +265,8 @@
   }
 
   .formTitle {
+    
     font-size: var(--font-size-xl);
-    flex-direction: column;
     align-items: flex-start;
     gap: var(--gap-xs);
   }

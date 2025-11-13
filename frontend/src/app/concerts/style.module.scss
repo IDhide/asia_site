@@ -17,9 +17,9 @@
 
 .concertRow {
   display: grid;
-  grid-template-columns: 140px 140px 1fr auto;
+  grid-template-columns: 160px 190px 1fr auto;
   align-items: center;
-  gap: var(--gap-m);
+  gap: var(--gap-xl);
   padding: var(--gap-s) var(--gap-m);
   border-radius: var(--radius-sm);
   transition: all var(--transition-normal);

@@ -1,0 +1,237 @@
+/* ================================================
+   BADGES
+   Бейджи и индикаторы
+   ================================================ */
+
+:root {
+  --badge-height-xs: clamp(16px, 2vw, 18px);
+  --badge-height-s: clamp(18px, 2.2vw, 20px);
+  --badge-height-m: clamp(20px, 2.5vw, 22px);
+  --badge-height-l: clamp(22px, 2.8vw, 24px);
+}
+
+/* Базовый badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(4px, 0.6vw, 6px);
+  height: var(--badge-height-m);
+  padding: 0 clamp(8px, 1.2vw, 10px);
+  border-radius: var(--card-border-radius-xs);
+  background: var(--card-bg-secondary);
+  color: var(--text-color);
+  font-size: var(--p3-size);
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  user-select: none;
+  border: 1px solid var(--border-color);
+}
+
+/* Размеры */
+.badge-xs {
+  height: var(--badge-height-xs);
+  font-size: var(--p4-size);
+  padding: 0 clamp(6px, 1vw, 8px);
+}
+
+.badge-s {
+  height: var(--badge-height-s);
+  font-size: var(--p3-size);
+  padding: 0 clamp(7px, 1.1vw, 9px);
+}
+
+.badge-m {
+  height: var(--badge-height-m);
+  font-size: var(--p3-size);
+}
+
+.badge-l {
+  height: var(--badge-height-l);
+  font-size: var(--p2-size);
+  padding: 0 clamp(10px, 1.4vw, 12px);
+}
+
+/* ================================================
+   ВАРИАНТЫ ЦВЕТОВ
+   ================================================ */
+
+.badge-primary {
+  background: var(--text-color);
+  color: var(--bg-color);
+  border-color: var(--text-color);
+}
+
+.badge-secondary {
+  background: var(--card-bg-hover);
+  color: var(--text-secondary-color);
+  border-color: var(--border-color);
+}
+
+.badge-success {
+  background: rgba(46, 204, 64, 0.15);
+  color: #2ecc40;
+  border-color: rgba(46, 204, 64, 0.3);
+}
+
+.badge-warning {
+  background: rgba(255, 170, 0, 0.15);
+  color: #ffaa00;
+  border-color: rgba(255, 170, 0, 0.3);
+}
+
+.badge-error {
+  background: rgba(255, 30, 30, 0.15);
+  color: #ff1e1e;
+  border-color: rgba(255, 30, 30, 0.3);
+}
+
+.badge-info {
+  background: rgba(0, 195, 255, 0.15);
+  color: #00c3ff;
+  border-color: rgba(0, 195, 255, 0.3);
+}
+
+/* ================================================
+   ВАРИАНТЫ СТИЛЕЙ
+   ================================================ */
+
+/* Pill shape (полностью скругленный) */
+.badge-pill {
+  border-radius: 9999px;
+}
+
+/* Dot variant (индикатор) */
+.badge-dot {
+  width: clamp(8px, 1.2vw, 10px);
+  height: clamp(8px, 1.2vw, 10px);
+  padding: 0;
+  border-radius: 50%;
+  border: none;
+}
+
+.badge-dot-s {
+  width: clamp(6px, 1vw, 8px);
+  height: clamp(6px, 1vw, 8px);
+}
+
+.badge-dot-m {
+  width: clamp(8px, 1.2vw, 10px);
+  height: clamp(8px, 1.2vw, 10px);
+}
+
+.badge-dot-l {
+  width: clamp(10px, 1.5vw, 12px);
+  height: clamp(10px, 1.5vw, 12px);
+}
+
+/* Outline variant */
+.badge-outline {
+  background: transparent;
+  border-width: 1.5px;
+}
+
+.badge-outline.badge-primary {
+  color: var(--text-color);
+  border-color: var(--text-color);
+}
+
+.badge-outline.badge-success {
+  color: #2ecc40;
+  border-color: #2ecc40;
+}
+
+.badge-outline.badge-warning {
+  color: #ffaa00;
+  border-color: #ffaa00;
+}
+
+.badge-outline.badge-error {
+  color: #ff1e1e;
+  border-color: #ff1e1e;
+}
+
+.badge-outline.badge-info {
+  color: #00c3ff;
+  border-color: #00c3ff;
+}
+
+/* ================================================
+   BADGE С ИКОНКОЙ
+   ================================================ */
+
+.badge-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+}
+
+/* ================================================
+   ПОЗИЦИОНИРОВАНИЕ (для абсолютного позиционирования)
+   ================================================ */
+
+.badge-absolute {
+  position: absolute;
+}
+
+.badge-top-right {
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+}
+
+.badge-top-left {
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+}
+
+.badge-bottom-right {
+  bottom: 0;
+  right: 0;
+  transform: translate(50%, 50%);
+}
+
+.badge-bottom-left {
+  bottom: 0;
+  left: 0;
+  transform: translate(-50%, 50%);
+}
+
+/* ================================================
+   АНИМАЦИИ
+   ================================================ */
+
+/* Пульсирующий badge (для уведомлений) */
+.badge-pulse {
+  animation: badge-pulse 2s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Появление badge */
+.badge-appear {
+  animation: badge-appear 0.3s ease;
+}
+
+@keyframes badge-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

@@ -1,0 +1,340 @@
+/* ================================================
+   TABS
+   Табы для переключения между разделами
+   ================================================ */
+
+/* Контейнер табов */
+.tabs {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(12px, 2vw, 16px);
+}
+
+/* Список табов */
+.tabs-list {
+    display: flex;
+    gap: clamp(4px, 1vw, 8px);
+    border-bottom: 1px solid var(--border-color);
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+
+    /* Скрываем scrollbar но оставляем функциональность */
+    &::-webkit-scrollbar {
+        height: 2px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--border-color);
+        border-radius: 1px;
+    }
+}
+
+/* Кнопка таба */
+.tabs-trigger {
+    flex-shrink: 0;
+    padding: clamp(10px, 1.8vw, 14px) clamp(14px, 2.5vw, 18px);
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-secondary-color);
+    font-size: var(--p2-size);
+    font-weight: 500;
+    font-family: var(--font-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    outline: none;
+    position: relative;
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover:not(.tabs-trigger-active) {
+            color: var(--text-color);
+            border-bottom-color: var(--border-hover);
+        }
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--text-tertiary-color);
+        outline-offset: 2px;
+        border-radius: var(--card-border-radius-xs);
+    }
+
+    &:active {
+        transform: scale(0.98);
+    }
+}
+
+/* Активный таб */
+.tabs-trigger-active {
+    color: var(--text-color);
+    border-bottom-color: var(--text-color);
+    font-weight: 500;
+}
+
+/* Контент табов */
+.tabs-content {
+    width: 100%;
+    min-height: 0;
+}
+
+/* Панель контента */
+.tabs-panel {
+    width: 100%;
+    animation: tabs-fade-in 0.2s ease;
+}
+
+@keyframes tabs-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ================================================
+   ВАРИАНТЫ ТАБОВ
+   ================================================ */
+
+/* Табы-пилюли */
+.tabs-pills {
+    .tabs-list {
+        border-bottom: none;
+        gap: clamp(6px, 1.2vw, 10px);
+    }
+
+    .tabs-trigger {
+        padding: clamp(8px, 1.5vw, 12px) clamp(14px, 2.5vw, 18px);
+        border: 1px solid var(--border-color);
+        border-radius: var(--card-border-radius-m);
+        border-bottom: 1px solid var(--border-color);
+
+        @media (hover: hover) and (pointer: fine) {
+            &:hover:not(.tabs-trigger-active) {
+                border-color: var(--border-hover);
+                background: var(--card-bg-hover);
+            }
+        }
+    }
+
+    .tabs-trigger-active {
+        background: var(--text-color);
+        color: var(--bg-color);
+        border-color: var(--text-color);
+    }
+}
+
+/* Табы в рамках */
+.tabs-boxed {
+    .tabs-list {
+        border-bottom: none;
+        background: var(--card-bg-secondary);
+        border-radius: var(--card-border-radius-m);
+        padding: clamp(4px, 0.8vw, 6px);
+        gap: clamp(4px, 0.8vw, 6px);
+    }
+
+    .tabs-trigger {
+        padding: clamp(8px, 1.5vw, 12px) clamp(14px, 2.5vw, 18px);
+        border: none;
+        border-radius: var(--card-border-radius-s);
+        border-bottom: none;
+
+        @media (hover: hover) and (pointer: fine) {
+            &:hover:not(.tabs-trigger-active) {
+                background: var(--card-bg-hover);
+            }
+        }
+    }
+
+    .tabs-trigger-active {
+        background: var(--card-bg);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* Вертикальные табы */
+.tabs-vertical {
+    flex-direction: row;
+    gap: clamp(16px, 3vw, 24px);
+
+    .tabs-list {
+        flex-direction: column;
+        border-bottom: none;
+        border-right: 1px solid var(--border-color);
+        min-width: clamp(150px, 20vw, 200px);
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .tabs-trigger {
+        width: 100%;
+        text-align: left;
+        border-bottom: none;
+        border-right: 2px solid transparent;
+        padding: clamp(10px, 1.8vw, 14px) clamp(14px, 2.5vw, 18px);
+
+        @media (hover: hover) and (pointer: fine) {
+            &:hover:not(.tabs-trigger-active) {
+                border-right-color: var(--border-hover);
+            }
+        }
+    }
+
+    .tabs-trigger-active {
+        border-right-color: var(--text-color);
+    }
+
+    .tabs-content {
+        flex: 1;
+        min-width: 0;
+    }
+}
+
+/* Размеры табов */
+.tabs-sm {
+    .tabs-trigger {
+        padding: clamp(6px, 1.2vw, 8px) clamp(10px, 2vw, 12px);
+        font-size: var(--p3-size);
+    }
+}
+
+.tabs-lg {
+    .tabs-trigger {
+        padding: clamp(12px, 2.2vw, 16px) clamp(18px, 3vw, 22px);
+        font-size: var(--p1-size);
+    }
+}
+
+/* Табы с иконками */
+.tabs-trigger-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: clamp(6px, 1.2vw, 8px);
+
+    svg,
+    img {
+        width: clamp(16px, 2vw, 18px);
+        height: clamp(16px, 2vw, 18px);
+        flex-shrink: 0;
+    }
+}
+
+/* Табы с бейджами */
+.tabs-trigger-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: clamp(6px, 1.2vw, 8px);
+
+    .badge {
+        margin-left: clamp(4px, 0.8vw, 6px);
+    }
+}
+
+/* Отключенный таб */
+.tabs-trigger-disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Отключаем hover на touch устройствах */
+@media (hover: none) and (pointer: coarse) {
+    .tabs-trigger:hover:not(.tabs-trigger-active) {
+        color: var(--text-secondary-color);
+        border-bottom-color: transparent;
+    }
+
+    .tabs-pills .tabs-trigger:hover:not(.tabs-trigger-active) {
+        border-color: var(--border-color);
+        background: transparent;
+    }
+
+    .tabs-boxed .tabs-trigger:hover:not(.tabs-trigger-active) {
+        background: transparent;
+    }
+
+    .tabs-vertical .tabs-trigger:hover:not(.tabs-trigger-active) {
+        border-right-color: transparent;
+    }
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+    .tabs-trigger {
+        font-size: var(--p3-size);
+        padding: clamp(8px, 2vw, 10px) clamp(12px, 3vw, 14px);
+    }
+
+    /* Вертикальные табы становятся горизонтальными на мобильных */
+    .tabs-vertical {
+        flex-direction: column !important;
+        gap: clamp(12px, 2.5vw, 16px);
+
+        .tabs-list {
+            display: flex !important;
+            flex-direction: row !important;
+            border-right: none !important;
+            border-bottom: 1px solid var(--border-color);
+            min-width: auto !important;
+            width: 100% !important;
+            overflow-x: auto !important;
+            overflow-y: hidden !important;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 0;
+
+            /* Скрываем scrollbar */
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+
+            &::-webkit-scrollbar {
+                display: none; /* Chrome, Safari, Opera */
+            }
+        }
+
+        .tabs-trigger {
+            display: inline-flex !important;
+            border-right: none !important;
+            border-bottom: 2px solid transparent !important;
+            flex-shrink: 0 !important;
+            white-space: nowrap !important;
+            min-width: auto !important;
+            width: auto !important; /* Убираем width: 100% */
+
+            @media (hover: hover) and (pointer: fine) {
+                &:hover:not(.tabs-trigger-active) {
+                    border-right-color: transparent !important;
+                    border-bottom-color: var(--border-hover) !important;
+                }
+            }
+        }
+
+        .tabs-trigger-active {
+            border-right-color: transparent !important;
+            border-bottom-color: var(--text-color) !important;
+        }
+
+        .tabs-content {
+            width: 100% !important;
+            flex: 1 !important;
+        }
+    }
+}
+
+/* Accessibility */
+.tabs-trigger[aria-selected='true'] {
+    /* Стили для активного таба уже применены через .tabs-trigger-active */
+}
+
+.tabs-panel[hidden] {
+    display: none;
+}

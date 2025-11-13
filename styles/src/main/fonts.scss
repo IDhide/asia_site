@@ -1,0 +1,881 @@
+/* ================================================
+   СИСТЕМА ТИПОГРАФИКИ
+   ================================================ */
+
+/* FONT DISPLAY OPTIMIZATIONS */
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'kern' 1, 'liga' 1;
+}
+
+body {
+    font-variant-ligatures: common-ligatures;
+    font-variant-numeric: oldstyle-nums;
+}
+
+/* Import Google Fonts for Brandbook */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+
+:root {
+    /* Fonts */
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --font-heading: 'Vestibule', Georgia, serif;
+    --font-mono: 'Roboto Mono', monospace;
+
+    /* Alternative Fonts */
+    --font-heading-alt: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+    /* Brandbook Fonts */
+    --font-libertinus: 'Libertinus Sans', sans-serif;
+    --font-lora: 'Lora', serif;
+
+    /* Font Weights */
+    --font-regular: 400;
+    --font-medium: 500;
+    --font-bold: 700;
+
+    /* Base Size */
+    --base-font-size: clamp(14px, 1vw, 16px);
+
+    /* Headings Scale */
+    --h1-size: clamp(2.4rem, 7vw, 4rem); // 7vw ≈ 29px на 420px
+    --h2-size: clamp(2rem, 5vw, 3rem); // 5vw ≈ 21px
+    --h3-size: clamp(1.85rem, 4vw, 2.25rem); // 4vw ≈ 17px
+    --h4-size: clamp(1.4rem, 2.2vw, 1.5rem); // 2.2vw ≈ 9px
+    --h5-size: clamp(1.2rem, 1.8vw, 1.25rem); // Для мобильной версии
+
+    /* Paragraph Scale */
+    --p1-size: clamp(1.05rem, 2.2vw, 1.3rem); // 1.7vw ≈ 7px
+    --p2-size: clamp(0.95rem, 2vw, 1.125rem); // 1.4vw ≈ 6px
+    --p3-size: clamp(0.85rem, 1vw, 1rem); // 1vw ≈ 4px
+    --p4-size: clamp(0.75rem, 0.85vw, 0.875rem); // 0.8vw ≈ 3px
+
+    /* Дополнительные стили для большего адаптива (пока используются на карточках для заголовков */
+    --card-heading-font-size-s: clamp(1.2rem, 2vw, 1.5rem);
+    /* Line Heights */
+    --line-height-tight: 1.15;
+    --line-height-normal: 1.275;
+    --line-height-normal: 1.325;
+    --line-height-relaxed: 1.35;
+
+    /* Letter Spacing */
+    --tracking-tight: -0.02em;
+    --tracking-normal: 0;
+    --tracking-wide: 0.02em;
+
+    /* Spacing для текстовых блоков */
+    --spacing-xs: 0.4rem;
+    --spacing-s: 0.6rem;
+    --spacing-m: 1.1rem;
+    --spacing-l: 1.75rem;
+    --spacing-xl: 2.5rem;
+    --text-block-spacing: clamp(1.5rem, 2.5vw, 2rem);
+
+    /* Отступ между секциями текста */
+    --heading-spacing-top: clamp(2rem, 3vw, 2.5rem);
+    /* Отступ перед заголовками */
+    --heading-spacing-bottom: clamp(1rem, 1.5vw, 1.5rem);
+    /* Отступ после заголовков */
+
+    /* Additional Typography */
+    --lead-size: clamp(1.25rem, 3vw, 1.75rem);
+    /* 12-14px - Captions */
+    --lead2-size: clamp(1.15rem, 2.2vw, 1.55rem); /* Lead2: чуть меньше, для сочетания с h2 */
+    /* 20-28px - Hero/Lead text */
+    --quote-size: clamp(1.125rem, 1.5vw, 1.5rem);
+    /* 18-24px - Quotes */
+
+    /* Additional Line Heights */
+    --line-height-quote: 1.6;
+    --line-height-lead: var(--line-height-normal);
+
+    /* Text */
+    --text-xs: var(--p4-size);
+    --text-s: var(--p3-size);
+    --text-m: var(--p2-size);
+    --text-l: var(--p1-size);
+
+    /* специальные значения для кнопок, тегов и прочей ui-типографики, оптимизированные значения */
+    --ui-text-xs: clamp(0.53rem, 1.1vw, 0.9rem); /* ~8-14px, 1.1vw ≈ 4.6px на 420px */
+    --ui-text-s: clamp(0.68rem, 1.3vw, 1rem); /* ~10-16px, 1.3vw ≈ 5.5px на 420px */
+    --ui-text-m: clamp(0.76rem, 1.2vw, 0.98rem); /* ~12-15px, 1.2vw ≈ 5px на 420px */
+    --ui-text-l: clamp(0.88rem, 1.5vw, 1.05rem); /* ~15-18px, 2.2vw ≈ 9.2px на 420px */
+}
+
+/* Base Text Styles */
+body {
+    font-family: var(--font-primary);
+    font-size: var(--p2-size);
+    line-height: var(--line-height-normal);
+    font-weight: var(--font-regular);
+}
+
+/* Headings */
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4 {
+    vertical-align: baseline; // Добавляем вертикальное выравнивание по базовой линии
+}
+
+h1 {
+    font-family: var(--font-heading);
+    font-size: var(--h1-size);
+    line-height: 0.9;
+    letter-spacing: 0em;
+    font-weight: 400;
+    margin-bottom: var(--spacing-s, 0.75rem);
+}
+
+h2 {
+    font-family: var(--font-heading);
+    font-size: var(--h2-size);
+    line-height: 1;
+    letter-spacing: 0.005em;
+    font-weight: 400;
+    margin-bottom: var(--spacing-xs, 0.1rem);
+}
+
+h3 {
+    font-family: var(--font-heading);
+    font-size: var(--h3-size);
+    line-height: var(--line-height-tight);
+    letter-spacing: 0.007em;
+    font-weight: 400;
+    margin-bottom: var(--spacing-xs, 0.1rem);
+}
+
+h4 {
+    font-family: var(--font-heading);
+    font-size: var(--h4-size);
+    line-height: var(--line-height-tight);
+    letter-spacing: 0.02em;
+    font-weight: 400;
+    margin-bottom: var(--spacing-xs, 0.1rem);
+}
+
+h5,
+h6 {
+    font-family: var(--font-primary);
+    font-size: var(--p1-size);
+    line-height: var(--line-height-relaxed);
+    font-weight: 400;
+    margin-bottom: var(--spacing-xs, 0.1rem);
+}
+
+/* Paragraphs */
+p {
+    font-size: var(--p2-size);
+    line-height: var(--line-height-normal);
+}
+
+.p1 {
+    font-size: var(--p1-size);
+    line-height: var(--line-height-relaxed);
+}
+
+.p2 {
+    font-size: var(--p2-size);
+    line-height: var(--line-height-normal);
+}
+
+.p3 {
+    font-size: var(--p3-size);
+    line-height: var(--line-height-normal);
+}
+
+.p4 {
+    font-size: var(--p4-size);
+    line-height: var(--line-height-normal);
+}
+
+/* Lead Text */
+.lead {
+    font-size: var(--lead-size);
+    line-height: var(--line-height-lead);
+    letter-spacing: var(--tracking-tight);
+    margin-bottom: 1.5em;
+}
+
+/* Lead2 Text */
+.lead2 {
+    font-size: var(--lead2-size);
+    line-height: var(--line-height-lead);
+    letter-spacing: var(--tracking-tight);
+    margin-bottom: 1.2em;
+}
+
+.quote {
+    margin-top: var(--spacing-l);
+    margin-bottom: var(--spacing-l);
+    margin-left: 0;
+    margin-right: 0;
+    padding: var(--spacing-m) var(--spacing-m);
+    //  background: rgba(24, 24, 24, 0.8);
+    //   border-left: 4px solid var(--text-tertiary-color);
+    border-radius: 0 var(--card-border-radius-m) var(--card-border-radius-m) 0;
+    position: relative;
+    font-style: italic;
+    font-size: var(--quote-size);
+    line-height: var(--line-height-relaxed);
+    overflow: visible;
+    color: var(--text-color);
+
+    // Добавляем кавычки как часть содержимого, но с псевдоэлементами для гибкости
+    &::before {
+        content: '«';
+        display: inline-block; // Лучше для выравнивания
+        font-size: var(--h3-size); // Уменьшаем размер для лучшего контроля
+        color: var(--text-tertiary-color);
+        font-family: var(--font-heading);
+        line-height: 0.5;
+        vertical-align: top; // Выравниваем по верхнему краю текста
+        margin-right: 0.2em; // Небольшой отступ от текста
+        transform: translateY(-0.1em); // Корректировка вертикального положения
+    }
+
+    &::after {
+        content: '»';
+        display: inline-block;
+        font-size: var(--h3-size);
+        color: var(--text-tertiary-color);
+        font-family: var(--font-heading);
+        line-height: 0.5;
+        vertical-align: bottom;
+        margin-left: 0.2em;
+        transform: translateY(0.1em);
+    }
+
+    // Для многострочных цитат: кавычки только в начале и конце
+    // Если цитата короткая, это нормально; для длинных — кавычки останутся по краям
+
+    p {
+        margin-bottom: var(--spacing-s);
+        display: inline; // Делаем параграфы inline, чтобы кавычки обхватывали весь текст
+        &:last-child {
+            margin-bottom: 0;
+            font-style: italic;
+            font-weight: var(--font-medium);
+            color: var(--text-secondary-color);
+        }
+    }
+}
+
+/* Caption Text */
+.caption {
+    font-size: var(--ui-text-m);
+    color: var(--text-secondary-color);
+    line-height: var(--line-height-normal);
+    text-align: center;
+    padding-top: 0.6em;
+}
+
+/* Модификаторы */
+@mixin text-modifiers {
+    /* Alignment */
+    &--center {
+        text-align: center;
+    }
+
+    &--right {
+        text-align: right;
+    }
+
+    &--left {
+        text-align: left;
+    }
+
+    &--no-margin {
+        margin: 0;
+    }
+
+    &--margin {
+        margin: 1.5em;
+    }
+
+    &--regular {
+        font-weight: var(--font-regular);
+    }
+
+    &--medium {
+        font-weight: var(--font-medium);
+    }
+
+    &--bold {
+        font-weight: var(--font-bold);
+    }
+
+    &--tight {
+        line-height: var(--line-height-tight);
+    }
+
+    &--normal {
+        line-height: var(--line-height-normal);
+    }
+
+    &--relaxed {
+        line-height: var(--line-height-relaxed);
+    }
+
+    &--secondary {
+        color: var(--text-secondary-color);
+    }
+
+    &--tertiary {
+        color: var(--text-tertiary-color);
+    }
+
+    &--quaternary {
+        color: var(--text-quaternary-color);
+    }
+
+    &--mono {
+        font-family: var(--font-mono);
+    }
+
+    &--tracking-wide {
+        letter-spacing: var(--tracking-wide);
+    }
+
+    &--sans {
+        font-family: var(--font-primary);
+    }
+
+    &--mono {
+        font-family: var(--font-mono);
+    }
+
+    &--heading {
+        font-family: var(--font-heading);
+    }
+
+    &--heading-alt {
+        font-family: var(--font-heading-alt);
+        font-weight: var(--font-bold);
+    }
+
+    &--tight {
+        margin-bottom: 0.5em;
+    }
+
+    &--loose {
+        margin-bottom: 2em;
+    }
+
+    /* Text Style */
+    &--quote {
+        font-style: italic;
+    }
+
+    &--lead {
+        font-size: var(--lead-size);
+    }
+}
+
+/* Apply modifiers to all text elements */
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+.p1,
+.p2,
+.p3,
+.p4,
+.lead {
+    @include text-modifiers;
+}
+
+/* Utility Classes */
+.text-tight {
+    line-height: var(--line-height-tight);
+}
+
+.text-normal {
+    line-height: var(--line-height-normal);
+}
+
+.text-relaxed {
+    line-height: var(--line-height-relaxed);
+}
+
+.tracking-tight {
+    letter-spacing: var(--tracking-tight);
+}
+
+.tracking-normal {
+    letter-spacing: var(--tracking-normal);
+}
+
+.tracking-wide {
+    letter-spacing: var(--tracking-wide);
+}
+
+.font-regular {
+    font-weight: var(--font-regular);
+}
+
+.font-medium {
+    font-weight: var(--font-medium);
+}
+
+.font-bold {
+    font-weight: var(--font-bold);
+}
+
+/* Text Content Styles */
+.text,
+.text-block {
+    > *:first-child {
+        margin-top: 0;
+    }
+
+    > *:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Заголовки в текстовом контенте */
+    h1,
+    .h1,
+    h2,
+    .h2,
+    h3,
+    .h3,
+    h4,
+    .h4,
+    h5,
+    .h5,
+    h6,
+    .h6 {
+        margin-bottom: var(--spacing-xs);
+    }
+
+    h1,
+    .h1 {
+        margin-bottom: var(--spacing-m);
+    }
+
+    h2,
+    .h2 {
+        margin-bottom: var(--spacing-s);
+    }
+
+    /* Параграфы */
+    p {
+        margin-right: 0;
+        margin-left: 0;
+        margin-bottom: var(--spacing-s);
+        line-height: var(--line-height-normal);
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        & + p {
+            margin-top: 1rem;
+        }
+    }
+
+    /* Отступ после заголовка */
+    h1 + p,
+    h2 + p,
+    h3 + p {
+        margin-top: clamp(0rem, 0.7vw, 1rem);
+    }
+
+    /* Списки */
+    ol,
+    ul {
+        margin-bottom: var(--spacing-m);
+        padding-left: 0.5em;
+
+        li {
+            position: relative;
+            margin-bottom: calc(var(--spacing-s)); // увеличиваем расстояние между пунктами
+            // padding-left для ul, для ol не нужен
+            padding-left: 1em;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        /* Вложенные списки */
+        ul,
+        ol {
+            margin-top: var(--spacing-s);
+            margin-bottom: var(--spacing-s);
+        }
+    }
+
+    /* Стилизация маркированных списков */
+    ul {
+        list-style: none;
+        padding-left: 0.5em;
+
+        li {
+            padding-left: 1em;
+
+            &::before {
+                content: '';
+                position: absolute;
+                left: 0.1em;
+                top: 0.5em;
+                width: 0.3em;
+                height: 0.3em;
+                background-color: var(--text-color);
+                border-radius: 50%;
+                display: inline-block;
+            }
+        }
+    }
+
+    /* Стилизация нумерованных списков */
+    ol {
+        list-style: decimal;
+        padding-left: 2.2em;
+        font-variant-numeric: tabular-nums;
+        /* Для большинства браузеров */
+
+        li {
+            padding-left: 0.1em;
+
+            &::before {
+                content: none;
+            }
+
+            /* Удалить font-weight: bold; отсюда */
+        }
+
+        /* Сделать только маркер жирным */
+        li::marker {
+            font-weight: 800;
+            font-family: inherit;
+        }
+    }
+
+    /* Сделать цифры жирными для ol */
+    ol {
+        /* Для большинства браузеров */
+        font-variant-numeric: tabular-nums;
+    }
+
+    /* Цитаты */
+    blockquote {
+        margin-top: var(--spacing-l);
+        margin-bottom: var(--spacing-l);
+        margin-left: 0;
+        margin-right: 0;
+        padding: var(--spacing-m) var(--spacing-l);
+        background: rgba(24, 24, 24, 0.8);
+        border-left: 4px solid var(--text-tertiary-color);
+        border-radius: 0 var(--card-border-radius-m) var(--card-border-radius-m) 0;
+        position: relative;
+        font-style: italic;
+        font-size: var(--quote-size);
+        line-height: var(--line-height-relaxed);
+        overflow: visible;
+        color: var(--text-color);
+
+        // Добавляем кавычки как часть содержимого, но с псевдоэлементами для гибкости
+/*         &::before {
+            content: '«';
+            display: inline-block; // Лучше для выравнивания
+            font-size: var(--h3-size); // Уменьшаем размер для лучшего контроля
+            color: var(--text-tertiary-color);
+            font-family: var(--font-heading);
+            line-height: 0.5;
+            vertical-align: top; // Выравниваем по верхнему краю текста
+            margin-right: 0.2em; // Небольшой отступ от текста
+            transform: translateY(-0.1em); // Корректировка вертикального положения
+        }
+
+        &::after {
+            content: '»';
+            display: inline-block;
+            font-size: var(--h3-size);
+            color: var(--text-tertiary-color);
+            font-family: var(--font-heading);
+            line-height: 0.5;
+            vertical-align: bottom;
+            margin-left: 0.2em;
+            transform: translateY(0.1em);
+        }
+ */
+        // Для многострочных цитат: кавычки только в начале и конце
+        // Если цитата короткая, это нормально; для длинных — кавычки останутся по краям
+
+        p {
+            margin-bottom: var(--spacing-s);
+            display: inline; // Делаем параграфы inline, чтобы кавычки обхватывали весь текст
+            &:last-child {
+                margin-bottom: 0;
+                font-style: italic;
+                font-weight: var(--font-medium);
+           //     color: var(--text-secondary-color);
+            }
+        }
+    }
+
+    /* ================================================
+       СТЕКЛЯННАЯ ЦИТАТА (GLASSMORPHISM)
+       ================================================ */
+    .blockquote-glass {
+        @include glass-real(var(--glass-color-light), var(--glass-bg-opacity-normal), var(--glass-blur-normal), 0.3, 2);
+
+        margin-top: var(--spacing-xl);
+        margin-bottom: var(--spacing-xl);
+        margin-left: 0;
+        margin-right: 0;
+         padding: var(--card-padding-m) var(--card-padding-l);
+        font-style: italic;
+        font-size: var(--quote-size);
+        line-height: var(--line-height-relaxed);
+        color: var(--text-color);
+        border-radius: var(--card-border-radius-l);
+
+        // Контент поверх эффектов
+        > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        p {
+            margin-bottom: var(--spacing-s);
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        // Автор цитаты
+        cite {
+            display: block;
+            margin-top: var(--spacing-m);
+            font-style: normal;
+            font-size: var(--p3-size);
+            color: var(--text-secondary-color);
+            text-align: right;
+
+            &::before {
+                content: '— ';
+            }
+        }
+    }
+
+    /* Ссылки */
+    .link {
+        color: #3b5cff;
+        padding-bottom: 2px;
+        border-bottom: 1px solid var(--border-color);
+        transition: color 0.3s, border-color 0.3s;
+
+        &:hover,
+        &:active,
+        &:visited:hover,
+        &:visited:active {
+            color: #5c7cff;
+            border-color: #5c7cff;
+        }
+
+        &:visited {
+            color: #a05cff;
+            border-color: #a05cff;
+        }
+    }
+
+    @keyframes link-overlay-gradient-move {
+        0% {
+            background-position: 0% 50%;
+        }
+        100% {
+            background-position: 200% 50%;
+        }
+    }
+
+    /* Выделение текста */
+    strong,
+    b {
+        font-weight: var(--font-weight-bold, 700);
+    }
+
+    em,
+    i {
+        font-style: italic;
+    }
+
+    /* Модификаторы для секций внутри .text */
+    &__section {
+        /* Отступы снизу */
+        &--s {
+            margin-bottom: calc(var(--spacing-s) * 2);
+        }
+
+        &--m {
+            margin-bottom: calc(var(--spacing-m) * 2);
+        }
+
+        &--l {
+            margin-bottom: calc(var(--spacing-l) * 2);
+        }
+
+        &--xl {
+            margin-bottom: calc(var(--spacing-xl) * 2);
+        }
+
+        /* Отступы сверху */
+        &--top-s {
+            margin-top: var(--spacing-s);
+        }
+
+        &--top-m {
+            margin-top: var(--spacing-m);
+        }
+
+        &--top-l {
+            margin-top: var(--spacing-l);
+        }
+
+        &--top-xl {
+            margin-top: var(--spacing-xl);
+        }
+    }
+
+    /* Исправление: убираем точку у ol li */
+    ol li::before {
+        content: none;
+    }
+}
+
+/* Margin Modifiers Mixin */
+@mixin margin-modifiers {
+    &--no-margin-x {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+}
+
+/* Применение margin модификаторов к нужным блокам */
+.medium-width-block,
+.text-block,
+.content-block {
+    @include margin-modifiers;
+}
+
+/* Poem Text */
+.poem {
+    font-size: var(--p2-size);
+    line-height: var(--line-height-relaxed);
+    font-style: normal;
+    font-family: var(--font-heading-alt);
+    white-space: pre-line;
+    margin: var(--spacing-m) 0;
+    padding-left: 1.2em;
+    border-left: 2px solid var(--text-secondary-color);
+    color: var(--text-color);
+    background: none;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* UI Text Size Classes */
+.ui-text-xs {
+    font-size: var(--ui-text-xs);
+}
+
+.ui-text-s {
+    font-size: var(--ui-text-s);
+}
+
+.ui-text-m {
+    font-size: var(--ui-text-m);
+}
+
+.ui-text-l {
+    font-size: var(--ui-text-l);
+}
+
+.text-section-xs {
+    margin-bottom: var(--spacing-xs);
+}
+
+.text-section-s {
+    margin-bottom: var(--spacing-s);
+}
+
+.text-section-m {
+    margin-bottom: var(--spacing-m);
+}
+
+.text-section-l {
+    margin-bottom: var(--spacing-l);
+}
+
+.text-section-xl {
+    margin-bottom: var(--spacing-xl);
+}
+
+.text-center {
+    text-align: center;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: var(--gap-xl) 0;
+}
+
+code {
+    font-family: var(--font-mono);
+    background: var(--card-bg-secondary);
+    padding: 0.2em 0.4em;
+    border-radius: var(--card-border-radius-xs);
+    font-size: 0.9em;
+    color: var(--text-color);
+}
+
+pre {
+    background: var(--card-bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--card-border-radius-m);
+    padding: var(--gap-m);
+    margin: var(--gap-l) 0;
+    overflow-x: auto;
+
+    code {
+        background: none;
+        padding: 0;
+        font-size: var(--p3-size);
+        line-height: 1.5;
+    }
+}

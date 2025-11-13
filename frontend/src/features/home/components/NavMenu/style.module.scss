@@ -58,7 +58,7 @@
 // Mobile
 @media (max-width: 768px) {
   .navMenu {
-    top: 50%;
+    top: 70%;
     bottom: auto;
     transform: translate(-50%, -50%);
   }
@@ -68,6 +68,7 @@
     gap: clamp(1.5rem, 5vw, 2.5rem);
   }
 
+  
   .navMenuItem {
     &:not(:last-child) {
       padding-right: 0;
@@ -76,10 +77,6 @@
         display: none;
       }
     }
-  }
-
-  .navLabel {
-    height: clamp(3.5rem, 12vw, 5rem);
   }
 }
 

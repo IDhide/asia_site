@@ -2,53 +2,82 @@
 
 // ========== Visual Effects ==========
 
-// Glass morphism effect (enhanced)
-@mixin glass-effect($bg: null, $border: null, $intensity: 'normal') {
-  background: if($bg, $bg, var(--color-glass-bg));
-  border: 1px solid if($border, $border, var(--color-glass-border));
-  
-  @if $intensity == 'light' {
-    backdrop-filter: blur(10px) saturate(110%);
-    -webkit-backdrop-filter: blur(10px) saturate(110%);
-    box-shadow:
-      0 4px 16px rgba(0, 0, 0, 0.3),
-      0 0 12px rgba(255, 255, 255, 0.05),
-      inset 0 1px 6px rgba(255, 255, 255, 0.08);
-  } @else if $intensity == 'strong' {
-    backdrop-filter: blur(20px) saturate(140%) brightness(1.05);
-    -webkit-backdrop-filter: blur(20px) saturate(140%) brightness(1.05);
-    box-shadow:
-      0 12px 40px rgba(0, 0, 0, 0.6),
-      0 0 32px rgba(255, 255, 255, 0.12),
-      inset 0 3px 14px rgba(255, 255, 255, 0.12),
-      inset 0 -2px 8px rgba(0, 0, 0, 0.2);
-  } @else {
-    // Normal intensity (default)
-    backdrop-filter: blur(16px) saturate(130%) brightness(1.02);
-    -webkit-backdrop-filter: blur(16px) saturate(130%) brightness(1.02);
-    box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.5),
-      0 0 24px rgba(255, 255, 255, 0.1),
-      inset 0 2px 12px rgba(255, 255, 255, 0.12),
-      inset 0 -1px 6px rgba(0, 0, 0, 0.15);
-  }
-  
-  // Subtle gradient overlay for depth
+// ========== Glass Effect System ==========
+
+// Миксин для стеклянных теней
+@mixin glass-shadows($reflex-light: 0.3, $reflex-dark: 2) {
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--glass-highlight) calc($reflex-light * 10%), transparent),
+    inset 1.8px 3px 0px -2px color-mix(in srgb, var(--glass-highlight) calc($reflex-light * 90%), transparent),
+    inset -2px -2px 0px -2px color-mix(in srgb, var(--glass-highlight) calc($reflex-light * 80%), transparent),
+    inset -3px -8px 1px -6px color-mix(in srgb, var(--glass-highlight) calc($reflex-light * 60%), transparent),
+    inset -0.3px -1px 4px 0px color-mix(in srgb, var(--glass-shadow) calc($reflex-dark * 12%), transparent),
+    inset -1.5px 2.5px 0px -2px color-mix(in srgb, var(--glass-shadow) calc($reflex-dark * 20%), transparent),
+    inset 0px 3px 4px -2px color-mix(in srgb, var(--glass-shadow) calc($reflex-dark * 20%), transparent),
+    inset 2px -6.5px 1px -4px color-mix(in srgb, var(--glass-shadow) calc($reflex-dark * 10%), transparent),
+    0px 1px 5px 0px color-mix(in srgb, var(--glass-shadow) calc($reflex-dark * 10%), transparent),
+    0px 6px 16px 0px color-mix(in srgb, var(--glass-shadow) calc($reflex-dark * 8%), transparent);
+}
+
+// Миксин для псевдо-стекла (без backdrop-filter)
+@mixin glass-fake($color: var(--glass-color-medium), $opacity: var(--glass-bg-opacity-normal), $reflex-light: 0.3, $reflex-dark: 2) {
   position: relative;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.08) 0%,
-      rgba(255, 255, 255, 0) 50%,
-      rgba(0, 0, 0, 0.05) 100%
-    );
-    pointer-events: none;
-    opacity: 0.6;
+  background-color: color-mix(in srgb, $color $opacity, transparent);
+  @include glass-shadows($reflex-light, $reflex-dark);
+  border: 1px solid color-mix(in srgb, var(--glass-highlight) calc($reflex-light * 10%), transparent);
+}
+
+// Миксин для реального стекла (с backdrop-filter)
+@mixin glass-real($color: var(--glass-color-medium), $opacity: var(--glass-bg-opacity-normal), $blur: var(--glass-blur-normal), $reflex-light: 0.3, $reflex-dark: 2) {
+  position: relative;
+  background-color: color-mix(in srgb, $color $opacity, transparent);
+  backdrop-filter: blur($blur) saturate(var(--glass-saturation));
+  -webkit-backdrop-filter: blur($blur) saturate(var(--glass-saturation));
+  @include glass-shadows($reflex-light, $reflex-dark);
+  border: 1px solid color-mix(in srgb, var(--glass-highlight) calc($reflex-light * 10%), transparent);
+}
+
+// Старый миксин для обратной совместимости
+@mixin glass-effect($bg: null, $border: null, $intensity: 'normal') {
+  @if $intensity == 'light' {
+    @include glass-real(var(--glass-color-light), var(--glass-bg-opacity-subtle), var(--glass-blur-subtle), 0.2, 1.5);
+  } @else if $intensity == 'strong' {
+    @include glass-real(var(--glass-color-dark), var(--glass-bg-opacity-strong), var(--glass-blur-strong), 0.4, 2.5);
+  } @else {
+    @include glass-real(var(--glass-color-medium), var(--glass-bg-opacity-normal), var(--glass-blur-normal), 0.3, 2);
+  }
+}
+
+// ========== Form Elements on Glass ==========
+
+// Универсальный миксин для инпутов и чекбоксов на стеклянном фоне
+// Создает эффект "вдавленности" с непрозрачным фоном и внутренней тенью
+@mixin glass-inset {
+  background: rgba(27, 27, 27, 0.8);
+  border: 1px solid rgba(137, 137, 137, 0.3);
+  box-shadow: 
+  //  inset 0 2px 4px rgba(0, 0, 0, 0.3),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.05);
+  transition: all var(--transition-normal);
+
+  &:hover {
+     background: rgba(27, 27, 27, 0.9);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  &:focus {
+    outline: none;
+     background: rgba(27, 27, 27, 1);
+    border-color: rgba(255, 255, 255, 0.2);
+ /*    box-shadow: 
+      inset 0 2px 4px rgba(0, 0, 0, 0.4),
+      inset 0 -1px 2px rgba(255, 255, 255, 0.08),
+      0 0 0 2px rgba(255, 255, 255, 0.1); */
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 }
 

@@ -1,0 +1,173 @@
+/* ================================================
+   КНОПКИ СОЦИАЛЬНЫХ СЕТЕЙ
+   ================================================ */
+
+/* Основные кнопки соцсетей */
+.button-youtube {
+    background: #ff0000 !important;
+    color: #fff !important;
+}
+.button-telegram {
+    background: #229ed9 !important;
+    color: #fff !important;
+}
+.button-instagram {
+    background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af, #515bd4) !important;
+    color: #fff !important;
+}
+.button-tiktok {
+    background: #010101 !important;
+    color: #fff !important;
+}
+.button-vk {
+    background: #0077ff !important;
+    color: #fff !important;
+}
+.button-pinterest {
+    background: #e60023 !important;
+    color: #fff !important;
+}
+
+/* Базовый стиль для иконок через ::before */
+.button-youtube::before,
+.button-telegram::before,
+.button-instagram::before,
+.button-tiktok::before,
+.button-vk::before,
+.button-pinterest::before,
+.button-behance::before,
+.button-dribbble::before,
+.button-linkedin::before,
+.button-twitter::before,
+.button-threads::before,
+.button-artstation::before,
+.button-github::before,
+.button-site::before,
+.button-yandex::before {
+    content: '';
+    display: inline-block;
+    width: 1.2rem;
+    height: 1.2rem;
+    vertical-align: middle;
+    margin-right: 0;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    background-color: currentColor;
+}
+
+/* Иконки через mask-image */
+.button-youtube::before {
+    mask-image: url('https://media.olenevstudio.ru/apps/shared/icons/social/youtube.svg');
+}
+.button-telegram::before {
+    mask-image: url('https://media.olenevstudio.ru/apps/shared/icons/social/telegram.svg');
+}
+.button-instagram::before {
+    mask-image: url('https://media.olenevstudio.ru/apps/shared/icons/social/instagram.svg');
+}
+.button-tiktok::before {
+    mask-image: url('https://media.olenevstudio.ru/apps/shared/icons/social/tiktok.svg');
+}
+.button-vk::before {
+    mask-image: url('https://media.olenevstudio.ru/apps/shared/icons/social/vk.svg');
+}
+.button-pinterest::before {
+    mask-image: url('https://media.olenevstudio.ru/apps/shared/icons/social/pinterest.svg');
+}
+.button-behance::before {
+    mask-image: url('https://media.olenevstudio.ru/apps/shared/icons/social/behance.svg');
+}
+.button-dribbble::before {
+    mask-image: url('https://media.olenevstudio.ru/apps/shared/icons/social/dribble.svg');
+}
+.button-linkedin::before {
+    mask-image: url('https://media.olenevstudio.ru/apps/shared/icons/social/linkedin.svg');
+}
+.button-twitter::before {
+    mask-image: url('https://media.olenevstudio.ru/apps/shared/icons/social/twitter.svg');
+}
+.button-threads::before {
+    mask-image: url('https://media.olenevstudio.ru/apps/shared/icons/social/threads.svg');
+}
+.button-artstation::before {
+    mask-image: url('https://media.olenevstudio.ru/apps/shared/icons/social/artstation.svg');
+}
+.button-github::before {
+    mask-image: url('https://media.olenevstudio.ru/apps/shared/icons/social/github.svg');
+}
+.button-site::before {
+    mask-image: url('https://media.olenevstudio.ru/apps/shared/icons/social/site.svg');
+}
+.button-yandex::before {
+    mask-image: url('https://media.olenevstudio.ru/apps/shared/icons/social/yandex_mono_logo.svg');
+    width: 1.2em;
+    height: 1.2em;
+}
+
+/* Дополнительные кнопки соцсетей */
+.button-behance {
+    background: #1769ff !important;
+    color: #fff !important;
+}
+.button-dribbble {
+    background: #ea4c89 !important;
+    color: #fff !important;
+}
+.button-linkedin {
+    background: #0077b5 !important;
+    color: #fff !important;
+}
+.button-twitter {
+    background: #1da1f2 !important;
+    color: #fff !important;
+}
+.button-threads {
+    background: #000000 !important;
+    color: #fff !important;
+}
+.button-artstation {
+    background: #13aff0 !important;
+    color: #fff !important;
+}
+.button-github {
+    background: #181717 !important;
+    color: #fff !important;
+}
+.button-site {
+    background: #6c757d !important;
+    color: #fff !important;
+}
+.button-yandex {
+    background: #fc3f1d !important;
+    color: #fff !important;
+}
+
+/* Иконки во всю кнопку только для пустых больших кнопок */
+.button-instagram:empty::before,
+.button-telegram:empty::before,
+.button-vk:empty::before {
+    width: 80%;
+    height: 80%;
+    display: block;
+    margin-right: 0;
+}
+
+/* Margin-right только если есть текст */
+.button-youtube:not(:empty)::before,
+.button-telegram:not(:empty)::before,
+.button-instagram:not(:empty)::before,
+.button-tiktok:not(:empty)::before,
+.button-vk:not(:empty)::before,
+.button-pinterest:not(:empty)::before,
+.button-behance:not(:empty)::before,
+.button-dribbble:not(:empty)::before,
+.button-linkedin:not(:empty)::before,
+.button-twitter:not(:empty)::before,
+.button-threads:not(:empty)::before,
+.button-artstation:not(:empty)::before,
+.button-github:not(:empty)::before,
+.button-site:not(:empty)::before,
+.button-yandex:not(:empty)::before {
+    margin-right: 0.4em;
+}

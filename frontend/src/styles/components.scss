@@ -23,41 +23,44 @@
 
 // Social Buttons
 @mixin social-button {
-    @include button-glass('s');
-  display: block;
+  @include button-glass('s');
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: all var(--transition-fast);
   border-radius: var(--radius-l);
-
+  padding: clamp(8px, 1.5vw, 12px);
 
   img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: contain;
     display: block;
   }
 
   &:hover {
     background: rgba(255, 255, 255, 0.12);
     border-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px);
+    transform: scale(1.01);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
   }
 
   &:active {
-    transform: translateY(0);
+    transform: scale(0.98);
   }
 }
 
 @mixin social-buttons-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: clamp(12px, 2vw, 16px);
+  gap: var(--gap-xs);
   width: 100%;
 }
 
 // Header Components
 @mixin header-menu-button {
-  @include glass-effect;
+  @include glass-real;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -65,23 +68,25 @@
   height: var(--header-element-height);
   padding: 0 clamp(16px, 2.5vw, 24px);
   border-radius: calc(var(--header-element-height) / 2);
-  border: 1px solid rgba(255, 255, 255, 0.2);
   font-size: clamp(14px, 1.8vw, 16px);
   font-weight: 600;
   color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: background-color 400ms cubic-bezier(1, 0, 0.4, 1),
+              box-shadow 400ms cubic-bezier(1, 0, 0.4, 1),
+              transform 200ms cubic-bezier(1, 0, 0.4, 1);
   background: none;
   font-family: inherit;
 
   &:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.35);
-    transform: translateY(-2px);
+    --glass-opacity: calc(var(--glass-bg-opacity-normal) * 1.5);
+    transform: scale(1.01);
+    @include glass-shadows(calc(var(--glass-reflex-light) * 1.2), calc(var(--glass-reflex-dark) * 1.1));
   }
 
   &:active:not(:disabled) {
-    transform: translateY(0);
+    transform: scale(0.98);
+    --glass-opacity: calc(var(--glass-bg-opacity-normal) * 1.8);
   }
 }
 
@@ -89,7 +94,7 @@
   position: absolute;
   top: calc(100% + 0.5rem);
   left: 50%;
-  @include glass-effect;
+  @include glass-real;
   border-radius: var(--radius-m);
   padding: 0.5rem;
   opacity: 0;
@@ -99,7 +104,7 @@
 
 // Круглая иконка для хедера (универсальная)
 @mixin header-icon-button {
-  @include glass-effect;
+  @include glass-real;
   position: relative;
   display: flex;
   align-items: center;
@@ -111,13 +116,14 @@
   text-decoration: none;
   cursor: pointer;
   overflow: hidden;
-  transition: all var(--transition-fast);
+  transition: background-color 400ms cubic-bezier(1, 0, 0.4, 1),
+              box-shadow 400ms cubic-bezier(1, 0, 0.4, 1),
+              transform 200ms cubic-bezier(1, 0, 0.4, 1);
 
   &:hover {
-    transform: scale(1.05);
-    box-shadow:
-      0 0 32px rgba(255, 255, 255, 0.18),
-      inset 0 2px 12px rgba(255, 255, 255, 0.12);
+    transform: scale(1.01);
+    --glass-opacity: calc(var(--glass-bg-opacity-normal) * 1.5);
+    @include glass-shadows(calc(var(--glass-reflex-light) * 1.2), calc(var(--glass-reflex-dark) * 1.1));
   }
 }
 

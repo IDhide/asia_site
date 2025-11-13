@@ -5,38 +5,37 @@
 
 // Base glass card
 @mixin card-glass {
-  @include glass-effect;
+  @include glass-real;
   border-radius: var(--radius-xl);
   padding: clamp(20px, 3vw, 32px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 // Interactive card with hover
 @mixin card-interactive {
-  @include card-glass;
+  @include glass-real;
+  border-radius: var(--radius-xl);
+  padding: clamp(20px, 3vw, 32px);
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: background-color 400ms cubic-bezier(1, 0, 0.4, 1),
+              box-shadow 400ms cubic-bezier(1, 0, 0.4, 1),
+              transform 200ms cubic-bezier(1, 0, 0.4, 1);
 
   &:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
-    box-shadow:
-      0 12px 32px rgba(0, 0, 0, 0.6),
-      0 0 28px rgba(255, 255, 255, 0.12);
+    --glass-opacity: calc(var(--glass-bg-opacity-normal) * 1.5);
+    transform: scale(1.02);
+    @include glass-shadows(calc(var(--glass-reflex-light) * 1.2), calc(var(--glass-reflex-dark) * 1.1));
   }
 
   &:active {
-    transform: translateY(0);
+    transform: scale(0.98);
   }
 }
 
 // Compact card
 @mixin card-compact {
-  @include glass-effect;
+  @include glass-real;
   border-radius: var(--radius-l);
   padding: clamp(12px, 2vw, 18px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all var(--transition-fast);
 }
 

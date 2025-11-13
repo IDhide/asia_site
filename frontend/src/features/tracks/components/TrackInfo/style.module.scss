@@ -56,6 +56,51 @@
 
 .socialButton {
   @include social-button;
+
+  // Индивидуальные размеры иконок для лучшего отображения
+  &[data-service="youtube-music"] img {
+    width: 85%;
+    height: 85%;
+  }
+
+  &[data-service="spotify"] img {
+    width: 70%;
+    height: 80%;
+  }
+
+  &[data-service="apple-music"] img {
+    width: 75%;
+    height: 65%;
+  }
+
+  &[data-service="сбер-звук"] img {
+    width: 90%;
+    height: 80%;
+  }
+
+  &[data-service="яндекс-музыка"] img {
+    width: 93%;
+    height: 100%;
+  }
+
+  &[data-service="vk-музыка"] img {
+    width: 90%;
+    height: 100%;
+  }
+}
+
+// Скелетоны для загрузки
+.skeletonTitle {
+  @include skeleton-text(70%, 1.5em);
+  margin-bottom: var(--gap-xs);
+}
+
+.skeletonArtist {
+  @include skeleton-text(50%, 1em);
+}
+
+.skeletonYear {
+  @include skeleton-text(60px, 1.2em);
 }
 
 // Mobile

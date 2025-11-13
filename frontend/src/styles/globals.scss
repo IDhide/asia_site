@@ -8,6 +8,33 @@
   --color-glass-bg: rgba(18, 18, 18, 0.52);
   --color-glass-border: rgba(255, 255, 255, 0.18);
 
+  // Glass Effect System (новая система стеклянных эффектов)
+  // Базовые цвета для стекла
+  --glass-color-light: #c2c2c2;
+  --glass-color-medium: #a3a3a3;
+  --glass-color-dark: #1c1c1c;
+
+  // Цвета для бликов и теней
+  --glass-highlight: #fff;
+  --glass-shadow: #000;
+
+  // Интенсивность эффектов (множители)
+  --glass-reflex-light: 0.3;
+  --glass-reflex-dark: 2;
+
+  // Прозрачность фона
+  --glass-bg-opacity-subtle: 8%;
+  --glass-bg-opacity-normal: 12%;
+  --glass-bg-opacity-strong: 18%;
+
+  // Размытие для реального стекла
+  --glass-blur-subtle: 4px;
+  --glass-blur-normal: 8px;
+  --glass-blur-strong: 12px;
+
+  // Насыщенность
+  --glass-saturation: 150%;
+
   // Overlays
   --overlay-dark: linear-gradient(0deg, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0.62));
   --overlay-page: linear-gradient(0deg, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65));
@@ -20,11 +47,11 @@
   --space-xl: clamp(160px, 15vw, 200px);
 
   // Gaps (для flexbox/grid)
-  --gap-xs: clamp(8px, 1.5vw, 12px);
-  --gap-s: clamp(12px, 2vw, 16px);
-  --gap-m: clamp(16px, 2.5vw, 24px);
-  --gap-l: clamp(24px, 3.5vw, 36px);
-  --gap-xl: clamp(32px, 5vw, 48px);
+  --gap-xs: clamp(4px, 0.8vw, 8px);
+  --gap-s: clamp(8px, 1.2vw, 12px);
+  --gap-m: clamp(12px, 1.8vw, 20px);
+  --gap-l: clamp(20px, 3vw, 32px);
+  --gap-xl: clamp(32px, 4.5vw, 48px);
 
   // Header
   --header-top-offset: clamp(1.25rem, 3.5vw, 2.5rem);
@@ -120,7 +147,7 @@ body {
 
 // ========== Typography ==========
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.2;
 }
 

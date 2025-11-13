@@ -20,6 +20,8 @@ export function CheckoutForm() {
     email: '',
   });
 
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('ru-RU', {
       minimumFractionDigits: 0,
@@ -69,6 +71,11 @@ export function CheckoutForm() {
       return;
     }
 
+    if (!agreedToTerms) {
+      alert('Необходимо согласие на обработку персональных данных');
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -99,7 +106,10 @@ export function CheckoutForm() {
     <form className={styles.checkoutForm} onSubmit={handleSubmit}>
       <h2 className={styles.formTitle}>
         <span>Данные для доставки</span>
-        <span className={styles.deliveryIcon}>СДЭК</span>
+        <span className={styles.deliveryIcon}>
+          <img src="/assets/ui_icons/sdek_icon.svg" alt="" />
+          СДЭК
+        </span>
       </h2>
 
       <div className={styles.formFields}>
@@ -159,6 +169,38 @@ export function CheckoutForm() {
         </div>
       </div>
 
+      {/* Список товаров */}
+      <div className={styles.orderSummary}>
+        {items.map((item) => (
+          <div key={item.product.id} className={styles.orderItem}>
+            <span className={styles.itemName}>{item.product.title}</span>
+            <span className={styles.itemDots}></span>
+            <span className={styles.itemPrice}>{formatPrice(item.product.price * item.quantity)} ₽</span>
+          </div>
+        ))}
+        {deliveryCost > 0 && (
+          <div className={styles.orderItem}>
+            <span className={styles.itemName}>Доставка СДЭК</span>
+            <span className={styles.itemDots}></span>
+            <span className={styles.itemPrice}>{formatPrice(deliveryCost)} ₽</span>
+          </div>
+        )}
+      </div>
+
+      {/* Чекбокс согласия */}
+      <label className={styles.consentCheckbox}>
+        <input
+          type="checkbox"
+          checked={agreedToTerms}
+          onChange={(e) => setAgreedToTerms(e.target.checked)}
+          disabled={loading}
+        />
+        <span className={styles.checkboxCustom}></span>
+        <span className={styles.consentText}>
+          Я даю согласие на обработку персональных данных и использование их в своих целях
+        </span>
+      </label>
+
       <div className={styles.checkoutActions}>
         <div className={`${styles.summaryRow} ${styles.total}`}>
           <span>ИТОГО: {formatPrice(finalTotal)} ₽</span>
@@ -167,7 +209,7 @@ export function CheckoutForm() {
         <button
           type="submit"
           className={styles.submitButton}
-          disabled={loading || items.length === 0}
+          disabled={loading || items.length === 0 || !agreedToTerms}
         >
           {loading ? 'ОФОРМЛЕНИЕ...' : 'КУПИТЬ'}
         </button>

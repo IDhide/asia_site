@@ -1,0 +1,131 @@
+@use './_variables.scss' as *;
+
+// ========== Skeleton Loading System ==========
+
+// Базовая анимация скелетона
+@keyframes skeleton-pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+// Базовый скелетон
+@mixin skeleton-base {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 2s ease-in-out infinite;
+  border-radius: var(--radius-s);
+  pointer-events: none;
+}
+
+// Скелетон с пульсацией (альтернативный стиль)
+@mixin skeleton-pulse {
+  background: rgba(255, 255, 255, 0.08);
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+  border-radius: var(--radius-s);
+  pointer-events: none;
+}
+
+// Скелетон для изображений/обложек
+@mixin skeleton-image {
+  @include skeleton-base;
+  aspect-ratio: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0.05) 50%,
+      transparent 100%
+    );
+  }
+}
+
+// Скелетон для текста
+@mixin skeleton-text($width: 100%, $height: 1em) {
+  @include skeleton-base;
+  width: $width;
+  height: $height;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+// Скелетон для заголовков
+@mixin skeleton-heading($width: 60%) {
+  @include skeleton-text($width, 1.5em);
+}
+
+// Скелетон для карточек
+@mixin skeleton-card {
+  @include skeleton-base;
+  border-radius: var(--radius-xl);
+  padding: clamp(20px, 3vw, 32px);
+  min-height: 200px;
+}
+
+// Готовые классы для использования в HTML
+.skeleton {
+  @include skeleton-base;
+}
+
+.skeleton-pulse {
+  @include skeleton-pulse;
+}
+
+.skeleton-image {
+  @include skeleton-image;
+}
+
+.skeleton-text {
+  @include skeleton-text;
+}
+
+.skeleton-heading {
+  @include skeleton-heading;
+}
+
+.skeleton-card {
+  @include skeleton-card;
+}
+
+// Утилиты для скелетонов
+.skeleton-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-m);
+}
+
+.skeleton-grid {
+  display: grid;
+  gap: var(--gap-m);
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}

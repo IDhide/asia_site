@@ -1,0 +1,212 @@
+.grid-wrapper {
+    width: 100%;
+    margin: auto;
+    padding: var(--side-padding);
+    max-width: 3840px;
+
+    @media (min-width: 1440px) {
+        padding-top: 0;
+        padding-bottom: 0;
+        padding-left: max(var(--side-padding), calc(24px + (100vw - 1440px) * 0.03));
+        padding-right: max(var(--side-padding), calc(24px + (100vw - 1440px) * 0.03));
+    }
+
+    @media (min-width: 3840px) {
+        padding-top: 0;
+        padding-bottom: 0;
+        padding-left: 96px;
+        padding-right: 96px;
+    }
+}
+
+
+/* CONTENT BLOCKS */
+
+.card-block {
+    max-width: var(--text-max-width);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 var(--side-padding);
+
+    &__content {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color, var(--color-border));
+        border-radius: var(--card-border-radius-m, 16px);
+        padding: var(--card-padding-xl, 2rem) clamp(14px, 3vw, 48px);
+        box-shadow: var(--card-shadow, 0 2px 8px rgba(0, 0, 0, 0.04));
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.text-block {
+    max-width: var(--text-max-width);
+    // width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 var(--side-padding-text);
+
+    &--centered {
+        text-align: center;
+    }
+}
+
+.content-block {
+    max-width: var(--text-max-width);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 var(--side-padding);
+}
+
+/* -----------------------------------------------
+   SECTION-LAYOUT HELPERS
+   Универсальные утилиты для внутренней верстки
+   блока/секции. Используйте внутри секции, чтобы
+   выровнять контент и задать вертикальные паддинги
+   по размерам: --xs / --s / --m / --l / --xl
+   ----------------------------------------------- */
+
+/* ================================================
+   ВНУТРЕННИЕ ОТСТУПЫ МЕЖДУ ЭЛЕМЕНТАМИ (GAP)
+   Классы для добавления отступов между дочерними элементами
+   ================================================ */
+
+.ig-xs > * + * { margin-top: var(--section-padding-xs); }
+.ig-s > * + * { margin-top: var(--section-padding-s); }
+.ig-m > * + * { margin-top: var(--section-padding-m); }
+.ig-l > * + * { margin-top: var(--section-padding-l); }
+.ig-xl > * + * { margin-top: var(--section-padding-xl); }
+
+/* ================================================
+   МАРГИНЫ ДЛЯ ЭЛЕМЕНТОВ
+   Классы для добавления внешних отступов сверху/снизу
+   ================================================ */
+
+/* Отдельные маргины */
+.mt-xs { margin-top: var(--section-padding-xs); }
+.mt-s { margin-top: var(--section-padding-s); }
+.mt-m { margin-top: var(--section-padding-m); }
+.mt-l { margin-top: var(--section-padding-l); }
+.mt-xl { margin-top: var(--section-padding-xl); }
+
+.mb-xs { margin-bottom: var(--section-padding-xs); }
+.mb-s { margin-bottom: var(--section-padding-s); }
+.mb-m { margin-bottom: var(--section-padding-m); }
+.mb-l { margin-bottom: var(--section-padding-l); }
+.mb-xl { margin-bottom: var(--section-padding-xl); }
+
+/* Вертикальные маргины (сверху и снизу) */
+.mv-xs { margin-top: var(--section-padding-xs); margin-bottom: var(--section-padding-xs); }
+.mv-s { margin-top: var(--section-padding-s); margin-bottom: var(--section-padding-s); }
+.mv-m { margin-top: var(--section-padding-m); margin-bottom: var(--section-padding-m); }
+.mv-l { margin-top: var(--section-padding-l); margin-bottom: var(--section-padding-l); }
+.mv-xl { margin-top: var(--section-padding-xl); margin-bottom: var(--section-padding-xl); }
+
+
+.news-block {
+    padding: 0 var(--side-padding);
+    box-sizing: border-box;
+
+    /* Внутренний контейнер для контента с паддингом */
+    > .news-block__content {
+        padding: var(--card-padding-xxl) clamp(14px, 3vw, 48px);
+        background: var(--card-bg);
+        border-radius: var(--card-border-radius-l);
+        border: 1px solid var(--border-color);
+        max-width: var(--text-max-width);
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.medium-width-block {
+    max-width: var(--content-max-width);
+    margin-left: var(--block-margin-left, auto);
+    margin-right: var(--block-margin-right, auto);
+    padding: 0 var(--side-padding);
+}
+
+.max-width-block {
+    max-width: var(--site-max-width);
+    margin-left: var(--block-margin-left, auto);
+    margin-right: var(--block-margin-right, auto);
+    padding: 0 var(--side-padding);
+    width: 100%;
+}
+
+.cover-block {
+    max-width: var(--site-max-width);
+    margin-left: var(--block-margin-left, auto);
+    margin-right: var(--block-margin-right, auto);
+    padding: 0 var(--side-padding);
+    height: clamp(375px, 50vw, 600px);
+
+    border-radius: var(--card-border-radius-m);
+    overflow: hidden;
+
+    @media (max-width: 375px) {
+        aspect-ratio: 1 / 1;
+        width: 100%;
+        height: 100%;
+    }
+
+    .cover-block__media {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        border-radius: var(--card-border-radius-m);
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: var(--card-border-radius-m);
+        }
+    }
+
+    .cover-block__overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+        text-align: center;
+        z-index: 2;
+
+        .cover-text {
+            color: var(--text-color);
+            font-size: clamp(3rem, 15vw, 14rem);
+            font-weight: 400;
+            width: 100%;
+            padding: 9%;
+            transform: translateY(0.1em);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: inline-block;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .cover-text {
+            line-height: 0.7;
+            transform: translateY(0.25em);
+        }
+
+        //специальные стили названия
+        .ar {
+            font-size: 240%;
+        }
+        .project {
+            font-size: 100%;
+        }
+    }
+}

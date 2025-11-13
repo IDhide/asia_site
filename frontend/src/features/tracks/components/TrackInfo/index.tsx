@@ -4,45 +4,45 @@ import type { SliderItem } from '@/types/track';
 import styles from './style.module.scss';
 
 interface TrackInfoProps {
-  track: SliderItem;
+  track?: SliderItem | null;
   onLyricsClick: () => void;
 }
 
 const SOCIAL_LINKS = [
-  { name: 'YouTube Music', icon: '/assets/tracks_icons/youtubemusic.svg', url: '#' },
+  { name: 'YouTube Music', icon: '/assets/tracks_icons/yt_music.svg', url: '#' },
   { name: 'Spotify', icon: '/assets/tracks_icons/spotify.svg', url: '#' },
   { name: 'Apple Music', icon: '/assets/tracks_icons/apple_music.svg', url: '#' },
   { name: 'Сбер Звук', icon: '/assets/tracks_icons/sber_zvuk.svg', url: '#' },
-  { name: 'Яндекс Музыка', icon: '/assets/tracks_icons/yan_music.svg', url: '#' },
+  { name: 'Яндекс Музыка', icon: '/assets/tracks_icons/ya_music.svg', url: '#' },
   { name: 'VK Музыка', icon: '/assets/tracks_icons/vk_music.svg', url: '#' },
 ];
 
-export function TrackInfo({ track, onLyricsClick }: TrackInfoProps) {
-  // Проверяем, является ли элемент треком (у альбомов нет поля lyrics)
-  const hasLyrics = 'lyrics' in track && track.lyrics && track.lyrics.trim().length > 0;
+export function TrackInfo({ track }: TrackInfoProps) {
+  // Проверяем, загружаются ли данные (скелетон или нет данных)
+  const isLoading = !track || String(track.id).startsWith('skeleton-');
 
   return (
     <div className={styles.trackInfo}>
       <div className={styles.header}>
         <div className={styles.textSection}>
-          <h2 className={styles.trackTitle}>{track.title}</h2>
-          <p className={styles.trackArtist}>{track.artist}</p>
+          {isLoading ? (
+            <>
+              <div className={styles.skeletonTitle} />
+              <div className={styles.skeletonArtist} />
+            </>
+          ) : (
+            <>
+              <h3 className={styles.trackTitle}>{track.title || 'Без названия'}</h3>
+              <p className={styles.trackArtist}>{track.artist || 'Неизвестный исполнитель'}</p>
+            </>
+          )}
         </div>
 
         <div className={styles.rightSection}>
-{/*           хардкод тт */}
-
-{/*           {hasLyrics && (
-            <button
-              className={styles.lyricsButton}
-              onClick={onLyricsClick}
-              aria-label="Показать текст песни"
-            >
-              Тт
-            </button>
-          )} */}
-          {track.year && (
-            <span className={styles.year}>{track.year}</span>
+          {isLoading ? (
+            <div className={styles.skeletonYear} />
+          ) : (
+            track.year && <span className={styles.year}>{track.year}</span>
           )}
         </div>
       </div>
@@ -53,6 +53,7 @@ export function TrackInfo({ track, onLyricsClick }: TrackInfoProps) {
             key={social.name}
             href={social.url}
             className={styles.socialButton}
+            data-service={social.name.toLowerCase().replace(/\s+/g, '-')}
             aria-label={social.name}
             target="_blank"
             rel="noopener noreferrer"

@@ -1,0 +1,107 @@
+/* ================================================
+   SLIDER COMPONENT
+   Стили для слайдера с индикаторами
+   ================================================ */
+
+.slider {
+    display: block;
+    width: 100%;
+
+    &__container {
+        overflow-x: visible;
+        overflow-y: auto;
+        width: 100%;
+        -webkit-overflow-scrolling: touch; // Плавная прокрутка на iOS
+        scrollbar-width: none; // Firefox
+        -ms-overflow-style: none; // IE/Edge
+        padding: 0 var(--gap-s); // Отступы по краям в контейнере
+        box-sizing: border-box;
+
+        // Скрываем скроллбар в WebKit браузерах
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    &__track {
+        display: flex;
+        gap: var(--gap-s);
+        width: fit-content;
+        //костыль для работы ховера
+        padding-top: 2px;
+        padding-bottom: 2px;
+
+        .slider__item {
+            flex: 0 0 auto;
+            width: var(--slider-card-width, 280px); // Адаптивная ширина карточек
+            min-width: 0;
+
+            // Усиленные интерактивные эффекты для слайдера
+            &--clickable {
+                cursor: pointer;
+
+                &:hover {
+                    transform: scale(1.01);
+                    background: var(--card-bg-hover, #1a1a1a);
+                    border-color: var(--text-quaternary-color);
+                }
+
+                &:active {
+                    transform: translateY(-1px) scale(0.99);
+                    background: var(--card-bg-active, #161616);
+                    transition: transform 0.1s ease-out, box-shadow 0.1s ease-out, background 0.1s ease-out;
+                }
+
+                &:hover::after {
+                    transform: translateX(200%);
+                }
+            }
+        }
+    }
+
+    &__dots {
+        display: flex;
+        justify-content: center;
+        gap: var(--gap-xs);
+        margin-top: var(--gap-m);
+    }
+
+    &__dot {
+        all: unset;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--text-tertiary-color);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-block;
+        box-sizing: border-box;
+        flex-shrink: 0;
+
+        &--active {
+            background: var(--text-color);
+            transform: scale(1.2);
+        }
+
+        &:hover {
+            background: var(--text-secondary-color);
+        }
+    }
+}
+
+/* Адаптивные размеры карточек в слайдере */
+.slider {
+    --slider-card-width: 280px; // Базовый размер
+
+    @media (max-width: 768px) {
+        --slider-card-width: 260px;
+    }
+
+    @media (max-width: 480px) {
+        --slider-card-width: 240px;
+    }
+
+    @media (max-width: 360px) {
+        --slider-card-width: 220px;
+    }
+}

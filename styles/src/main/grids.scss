@@ -1,0 +1,141 @@
+// Базовый класс для сеток с адаптивными карточками
+.grids {
+  /* Flex-based grid: гарантирует одинаковую ширину карточек и центровку последнего ряда */
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-m, 20px);
+  justify-content: center;
+  width: 100%;
+
+  /* число колонок (можно переопределять) */
+  --cols: 4;
+
+  & > * {
+    /* ширина элемента: (100% - gaps) / cols */
+    flex: 0 0 calc((100% - ((var(--cols) - 1) * var(--gap-m, 20px))) / var(--cols));
+    max-width: calc((100% - ((var(--cols) - 1) * var(--gap-m, 20px))) / var(--cols));
+  }
+
+  /* Responsive: переопределяем --cols по брейкпоинтам */
+  @media (max-width: 1200px) {
+    --cols: 3;
+  }
+  @media (max-width: 992px) {
+    --cols: 2;
+  }
+  @media (max-width: 768px) {
+    --cols: 1;
+  }
+
+  & img,
+  & picture,
+  & video {
+    overflow: hidden;
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+
+// Варианты размеров для сеток
+.grids-xs {
+  --card-min-width: 120px;
+  --cols: 8;
+
+  @media (max-width: 1200px) {
+    --cols: 6;
+  }
+  @media (max-width: 992px) {
+    --cols: 4;
+  }
+  @media (max-width: 768px) {
+    --cols: 3;
+  }
+  @media (max-width: 576px) {
+    --cols: 2;
+  }
+}
+
+.grids-s {
+  --card-min-width: 180px;
+  --cols: 6;
+
+  @media (max-width: 1200px) {
+    --cols: 5;
+  }
+  @media (max-width: 992px) {
+    --cols: 4;
+  }
+  @media (max-width: 768px) {
+    --cols: 3;
+  }
+  @media (max-width: 576px) {
+    --cols: 2;
+  }
+}
+
+.grids-m {
+  --card-min-width: 240px;
+  --cols: 4;
+
+  @media (max-width: 992px) {
+    --cols: 3;
+  }
+  @media (max-width: 768px) {
+    --cols: 2;
+  }
+  @media (max-width: 576px) {
+    --cols: 1;
+  }
+}
+
+.grids-l {
+  --card-min-width: 320px;
+  --cols: 3;
+
+  @media (max-width: 768px) {
+    --cols: 2;
+  }
+  @media (max-width: 576px) {
+    --cols: 1;
+  }
+}
+
+.grids-xl {
+  --card-min-width: 400px;
+  --cols: 2;
+
+  @media (max-width: 768px) {
+    --cols: 1;
+  }
+}
+
+.grids-xxl {
+  --card-min-width: 480px;
+  --cols: 1;
+}
+
+
+/* Мобильный поведение: на узких экранах превращаем грид в горизонтальный слайдер */
+@media (max-width: 600px) {
+  .grids-slider {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    justify-content: flex-start;
+
+    & > * {
+      flex: 0 0 var(--card-min-width);
+      scroll-snap-align: start;
+    }
+
+    /* Скрываем скроллбар */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    scrollbar-width: none;
+  }
+}
+

@@ -3,114 +3,120 @@
 
 .tracksPage {
   @include page-fullscreen;
-  padding-top: var(--space-m);
   display: flex;
   flex-direction: column;
-  gap: 0;
-  margin: auto;
-  justify-content: space-between;
   width: 100%;
+  min-height: 100vh;
+  padding: 0;
+}
+
+// Контейнер для обложек и информации
+.contentContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding-bottom: clamp(0.5rem, 2vh, 2rem);
+}
+
+// Контейнер переключателя
+.toggleContainer {
+  flex-shrink: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ // padding-top: clamp(1.25rem, 3.5vw, 2.5rem);
+  padding-bottom: clamp(0.5rem, 1vh, 1rem);
+
+  @media screen and (max-width: 768px) {
+//    padding-top: 6rem;
+  }
 }
 
 // Переключатель треки/альбомы
 .viewToggle {
-  @include toggle-group('m');
+  @include toggle-group("s");
   justify-content: center;
-  flex-shrink: 0;
-  margin: 0 auto var(--gap-m);
 }
 
 .toggleButton {
-  @include toggle-pill('m');
-}
-
-.trackInfoWrapper {
-  max-width: clamp(370px, 90%, 600px);
-  width: calc(50% - min(27.5vh, 37.5vw, 300px));
-  margin: 0 auto 0;
-  width: 100%;
-  flex-shrink: 0;
+  @include toggle-pill("s");
 }
 
 // Обертка слайдера
 .sliderWrapper {
-  flex: 1;
-//  display: flex;
+  flex-shrink: 1; // Обложки схлопываются при нехватке места
+  width: 100%;
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
   min-height: 0;
-  position: relative;
+}
+
+// Информация о треке - такого же размера как активная обложка
+.trackInfoWrapper {
+  flex-shrink: 0; // НЕ схлопывается
+  width: 100%;
+  max-width: min(50vh, 70vw, 500px); // Размер как у активной обложки
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .loading {
   @include state-loading;
 }
 
-// Когда места достаточно - центрируем все
-@media (min-height: 900px) {
-  .tracksPage {
-    justify-content: center;
-  }
-
-  .sliderWrapper {
-    flex: 0 1 auto;
-  }
-}
-
 // Узкие по высоте экраны
 @media (max-height: 800px) {
-  .tracksPage {
-    justify-content: flex-start;
-    gap: var(--gap-s);
-  }
 
-  .viewToggle {
-    margin-bottom: var(--gap-s);
-  }
 
-  .sliderWrapper {
-    flex: 0 1 auto;
-    max-height: 50vh;
+  .contentContainer {
+    padding-bottom: clamp(1.5rem, 4vh, 3rem);
   }
 
   .trackInfoWrapper {
-    margin-top: var(--gap-s);
+    max-width: min(40vh, 60vw, 380px);
   }
 }
 
 // Очень узкие по высоте экраны
 @media (max-height: 650px) {
-  .tracksPage {
-    gap: var(--gap-xs);
-  }
 
-  .viewToggle {
-    margin-bottom: var(--gap-xs);
-  }
 
-  .sliderWrapper {
-    max-height: 45vh;
+  .contentContainer {
+
+    padding-bottom: clamp(1rem, 3vh, 2rem);
   }
 
   .trackInfoWrapper {
-    margin-top: var(--gap-xs);
+    max-width: min(35vh, 50vw, 300px);
   }
 }
 
 // Mobile
-@media (max-width: 640px) {
-  .tracksPage {
-    justify-content: center;
-    padding-top: var(--gap-m);
+@media (max-width: 768px) {
+
+
+  .contentContainer {
+
+    padding-bottom: clamp(2rem, 6vw, 4rem);
   }
 
-  .viewToggle {
-    gap: var(--gap-xs);
-    margin-bottom: var(--gap-s);
+  .trackInfoWrapper {
+    max-width: min(58vh, 88vw, 420px);
   }
+}
 
-  .sliderWrapper {
-    flex: 0 1 auto;
+// Очень маленькие экраны
+@media (max-width: 480px) {
+
+
+  .contentContainer {
+
+    padding-bottom: clamp(1.5rem, 7vw, 3rem);
   }
 }

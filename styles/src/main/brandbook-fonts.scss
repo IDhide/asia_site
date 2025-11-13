@@ -1,0 +1,22 @@
+/* ================================================
+   BRANDBOOK FONTS
+   Fonts specifically for brandbook pages
+   ================================================ */
+
+/* Libertinus Sans - Open source font */
+/* Download from: https://github.com/alerque/libertinus */
+/* For now, using system fallback until font files are added */
+:root {
+  --font-libertinus: 'Libertinus Sans', 'Liberation Sans', 'Arial', sans-serif;
+  --font-lora: 'Lora', 'Georgia', serif;
+}
+
+/* Note: To use Libertinus Sans properly, download the font files and add them here:
+@font-face {
+  font-family: 'Libertinus Sans';
+  src: url('/fonts/LibertinusSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+*/

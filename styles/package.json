@@ -1,0 +1,18 @@
+{
+    "name": "@olenev/styles",
+    "version": "2.0.0",
+    "description": "Система стилей для монорепозитория Olenev",
+    "main": "./src/index.scss",
+    "exports": {
+        ".": "./src/index.scss",
+        "./core": "./src/core.scss",
+        "./style": "./src/style.scss",
+        "./main/*": "./src/main/*.scss",
+        "./components/*": "./src/components/*.scss",
+        "./features/*": "./src/features/*.scss"
+    },
+    "files": [
+        "src",
+        "README.md"
+    ]
+}

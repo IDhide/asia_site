@@ -1,0 +1,99 @@
+/* ================================================
+   REMOVE BUTTONS
+   Кнопки удаления для корзины, списков и других компонентов
+   ================================================ */
+
+:root {
+    /* Размеры remove buttons */
+    --remove-btn-size-xs: clamp(20px, 2.5vw, 24px);
+    --remove-btn-size-s: clamp(24px, 3vw, 28px);
+    --remove-btn-size-m: clamp(28px, 3.5vw, 32px);
+    --remove-btn-size-l: clamp(32px, 4vw, 36px);
+}
+
+/* Базовый класс */
+.remove-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--remove-btn-size-s);
+    height: var(--remove-btn-size-s);
+    background: transparent;
+    border: none;
+    color: var(--text-tertiary-color);
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s ease, transform 0.15s ease;
+    line-height: 1;
+    font-family: var(--font-primary);
+    font-size: var(--h5-size);
+    flex-shrink: 0;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+
+    /* Hover состояние только для устройств с мышью */
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            color: var(--text-color);
+        }
+    }
+
+    /* Active состояние */
+    &:active {
+        transform: scale(0.9);
+    }
+
+    /* Focus состояние */
+    &:focus-visible {
+        outline: 2px solid var(--text-tertiary-color);
+        outline-offset: 2px;
+    }
+
+    /* Disabled состояние */
+    &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+}
+
+/* ================================================
+   РАЗМЕРЫ
+   ================================================ */
+
+.remove-btn-xs {
+    width: var(--remove-btn-size-xs);
+    height: var(--remove-btn-size-xs);
+    font-size: var(--p1-size);
+}
+
+.remove-btn-s {
+    width: var(--remove-btn-size-s);
+    height: var(--remove-btn-size-s);
+    font-size: var(--h5-size);
+}
+
+.remove-btn-m {
+    width: var(--remove-btn-size-m);
+    height: var(--remove-btn-size-m);
+    font-size: var(--h4-size);
+}
+
+.remove-btn-l {
+    width: var(--remove-btn-size-l);
+    height: var(--remove-btn-size-l);
+    font-size: var(--h3-size);
+}
+
+/* ================================================
+   ВАРИАНТЫ
+   ================================================ */
+
+/* Вариант с красным цветом при наведении */
+.remove-btn-danger {
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            color: #ff3c00;
+        }
+    }
+}

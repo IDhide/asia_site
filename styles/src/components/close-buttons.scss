@@ -1,0 +1,156 @@
+/* ================================================
+   CLOSE BUTTONS
+   Кнопки закрытия для модалок, алертов и других компонентов
+   ================================================ */
+
+:root {
+    /* Размеры close buttons */
+    --close-btn-size-xs: clamp(20px, 2.5vw, 24px);
+    --close-btn-size-s: clamp(24px, 3vw, 28px);
+    --close-btn-size-m: clamp(28px, 3.5vw, 32px);
+    --close-btn-size-l: clamp(32px, 4vw, 36px);
+}
+
+/* Базовый класс */
+.close-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--close-btn-size-m);
+    height: var(--close-btn-size-m);
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-tertiary-color);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    padding: 0;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+
+    /* X иконка */
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        width: 50%;
+        height: 1.5px;
+        background: currentColor;
+        top: 50%;
+        left: 50%;
+        transition: transform 0.2s ease;
+    }
+
+    &::before {
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    &::after {
+        transform: translate(-50%, -50%) rotate(-45deg);
+    }
+
+    /* Hover состояние только для устройств с мышью */
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            border-color: var(--text-tertiary-color);
+            color: var(--text-color);
+            background: var(--hover-bg);
+        }
+
+        &:hover::before {
+            transform: translate(-50%, -50%) rotate(135deg);
+        }
+
+        &:hover::after {
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+    }
+
+    /* Active состояние */
+    &:active {
+        transform: scale(0.95);
+        background: var(--card-bg-hover);
+    }
+
+    /* Focus состояние */
+    &:focus-visible {
+        outline: 2px solid var(--text-tertiary-color);
+        outline-offset: 2px;
+    }
+
+    /* Disabled состояние */
+    &:disabled,
+    &.close-btn-disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+}
+
+/* Размеры */
+.close-btn-xs {
+    width: var(--close-btn-size-xs);
+    height: var(--close-btn-size-xs);
+}
+
+.close-btn-s {
+    width: var(--close-btn-size-s);
+    height: var(--close-btn-size-s);
+}
+
+.close-btn-m {
+    width: var(--close-btn-size-m);
+    height: var(--close-btn-size-m);
+}
+
+.close-btn-l {
+    width: var(--close-btn-size-l);
+    height: var(--close-btn-size-l);
+}
+
+/* Варианты */
+.close-btn-ghost {
+    border: none;
+    background: transparent;
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            background: var(--hover-bg);
+        }
+    }
+}
+
+.close-btn-danger {
+    color: #ff1e1e;
+    border-color: rgba(255, 30, 30, 0.3);
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            background: rgba(255, 30, 30, 0.1);
+            border-color: #ff1e1e;
+        }
+    }
+
+    &:active {
+        background: rgba(255, 30, 30, 0.15);
+    }
+}
+
+/* Отключаем hover эффекты на touch устройствах */
+@media (hover: none) and (pointer: coarse) {
+    .close-btn:hover {
+        border-color: var(--border-color);
+        color: var(--text-tertiary-color);
+        background: transparent;
+    }
+
+    .close-btn:hover::before {
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    .close-btn:hover::after {
+        transform: translate(-50%, -50%) rotate(-45deg);
+    }
+}

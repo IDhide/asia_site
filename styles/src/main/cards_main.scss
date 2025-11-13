@@ -1,0 +1,265 @@
+.card-base {
+    border-radius: var(--card-border-radius-m);
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.card-interactive {
+    @extend .card-base;
+    cursor: pointer;
+}
+
+.card {
+    @extend .glass-fake;
+    @extend .glass-fake-dark;
+
+    border-radius: var(--card-border-radius-m);
+    padding: var(--card-padding-m);
+    font-size: var(--p2-size);
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: calc(var(--card-border-radius-m) - 1px);
+        pointer-events: none;
+        z-index: 1;
+        box-shadow: inset 0 0 3px rgba(255, 255, 255, 0.1), inset 0 0 0 2.2px rgba(255, 255, 255, 0.04), inset 0 0 0 1.5px rgba(255, 255, 255, 0.03), inset 0 0 0 0.5px rgba(255, 255, 255, 0.08);
+        mix-blend-mode: hard-light;
+    }
+}
+
+/* ================================================
+   РАЗМЕРЫ КАРТОЧЕК
+   ================================================ */
+
+.card-s {
+    font-size: var(--p3-size);
+    padding: var(--card-padding-s);
+    border-radius: var(--card-border-radius-s);
+
+    &::after {
+        border-radius: var(--card-border-radius-s);
+    }
+}
+
+.card-m {
+    font-size: var(--p2-size);
+    padding: var(--card-padding-m);
+    border-radius: var(--card-border-radius-m);
+
+    &::after {
+        border-radius: var(--card-border-radius-m);
+    }
+}
+
+.card-l {
+    font-size: var(--p1-size);
+    padding: var(--card-padding-l);
+    border-radius: var(--card-border-radius-l);
+
+    &::after {
+        border-radius: var(--card-border-radius-l);
+    }
+}
+
+.card-xl {
+    font-size: var(--lead-size);
+    padding: var(--card-padding-xl);
+    border-radius: var(--card-border-radius-xl);
+
+    &::after {
+        border-radius: var(--card-border-radius-xl);
+    }
+}
+
+/* Полностраничные карточки для контента */
+.card-xxl {
+    font-size: var(--p2-size);
+    padding: var(--card-padding-xxl);
+    border-radius: var(--card-border-radius-xl);
+
+    &::after {
+        border-radius: var(--card-border-radius-xl);
+    }
+}
+
+.card-xxxl {
+    font-size: var(--p1-size);
+    padding: var(--card-padding-xxxl);
+    border-radius: var(--card-border-radius-xxl);
+
+    &::after {
+        border-radius: var(--card-border-radius-xxl);
+    }
+}
+
+/* ================================================
+   ЭФФЕКТ СТЕКЛА (с backdrop-filter)
+   ================================================ */
+
+.card-glass {
+    @extend .glass-real;
+    @extend .glass-real-dark;
+}
+
+/* ================================================
+   КАРТОЧКА-ПЛЕЙСХОЛДЕР (дроп-зона)
+   ================================================ */
+
+.card-placeholder {
+    background: var(--card-bg-secondary);
+    border: 1.5px dashed rgb(53, 53, 53);
+    color: var(--text-tertiary-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+    border-radius: var(--card-border-radius-m);
+    padding: var(--card-padding-m);
+    min-height: clamp(120px, 20vw, 200px);
+    position: relative;
+
+    &:hover,
+    &:focus {
+        border-color: var(--text-quaternary-color);
+        background: var(--card-bg-hover);
+        color: var(--text-color);
+    }
+}
+
+.card-placeholder-text {
+    font-size: var(--p1-size);
+    color: inherit;
+    text-align: center;
+    font-family: var(--font-primary);
+    font-weight: var(--font-medium);
+    pointer-events: none;
+}
+
+/* ================================================
+   ВЛОЖЕННЫЕ КАРТОЧКИ (NESTED CARDS)
+   ================================================ */
+
+/* Контейнер-секция для вложенных карточек */
+.card-section {
+    @extend .card;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-m);
+
+    /* Убираем внутренние отступы для вложенных карточек */
+    &.card-section--no-gap {
+        gap: 0;
+    }
+}
+
+/* Вложенная карточка внутри секции */
+.card-nested {
+    // Стеклянный эффект
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+
+    // Границы с градиентом
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: var(--card-border-radius-l);
+
+    // Тени для глубины
+    box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1);
+
+    // Свечение
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: var(--card-border-radius-l);
+        //  background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 1;
+    }
+}
+
+/* Интерактивная вложенная карточка */
+.card-nested-interactive {
+    @extend .card-nested;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--card-bg-hover);
+        transform: translateY(-1px);
+
+        &::after {
+            box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.025),
+                // усиленное свечение
+                inset 0 0 0 2px rgba(255, 255, 255, 0.025),
+                inset 0 0 0 1.5px rgba(255, 255, 255, 0.06),
+                // ярче при ховере
+                inset 0 0 0 1px rgba(255, 255, 255, 0.03),
+                inset 0 0 0 0.5px rgb(110, 110, 110); // светлее обводка
+        }
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+/* Размеры вложенных карточек */
+.card-nested-s {
+    padding: var(--spacing-xs);
+    font-size: var(--p3-size);
+    border-radius: calc(var(--card-border-radius-s) - 2px);
+
+    &::after {
+        border-radius: calc(var(--card-border-radius-s) - 3px);
+    }
+}
+
+.card-nested-m {
+    padding: var(--card-padding-s);
+    font-size: var(--p2-size);
+    border-radius: var(--card-border-radius-s);
+
+    &::after {
+        border-radius: calc(var(--card-border-radius-s) - 1px);
+    }
+}
+
+.card-nested-l {
+    padding: var(--card-padding-m);
+    font-size: var(--p1-size);
+    border-radius: var(--card-border-radius-m);
+
+    &::after {
+        border-radius: calc(var(--card-border-radius-m) - 1px);
+    }
+}
+
+/* Сетка вложенных карточек */
+.card-nested-grid {
+    display: grid;
+    gap: var(--spacing-s);
+
+    &.card-nested-grid--2 {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    &.card-nested-grid--3 {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    &.card-nested-grid--4 {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+}

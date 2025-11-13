@@ -85,7 +85,7 @@
   // left: auto;
   // transform: none;
   
-  @include glass-effect;
+  @include glass-real;
   border-radius: var(--radius-xl);
   padding: 0.5rem;
   min-width: 200px;

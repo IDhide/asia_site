@@ -1,0 +1,446 @@
+/* ================================================
+   СИСТЕМА ТЕМ
+   Темная тема по умолчанию для всех элементов
+   Светлая тема только для элементов с классом .adaptive
+   ================================================ */
+
+:root {
+    /* ================================================
+       ТЕМНАЯ ТЕМА (фиксированная)
+       ================================================ */
+
+    /* Фоны */
+    --dark-bg: #000000;
+    --dark-bg-rgb: 0, 0, 0;
+  //  --dark-card-bg: #151515;
+       --dark-card-bg: #101010;
+    --dark-card-bg-secondary: #0d0d0d;
+    --dark-card-bg-hover: #151515;
+    --dark-card-bg-active: #0e0e0e;
+
+    /* Текст */
+    --dark-text: #ffffff;
+    --dark-text-rgb: 255, 255, 255;
+    --dark-text-secondary: #999999;
+    --dark-text-tertiary: #666666;
+    --dark-text-quaternary: #333333;
+
+    /* Границы */
+    --dark-border: rgb(35, 35, 35);
+    --dark-border-hover: rgba(255, 255, 255, 0.3);
+    --dark-border-focus: rgba(255, 255, 255, 0.45);
+
+    /* UI элементы */
+    --dark-input-bg: #0d0d0d;
+    --dark-input-border: rgb(32, 32, 32);
+    --dark-select-bg: #111111;
+    --dark-table-header-bg: #0d0d0d;
+    --dark-table-row-hover: #151515;
+
+    /* Эффекты */
+    --dark-shimmer: rgba(255, 255, 255, 0.2);
+    --dark-hover-bg: rgba(255, 255, 255, 0.1);
+    --dark-divider: rgba(255, 255, 255, 0.1);
+    --dark-shadow: rgba(0, 0, 0, 0.5);
+
+    /* Кнопки - темная тема */
+    --dark-button-primary-bg: #ffffff;
+    --dark-button-primary-text: #000000;
+    --dark-button-primary-hover: #f0f0f0;
+    --dark-button-primary-active: #e0e0e0;
+
+    --dark-button-secondary-bg: transparent;
+    --dark-button-secondary-text: #ffffff;
+    --dark-button-secondary-border: rgba(255, 255, 255, 0.2);
+    --dark-button-secondary-hover: rgba(255, 255, 255, 0.1);
+    --dark-button-secondary-active: rgba(255, 255, 255, 0.15);
+
+    --dark-button-tertiary-bg: transparent;
+    --dark-button-tertiary-text: #999999;
+    --dark-button-tertiary-border: rgba(255, 255, 255, 0.1);
+    --dark-button-tertiary-hover: rgba(255, 255, 255, 0.05);
+    --dark-button-tertiary-active: rgba(255, 255, 255, 0.1);
+
+    --dark-button-danger-bg: #ef4444;
+    --dark-button-danger-text: #ffffff;
+    --dark-button-danger-hover: #dc2626;
+    --dark-button-danger-active: #b91c1c;
+
+    --dark-button-ghost-bg: transparent;
+    --dark-button-ghost-text: #999999;
+    --dark-button-ghost-hover: rgba(255, 255, 255, 0.05);
+    --dark-button-ghost-active: rgba(255, 255, 255, 0.1);
+
+    /* ================================================
+       СВЕТЛАЯ ТЕМА (для адаптивных элементов)
+       ================================================ */
+
+    /* Фоны */
+    --light-bg: #ffffff;
+    --light-card-bg: #e9e7e4;
+    --light-card-bg-secondary: #ededed;
+    --light-card-bg-hover: #e5e5e5;
+
+    /* Текст */
+    --light-text: #000000;
+    --light-text-secondary: #444444;
+    --light-text-tertiary: #666666;
+    --light-text-quaternary: #999999;
+
+    /* Границы */
+    --light-border: #e0e0e0;
+    --light-border-hover: rgba(0, 0, 0, 0.2);
+    --light-border-focus: rgba(0, 0, 0, 0.4);
+
+    /* UI элементы */
+    --light-input-bg: #ffffff;
+    --light-input-border: #e0e0e0;
+    --light-select-bg: #ffffff;
+    --light-table-header-bg: #f8f8f8;
+    --light-table-row-hover: #f0f0f0;
+
+    /* Эффекты */
+    --light-shimmer: rgba(0, 0, 0, 0.1);
+    --light-hover-bg: rgba(0, 0, 0, 0.05);
+    --light-divider: rgba(0, 0, 0, 0.1);
+    --light-shadow: rgba(0, 0, 0, 0.1);
+
+    /* Кнопки - светлая тема */
+    --light-button-primary-bg: #000000;
+    --light-button-primary-text: #ffffff;
+    --light-button-primary-hover: #1a1a1a;
+    --light-button-primary-active: #333333;
+
+    --light-button-secondary-bg: transparent;
+    --light-button-secondary-text: #000000;
+    --light-button-secondary-border: rgba(0, 0, 0, 0.2);
+    --light-button-secondary-hover: rgba(0, 0, 0, 0.05);
+    --light-button-secondary-active: rgba(0, 0, 0, 0.1);
+
+    --light-button-tertiary-bg: transparent;
+    --light-button-tertiary-text: #666666;
+    --light-button-tertiary-border: rgba(0, 0, 0, 0.1);
+    --light-button-tertiary-hover: rgba(0, 0, 0, 0.05);
+    --light-button-tertiary-active: rgba(0, 0, 0, 0.1);
+
+    --light-button-danger-bg: #ef4444;
+    --light-button-danger-text: #ffffff;
+    --light-button-danger-hover: #dc2626;
+    --light-button-danger-active: #b91c1c;
+
+    --light-button-ghost-bg: transparent;
+    --light-button-ghost-text: #666666;
+    --light-button-ghost-hover: rgba(0, 0, 0, 0.05);
+    --light-button-ghost-active: rgba(0, 0, 0, 0.1);
+
+    /* ================================================
+       ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ (всегда темная тема)
+       ================================================ */
+
+    /* Фоны */
+    --bg-color: var(--dark-bg);
+    --card-bg: var(--dark-card-bg);
+    --card-bg-secondary: var(--dark-card-bg-secondary);
+    --card-bg-hover: var(--dark-card-bg-hover);
+    --card-bg-active: var(--dark-card-bg-active);
+
+    /* Текст */
+    --text-color: var(--dark-text);
+    --text-secondary-color: var(--dark-text-secondary);
+    --text-tertiary-color: var(--dark-text-tertiary);
+    --text-quaternary-color: var(--dark-text-quaternary);
+
+    /* Границы */
+    --border-color: var(--dark-border);
+    --border-hover: var(--dark-border-hover);
+    --border-focus: var(--dark-border-focus);
+
+    /* UI элементы */
+    --input-bg: var(--dark-input-bg);
+    --input-border: var(--dark-input-border);
+    --select-bg: var(--dark-select-bg);
+    --table-header-bg: var(--dark-table-header-bg);
+    --table-row-hover: var(--dark-table-row-hover);
+
+    /* Эффекты */
+    --hover-bg: var(--dark-hover-bg);
+    --divider-color: var(--dark-divider);
+    --shimmer-color: var(--dark-shimmer);
+    --shadow-color: var(--dark-shadow);
+
+    /* Кнопки (глобальные - всегда темная тема) */
+    --button-primary-bg: var(--dark-button-primary-bg);
+    --button-primary-text: var(--dark-button-primary-text);
+    --button-primary-hover: var(--dark-button-primary-hover);
+    --button-primary-active: var(--dark-button-primary-active);
+
+    --button-secondary-bg: var(--dark-button-secondary-bg);
+    --button-secondary-text: var(--dark-button-secondary-text);
+    --button-secondary-border: var(--dark-button-secondary-border);
+    --button-secondary-hover: var(--dark-button-secondary-hover);
+    --button-secondary-active: var(--dark-button-secondary-active);
+
+    --button-tertiary-bg: var(--dark-button-tertiary-bg);
+    --button-tertiary-text: var(--dark-button-tertiary-text);
+    --button-tertiary-border: var(--dark-button-tertiary-border);
+    --button-tertiary-hover: var(--dark-button-tertiary-hover);
+    --button-tertiary-active: var(--dark-button-tertiary-active);
+
+    --button-danger-bg: var(--dark-button-danger-bg);
+    --button-danger-text: var(--dark-button-danger-text);
+    --button-danger-hover: var(--dark-button-danger-hover);
+    --button-danger-active: var(--dark-button-danger-active);
+
+    --button-ghost-bg: var(--dark-button-ghost-bg);
+    --button-ghost-text: var(--dark-button-ghost-text);
+    --button-ghost-hover: var(--dark-button-ghost-hover);
+    --button-ghost-active: var(--dark-button-ghost-active);
+
+    /* Обратная совместимость (deprecated, будут удалены в будущих версиях) */
+    --background-color: var(--bg-color);
+    --card-background: var(--card-bg);
+    --card-background-secondary: var(--card-bg-secondary);
+    --card-background-hover: var(--card-bg-hover);
+    --card-background-active: var(--card-bg-active);
+    --card-border: var(--border-color);
+    --card-border-hover: var(--border-hover);
+
+    color-scheme: dark;
+}
+
+html {
+    color-scheme: dark;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* ================================================
+   АДАПТИВНЫЕ ЭЛЕМЕНТЫ
+   Только элементы с классом .adaptive реагируют на смену темы
+   ================================================ */
+
+/* Адаптивные элементы в светлой теме */
+html.light-theme .adaptive {
+    --bg-color: var(--light-bg);
+    --card-bg: var(--light-card-bg);
+    --card-bg-secondary: var(--light-card-bg-secondary);
+    --card-bg-hover: var(--light-card-bg-hover);
+    --border-color: var(--light-border);
+    --border-hover: var(--light-border-hover);
+    --border-focus: var(--light-border-focus);
+    --text-color: var(--light-text);
+    --text-secondary-color: var(--light-text-secondary);
+    --text-tertiary-color: var(--light-text-tertiary);
+    --text-quaternary-color: var(--light-text-quaternary);
+    --input-bg: var(--light-input-bg);
+    --input-border: var(--light-input-border);
+    --select-bg: var(--light-select-bg);
+    --table-header-bg: var(--light-table-header-bg);
+    --table-row-hover: var(--light-table-row-hover);
+    --hover-bg: var(--light-hover-bg);
+    --divider-color: var(--light-divider);
+    --shimmer-color: var(--light-shimmer);
+    --shadow-color: var(--light-shadow);
+
+    /* Кнопки - адаптивные в светлой теме */
+    --button-primary-bg: var(--light-button-primary-bg);
+    --button-primary-text: var(--light-button-primary-text);
+    --button-primary-hover: var(--light-button-primary-hover);
+    --button-primary-active: var(--light-button-primary-active);
+
+    --button-secondary-bg: var(--light-button-secondary-bg);
+    --button-secondary-text: var(--light-button-secondary-text);
+    --button-secondary-border: var(--light-button-secondary-border);
+    --button-secondary-hover: var(--light-button-secondary-hover);
+    --button-secondary-active: var(--light-button-secondary-active);
+
+    --button-tertiary-bg: var(--light-button-tertiary-bg);
+    --button-tertiary-text: var(--light-button-tertiary-text);
+    --button-tertiary-border: var(--light-button-tertiary-border);
+    --button-tertiary-hover: var(--light-button-tertiary-hover);
+    --button-tertiary-active: var(--light-button-tertiary-active);
+
+    --button-danger-bg: var(--light-button-danger-bg);
+    --button-danger-text: var(--light-button-danger-text);
+    --button-danger-hover: var(--light-button-danger-hover);
+    --button-danger-active: var(--light-button-danger-active);
+
+    --button-ghost-bg: var(--light-button-ghost-bg);
+    --button-ghost-text: var(--light-button-ghost-text);
+    --button-ghost-hover: var(--light-button-ghost-hover);
+    --button-ghost-active: var(--light-button-ghost-active);
+
+    /* Обратная совместимость */
+    --background-color: var(--bg-color);
+    --card-background: var(--card-bg);
+    --card-background-secondary: var(--card-bg-secondary);
+    --card-background-hover: var(--card-bg-hover);
+    --card-border: var(--border-color);
+    --card-border-hover: var(--border-hover);
+}
+
+/* Адаптивные элементы в темной теме (явно) */
+html.dark-theme .adaptive {
+    --bg-color: var(--dark-bg);
+    --card-bg: var(--dark-card-bg);
+    --card-bg-secondary: var(--dark-card-bg-secondary);
+    --card-bg-hover: var(--dark-card-bg-hover);
+    --card-bg-active: var(--dark-card-bg-active);
+    --border-color: var(--dark-border);
+    --border-hover: var(--dark-border-hover);
+    --border-focus: var(--dark-border-focus);
+    --text-color: var(--dark-text);
+    --text-secondary-color: var(--dark-text-secondary);
+    --text-tertiary-color: var(--dark-text-tertiary);
+    --text-quaternary-color: var(--dark-text-quaternary);
+    --input-bg: var(--dark-input-bg);
+    --input-border: var(--dark-input-border);
+    --select-bg: var(--dark-select-bg);
+    --table-header-bg: var(--dark-table-header-bg);
+    --table-row-hover: var(--dark-table-row-hover);
+    --hover-bg: var(--dark-hover-bg);
+    --divider-color: var(--dark-divider);
+    --shimmer-color: var(--dark-shimmer);
+    --shadow-color: var(--dark-shadow);
+
+    /* Кнопки - адаптивные в темной теме */
+    --button-primary-bg: var(--dark-button-primary-bg);
+    --button-primary-text: var(--dark-button-primary-text);
+    --button-primary-hover: var(--dark-button-primary-hover);
+    --button-primary-active: var(--dark-button-primary-active);
+
+    --button-secondary-bg: var(--dark-button-secondary-bg);
+    --button-secondary-text: var(--dark-button-secondary-text);
+    --button-secondary-border: var(--dark-button-secondary-border);
+    --button-secondary-hover: var(--dark-button-secondary-hover);
+    --button-secondary-active: var(--dark-button-secondary-active);
+
+    --button-tertiary-bg: var(--dark-button-tertiary-bg);
+    --button-tertiary-text: var(--dark-button-tertiary-text);
+    --button-tertiary-border: var(--dark-button-tertiary-border);
+    --button-tertiary-hover: var(--dark-button-tertiary-hover);
+    --button-tertiary-active: var(--dark-button-tertiary-active);
+
+    --button-danger-bg: var(--dark-button-danger-bg);
+    --button-danger-text: var(--dark-button-danger-text);
+    --button-danger-hover: var(--dark-button-danger-hover);
+    --button-danger-active: var(--dark-button-danger-active);
+
+    --button-ghost-bg: var(--dark-button-ghost-bg);
+    --button-ghost-text: var(--dark-button-ghost-text);
+    --button-ghost-hover: var(--dark-button-ghost-hover);
+    --button-ghost-active: var(--dark-button-ghost-active);
+
+    /* Обратная совместимость */
+    --background-color: var(--bg-color);
+    --card-background: var(--card-bg);
+    --card-background-secondary: var(--card-bg-secondary);
+    --card-background-hover: var(--card-bg-hover);
+    --card-background-active: var(--card-bg-active);
+    --card-border: var(--border-color);
+    --card-border-hover: var(--border-hover);
+}
+
+/* Плавные переходы для адаптивных элементов */
+.adaptive {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Элементы, которые НЕ должны быть адаптивными (всегда темные) */
+.adaptive .non-adaptive,
+.non-adaptive {
+    /* Фиксируем темные цвета */
+    --bg-color: var(--dark-bg) !important;
+    --card-bg: var(--dark-card-bg) !important;
+    --card-bg-secondary: var(--dark-card-bg-secondary) !important;
+    --text-color: var(--dark-text) !important;
+    --text-secondary-color: var(--dark-text-secondary) !important;
+    --border-color: var(--dark-border) !important;
+}
+
+/* ================================================
+   СПЕЦИФИЧНЫЕ СТИЛИ ДЛЯ АДАПТИВНЫХ ЭЛЕМЕНТОВ
+   ================================================ */
+
+/* Адаптивные карточки в светлой теме */
+html.light-theme .adaptive.card-hover {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+html.light-theme .adaptive.card-hover:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Адаптивные изображения */
+html.light-theme .adaptive img {
+    filter: brightness(0.95);
+}
+
+html.dark-theme .adaptive img {
+    filter: brightness(1.15);
+}
+
+/* Адаптивный shimmer эффект */
+html.light-theme .adaptive.shimmer-effect::after {
+    background: linear-gradient(90deg, transparent, var(--light-shimmer), transparent);
+}
+
+html.dark-theme .adaptive.shimmer-effect::after {
+    background: linear-gradient(90deg, transparent, var(--dark-shimmer), transparent);
+}
+
+/* ================================================
+   TEXT COLOR UTILITY CLASSES
+   Used by rich text editor for text coloring
+   ================================================ */
+
+.text-color {
+    color: var(--text-color);
+}
+
+.text-secondary-color {
+    color: var(--text-secondary-color);
+}
+
+.text-tertiary-color {
+    color: var(--text-tertiary-color);
+}
+
+.text-quaternary-color {
+    color: var(--text-quaternary-color);
+}
+
+
+/* ================================================
+   КНОПКА ПЕРЕКЛЮЧЕНИЯ ТЕМЫ (LEGACY)
+   Старая версия - простая кнопка с иконкой
+   Для новой версии используйте theme-toggle.scss
+   ================================================ */
+
+.theme-toggle-button {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    color: var(--text-color);
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.theme-toggle-button:hover {
+    border-color: var(--border-hover);
+    background: var(--hover-bg);
+}
+
+.theme-toggle-button svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}

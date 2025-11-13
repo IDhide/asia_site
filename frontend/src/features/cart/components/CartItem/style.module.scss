@@ -1,3 +1,5 @@
+@use '@/styles' as *;
+
 .cartItem {
   position: relative;
   aspect-ratio: 1;
@@ -20,6 +22,7 @@
     height: 100%;
     object-fit: cover;
     display: block;
+     border-radius: var(--radius-m);
   }
 }
 
@@ -35,30 +38,31 @@
 }
 
 .removeButton {
+  @include glass-real(var(--glass-color-medium), var(--glass-bg-opacity-subtle), var(--glass-blur-subtle), 0.2, 1.5);
   position: absolute;
   top: var(--gap-xs);
-  right: var(--gap-xs);
-  width: 32px;
-  height: 32px;
+  left: var(--gap-xs);
+  width: clamp(28px, 4vw, 32px);
+  height: clamp(28px, 4vw, 32px);
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(10px);
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 18px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(16px, 2vw, 18px);
   font-weight: 400;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all var(--transition-fast);
-  opacity: 0.8;
+  transition: background-color 400ms cubic-bezier(1, 0, 0.4, 1),
+              box-shadow 400ms cubic-bezier(1, 0, 0.4, 1),
+              transform 200ms cubic-bezier(1, 0, 0.4, 1);
 
   &:hover {
-    opacity: 1;
+    background-color: color-mix(in srgb, var(--glass-color-medium) calc(var(--glass-bg-opacity-subtle) * 1.5), transparent);
     transform: scale(1.1);
-    background: rgba(255, 50, 50, 0.8);
-    border-color: rgba(255, 100, 100, 0.5);
-    color: rgba(255, 255, 255, 1);
+    @include glass-shadows(0.24, 1.65);
+  }
+
+  &:active {
+    transform: scale(0.95);
   }
 }

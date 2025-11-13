@@ -1,0 +1,185 @@
+/* ================================================
+   TOOLTIPS
+   Всплывающие подсказки
+   ================================================ */
+
+:root {
+  --tooltip-max-width: clamp(180px, 40vw, 280px);
+  --tooltip-arrow-size: 6px;
+}
+
+/* Контейнер tooltip */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+/* Контент tooltip */
+.tooltip-content {
+  position: absolute;
+  z-index: 10000;
+  padding: clamp(6px, 1vw, 8px) clamp(10px, 1.5vw, 12px);
+  background: var(--card-bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--card-border-radius-s);
+  color: var(--text-color);
+  font-size: var(--p3-size);
+  line-height: 1.4;
+  max-width: var(--tooltip-max-width);
+  white-space: normal;
+  word-wrap: break-word;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  pointer-events: none;
+
+  /* Стрелка */
+  &::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+  }
+}
+
+/* Показываем tooltip */
+.tooltip:hover .tooltip-content,
+.tooltip-show .tooltip-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* ================================================
+   ПОЗИЦИИ
+   ================================================ */
+
+/* Top (по умолчанию) */
+.tooltip-content,
+.tooltip-content-top {
+  bottom: calc(100% + var(--tooltip-arrow-size) + 4px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+
+  &::before {
+    bottom: calc(-1 * var(--tooltip-arrow-size));
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: var(--tooltip-arrow-size) var(--tooltip-arrow-size) 0 var(--tooltip-arrow-size);
+    border-color: var(--card-bg-secondary) transparent transparent transparent;
+  }
+}
+
+.tooltip:hover .tooltip-content-top,
+.tooltip-show .tooltip-content-top {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Bottom */
+.tooltip-content-bottom {
+  top: calc(100% + var(--tooltip-arrow-size) + 4px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+
+  &::before {
+    top: calc(-1 * var(--tooltip-arrow-size));
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 0 var(--tooltip-arrow-size) var(--tooltip-arrow-size) var(--tooltip-arrow-size);
+    border-color: transparent transparent var(--card-bg-secondary) transparent;
+  }
+}
+
+.tooltip:hover .tooltip-content-bottom,
+.tooltip-show .tooltip-content-bottom {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Left */
+.tooltip-content-left {
+  right: calc(100% + var(--tooltip-arrow-size) + 4px);
+  top: 50%;
+  transform: translateY(-50%) translateX(4px);
+
+  &::before {
+    right: calc(-1 * var(--tooltip-arrow-size));
+    top: 50%;
+    transform: translateY(-50%);
+    border-width: var(--tooltip-arrow-size) 0 var(--tooltip-arrow-size) var(--tooltip-arrow-size);
+    border-color: transparent transparent transparent var(--card-bg-secondary);
+  }
+}
+
+.tooltip:hover .tooltip-content-left,
+.tooltip-show .tooltip-content-left {
+  transform: translateY(-50%) translateX(0);
+}
+
+/* Right */
+.tooltip-content-right {
+  left: calc(100% + var(--tooltip-arrow-size) + 4px);
+  top: 50%;
+  transform: translateY(-50%) translateX(-4px);
+
+  &::before {
+    left: calc(-1 * var(--tooltip-arrow-size));
+    top: 50%;
+    transform: translateY(-50%);
+    border-width: var(--tooltip-arrow-size) var(--tooltip-arrow-size) var(--tooltip-arrow-size) 0;
+    border-color: transparent var(--card-bg-secondary) transparent transparent;
+  }
+}
+
+.tooltip:hover .tooltip-content-right,
+.tooltip-show .tooltip-content-right {
+  transform: translateY(-50%) translateX(0);
+}
+
+/* ================================================
+   ВАРИАНТЫ
+   ================================================ */
+
+/* Dark tooltip */
+.tooltip-content-dark {
+  background: rgba(0, 0, 0, 0.9);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+
+  &::before {
+    border-top-color: rgba(0, 0, 0, 0.9);
+    border-bottom-color: rgba(0, 0, 0, 0.9);
+    border-left-color: rgba(0, 0, 0, 0.9);
+    border-right-color: rgba(0, 0, 0, 0.9);
+  }
+}
+
+/* Light tooltip */
+.tooltip-content-light {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #000;
+
+  &::before {
+    border-top-color: rgba(255, 255, 255, 0.95);
+    border-bottom-color: rgba(255, 255, 255, 0.95);
+    border-left-color: rgba(255, 255, 255, 0.95);
+    border-right-color: rgba(255, 255, 255, 0.95);
+  }
+}
+
+/* Отключаем tooltips на touch устройствах (они не работают хорошо) */
+@media (hover: none) and (pointer: coarse) {
+  .tooltip:hover .tooltip-content {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  /* Но оставляем возможность показать через класс */
+  .tooltip-show .tooltip-content {
+    opacity: 1;
+    visibility: visible;
+  }
+}

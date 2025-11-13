@@ -1,0 +1,386 @@
+/* ================================================
+   THEME TOGGLE - EPIC DAY/NIGHT ANIMATION
+   Переключатель темы с анимацией день/ночь
+   Inspired by the famous designer meme 😅
+   ================================================ */
+
+:root {
+    /* Размеры theme toggle (ширина примерно в 2 раза больше высоты) */
+    --theme-toggle-height-xs: clamp(24px, 3vw, 28px);
+    --theme-toggle-width-xs: clamp(38px, 6vw, 44px);
+
+    --theme-toggle-height-s: clamp(32px, 3.5vw, 34px);
+    --theme-toggle-width-s: clamp(64px, 7vw, 68px);
+
+    --theme-toggle-height-m: clamp(38px, 4.3vw, 40px);
+    --theme-toggle-width-m: clamp(76px, 8.6vw, 80px);
+
+    --theme-toggle-height-l: clamp(44px, 5vw, 48px);
+    --theme-toggle-width-l: clamp(88px, 10vw, 96px);
+}
+
+.theme-toggle-epic {
+    position: relative;
+    width: var(--theme-toggle-width-m);
+    height: var(--theme-toggle-height-m);
+    cursor: pointer;
+    user-select: none;
+    display: block;
+}
+
+.theme-toggle-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+/* ================================================
+   TRACK (небо)
+   ================================================ */
+
+.theme-toggle-track {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 100px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid var(--border-color);
+
+    /* День - голубое небо */
+    background: linear-gradient(180deg, #87ceeb 0%, #e0f6ff 100%);
+}
+
+.theme-toggle-input:checked + .theme-toggle-track {
+    /* Ночь - темное небо */
+   // background: linear-gradient(180deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+   background: #080808;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ================================================
+   ОБЛАКА
+   ================================================ */
+
+.theme-toggle-clouds {
+    position: absolute;
+    top: 20%;
+    left: 0;
+    right: 0;
+    opacity: 1;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.theme-toggle-input:checked + .theme-toggle-track .theme-toggle-clouds {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.cloud {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 100px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.cloud-1 {
+    width: 12px;
+    height: 4px;
+    top: 2px;
+    left: 8px;
+    animation-delay: 0s;
+}
+
+.cloud-2 {
+    width: 10px;
+    height: 3px;
+    top: 6px;
+    right: 12px;
+    animation-delay: 1s;
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-2px);
+    }
+}
+
+/* ================================================
+   ЗВЕЗДЫ
+   ================================================ */
+
+.theme-toggle-stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease 0.2s;
+}
+
+.theme-toggle-input:checked + .theme-toggle-track .theme-toggle-stars {
+    opacity: 1;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 2s ease-in-out infinite;
+}
+
+.star-1 {
+    top: 25%;
+    left: 15%;
+    animation-delay: 0s;
+}
+
+.star-2 {
+    top: 35%;
+    right: 20%;
+    animation-delay: 0.5s;
+}
+
+.star-3 {
+    top: 50%;
+    left: 25%;
+    animation-delay: 1s;
+}
+
+.star-4 {
+    top: 30%;
+    right: 35%;
+    animation-delay: 1.5s;
+}
+
+.star-5 {
+    top: 60%;
+    left: 40%;
+    animation-delay: 0.8s;
+}
+
+@keyframes twinkle {
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.5);
+    }
+}
+
+/* ================================================
+   СОЛНЦЕ И ЛУНА (ползунок)
+   ================================================ */
+
+.theme-toggle-slider {
+    position: absolute;
+    top: 50%;
+    left: 3px;
+    transform: translateY(-50%);
+    width: calc(var(--theme-toggle-height-m) - 6px);
+    height: calc(var(--theme-toggle-height-m) - 6px);
+    border-radius: 50%;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+
+    /* Солнце */
+    background: radial-gradient(circle, #ffd700 0%, #ffa500 100%);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.4), 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.theme-toggle-input:checked + .theme-toggle-track .theme-toggle-slider {
+    transform: translateY(-50%) translateX(calc(var(--theme-toggle-width-m) - var(--theme-toggle-height-m)));
+
+    /* Луна */
+    background: radial-gradient(circle at 30% 30%, #f0f0f0 0%, #c0c0c0 100%);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4), 0 0 20px rgba(255, 255, 255, 0.2), inset -3px -3px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Лучи солнца */
+.theme-toggle-slider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%;
+    height: 120%;
+    border-radius: 50%;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+
+    background: linear-gradient(0deg, transparent 40%, rgba(255, 215, 0, 0.4) 40%, rgba(255, 215, 0, 0.4) 60%, transparent 60%),
+        linear-gradient(90deg, transparent 40%, rgba(255, 215, 0, 0.4) 40%, rgba(255, 215, 0, 0.4) 60%, transparent 60%),
+        linear-gradient(45deg, transparent 40%, rgba(255, 215, 0, 0.3) 40%, rgba(255, 215, 0, 0.3) 60%, transparent 60%),
+        linear-gradient(-45deg, transparent 40%, rgba(255, 215, 0, 0.3) 40%, rgba(255, 215, 0, 0.3) 60%, transparent 60%);
+
+    animation: rotate-rays 20s linear infinite;
+}
+
+.theme-toggle-input:checked + .theme-toggle-track .theme-toggle-slider::before {
+    opacity: 0;
+    animation: none;
+}
+
+@keyframes rotate-rays {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* Кратеры луны */
+.theme-toggle-slider::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 50%;
+    top: 40%;
+    left: 35%;
+    opacity: 0;
+    transition: opacity 0.4s ease 0.2s;
+    box-shadow: 6px 2px 0 0 rgba(0, 0, 0, 0.1), 3px -3px 0 0 rgba(0, 0, 0, 0.12), -2px 4px 0 0 rgba(0, 0, 0, 0.08);
+}
+
+.theme-toggle-input:checked + .theme-toggle-track .theme-toggle-slider::after {
+    opacity: 1;
+}
+
+/* ================================================
+   HOVER ЭФФЕКТЫ
+   ================================================ */
+
+@media (hover: hover) and (pointer: fine) {
+    .theme-toggle-epic:hover .theme-toggle-track {
+        border-color: var(--border-hover);
+        transform: scale(1.05);
+    }
+
+    .theme-toggle-epic:hover .theme-toggle-slider {
+        transform: translateY(-50%) scale(1.05);
+    }
+
+    .theme-toggle-input:checked + .theme-toggle-track:hover .theme-toggle-slider {
+        transform: translateY(-50%) translateX(calc(var(--theme-toggle-width-m) - var(--theme-toggle-height-m))) scale(1.1);
+    }
+}
+
+/* ================================================
+   FOCUS STATE
+   ================================================ */
+
+.theme-toggle-input:focus-visible + .theme-toggle-track {
+    outline: 2px solid var(--border-focus);
+    outline-offset: 2px;
+}
+
+/* ================================================
+   DISABLED STATE
+   ================================================ */
+
+.theme-toggle-input:disabled + .theme-toggle-track {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* ================================================
+   РАЗМЕРЫ (как у кнопок: xs, s, m, l)
+   ================================================ */
+
+/* XS - Extra Small */
+.theme-toggle-epic-xs {
+    width: var(--theme-toggle-width-xs);
+    height: var(--theme-toggle-height-xs);
+}
+
+.theme-toggle-epic-xs .theme-toggle-slider {
+    left: 2px;
+    width: calc(var(--theme-toggle-height-xs) - 4px);
+    height: calc(var(--theme-toggle-height-xs) - 4px);
+}
+
+.theme-toggle-epic-xs .theme-toggle-input:checked + .theme-toggle-track .theme-toggle-slider {
+    transform: translateY(-50%) translateX(calc(var(--theme-toggle-width-xs) - var(--theme-toggle-height-xs)));
+}
+
+/* S - Small (compact) */
+.theme-toggle-epic-s {
+    width: var(--theme-toggle-width-s);
+    height: var(--theme-toggle-height-s);
+}
+
+.theme-toggle-epic-s .theme-toggle-slider {
+    left: 2px;
+    width: calc(var(--theme-toggle-height-s) - 4px);
+    height: calc(var(--theme-toggle-height-s) - 4px);
+}
+
+.theme-toggle-epic-s .theme-toggle-input:checked + .theme-toggle-track .theme-toggle-slider {
+    transform: translateY(-50%) translateX(calc(var(--theme-toggle-width-s) - var(--theme-toggle-height-s)));
+}
+
+/* M - Medium (default) - уже определен выше */
+
+/* L - Large */
+.theme-toggle-epic-l {
+    width: var(--theme-toggle-width-l);
+    height: var(--theme-toggle-height-l);
+}
+
+.theme-toggle-epic-l .theme-toggle-slider {
+    left: 3px;
+    width: calc(var(--theme-toggle-height-l) - 6px);
+    height: calc(var(--theme-toggle-height-l) - 6px);
+}
+
+.theme-toggle-epic-l .theme-toggle-input:checked + .theme-toggle-track .theme-toggle-slider {
+    transform: translateY(-50%) translateX(calc(var(--theme-toggle-width-l) - var(--theme-toggle-height-l)));
+}
+
+/* Старые названия для обратной совместимости */
+.theme-toggle-epic-compact {
+    width: var(--theme-toggle-width-s);
+    height: var(--theme-toggle-height-s);
+}
+
+.theme-toggle-epic-compact .theme-toggle-slider {
+    left: 2px;
+    width: calc(var(--theme-toggle-height-s) - 4px);
+    height: calc(var(--theme-toggle-height-s) - 4px);
+}
+
+.theme-toggle-epic-compact .theme-toggle-input:checked + .theme-toggle-track .theme-toggle-slider {
+    transform: translateY(-50%) translateX(calc(var(--theme-toggle-width-s) - var(--theme-toggle-height-s)));
+}
+
+.theme-toggle-epic-large {
+    width: var(--theme-toggle-width-l);
+    height: var(--theme-toggle-height-l);
+}
+
+.theme-toggle-epic-large .theme-toggle-slider {
+    left: 3px;
+    width: calc(var(--theme-toggle-height-l) - 6px);
+    height: calc(var(--theme-toggle-height-l) - 6px);
+}
+
+.theme-toggle-epic-large .theme-toggle-input:checked + .theme-toggle-track .theme-toggle-slider {
+    transform: translateY(-50%) translateX(calc(var(--theme-toggle-width-l) - var(--theme-toggle-height-l)));
+}

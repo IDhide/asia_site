@@ -1,0 +1,108 @@
+:root {
+    /* LAYOUT VARIABLES */
+    /* Размеры страницы и контента */
+    --site-max-width: 1940px;
+    --content-max-width: 1440px;
+    --text-max-width: 880px;
+    --content-top-spacing: clamp(40px, 5vw, 80px);
+    --side-padding: clamp(2px, 1vw, 24px);
+    --side-padding-text: clamp(14px, 3vw, 24px);
+    /* Отступ между блоками: min 40px, обычно 5vw, max 80px */
+    --block-spacing-s: clamp(26px, 3vw, 46px);
+    --block-spacing: clamp(40px, 5vw, 80px);
+
+    /* SECTION SPACING (utilities for section inner padding) */
+    --section-padding-xs: clamp(12px, 1.2vw, 16px);
+    --section-padding-s: clamp(20px, 2.4vw, 28px);
+    --section-padding-m: clamp(32px, 4vw, 48px);
+    --section-padding-l: clamp(48px, 6vw, 80px);
+    --section-padding-xl: clamp(80px, 8vw, 120px);
+
+    /* GRID SYSTEM */
+    --gap-xs: clamp(2px, 1.2vw, 6px); // 1.2vw ≈ 5px на 420px
+    --gap-s: clamp(4px, 1.8vw, 10px); // 2vw ≈ 8-9px
+    --gap-m: clamp(6px, 2.5vw, 16px); // 2.5vw ≈ 10-11px
+    --gap-l: clamp(8px, 3vw, 24px); // 3vw ≈ 12-13px
+    --gap-xl: clamp(10px, 4vw, 32px); // 4vw ≈ 16-18px
+
+    /* COMPONENT VARIABLES */
+    /* Карточки - Border Radius */
+    --card-border-radius-xs: clamp(4px, 1.4vw, 10px);
+    --card-border-radius-s: clamp(6px, 1.8vw, 14px);
+    --card-border-radius-m: clamp(8px, 2.4vw, 18px);
+    --card-border-radius-l: clamp(12px, 3.2vw, 26px);
+    --card-border-radius-xl: clamp(16px, 4vw, 32px);
+    --card-border-radius-xxl: clamp(20px, 7vw, 58px);
+    --card-border-radius-xxxl: clamp(28px, 9vw, 72px);
+    --card-border-radius-full: 9999px;
+
+    /* для карточек без дополнительного фона и обводок */
+    --card-padding-xs: clamp(4px, 1.2vw, 8px); // 1.2vw ≈ 5px
+    --card-padding-s: clamp(8px, 2vw, 14px); // 2vw ≈ 8-9px
+    --card-padding-m: clamp(12px, 2.7vw, 18px); // 2.7vw ≈ 11-12px
+    --card-padding-l: clamp(16px, 3.2vw, 24px); // 3.2vw ≈ 13-14px
+    --card-padding-xl: clamp(20px, 4vw, 36px); // 4vw ≈ 16-18px
+    --card-padding-xxl: clamp(24px, 5vw, 48px); // 5vw ≈ 20-22px
+    --card-padding-xxxl: clamp(46px, 6.6vw, 60px); //
+    --card-gap: clamp(8px, 2vw, 20px);
+    /* SPACING: Сепараторы */
+    --separator-spacing-xs: 0.33rem;
+    --separator-spacing-s: 0.66rem;
+    --separator-spacing-m: 0.99rem;
+    --separator-spacing-l: 1.25rem;
+    --separator-spacing-xl: 2rem;
+
+    /* BUTTONS */
+    --button-height-xs: clamp(20px, 3vw, 22px);
+    --button-height-s: clamp(32px, 3.5vw, 34px);
+    --button-height-m: clamp(38px, 4.3vw, 40px);
+    --button-height-l: clamp(38px, 5vw, 40px);
+    --button-height-xl: clamp(54px, 5.8vw, 62px);
+    --button-padding-xs: clamp(6px, 1.2vw, 8px);
+    --button-padding-s: clamp(12px, 1.5vw, 14px);
+    --button-padding-m: clamp(15px, 1.7vw, 18px);
+    --button-padding-l: clamp(18px, 2vw, 22px);
+    --button-padding-xl: clamp(20px, 2.4vw, 26px);
+    --button-radius-xs: clamp(8px, 1vw, 10px);
+    --button-radius-s: clamp(10px, 1.2vw, 12px);
+    --button-radius-m: clamp(12px, 1.4vw, 14px);
+    --button-radius-l: clamp(14px, 1.6vw, 16px);
+    --button-radius-xl: clamp(16px, 1.8vw, 18px);
+    --button-radius-full: 9999px;
+    --tag-hover-bg: #292929;
+
+    /* FORMS */
+    --input-height-xs: clamp(28px, 3vw, 32px);
+    --input-height-s: clamp(32px, 3.5vw, 36px);
+    --input-height-m: clamp(36px, 4vw, 40px);
+    --input-height-l: clamp(40px, 4.5vw, 44px);
+
+    /* TYPOGRAPHY */
+    --text-s: 0.9rem;
+
+            /* Базовые цвета для стекла */
+        --glass-color-light: #c2c2c2;
+        --glass-color-medium: #a3a3a3;
+        --glass-color-dark: #4c4c4c;
+
+        /* Цвета для бликов и теней */
+        --glass-highlight: #fff;
+        --glass-shadow: #000;
+
+        /* Интенсивность эффектов (множители) */
+        --glass-reflex-light: 0.3;
+        --glass-reflex-dark: 2;
+
+        /* Прозрачность фона */
+        --glass-bg-opacity-subtle: 8%;
+        --glass-bg-opacity-normal: 12%;
+        --glass-bg-opacity-strong: 18%;
+
+        /* Размытие для реального стекла */
+        --glass-blur-subtle: 4px;
+        --glass-blur-normal: 8px;
+        --glass-blur-strong: 12px;
+
+        /* Насыщенность */
+        --glass-saturation: 150%;
+}

@@ -93,21 +93,14 @@ export function ProductPage({ product, allProducts, onClose }: ProductPageProps)
 
             <div className={styles.priceRow}>
               <span className={styles.price}>{formatPrice(product.price)}</span>
-            </div>
-
-            <div className={styles.actions}>
               <button
                 type="button"
-                className={styles.buyButton}
+                className={styles.addToCartButton}
                 onClick={handleAddToCart}
               >
-                КУПИТЬ
+                В КОРЗИНУ
+                <img src="/assets/ui_icons/add_cart.svg" alt="" />
               </button>
-              {inCart && (
-                <button type="button" className={styles.cartBadge}>
-                  В КОРЗИНЕ 🛒
-                </button>
-              )}
             </div>
           </div>
 
