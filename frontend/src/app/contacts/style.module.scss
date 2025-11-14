@@ -51,8 +51,18 @@
   justify-self: center;
   font-variant-numeric: tabular-nums;
 
+  // ЗАТЕМНЯЕМ СТЕКЛО ТОЛЬКО НА ЭТОЙ СТРАНИЦЕ
+  background: rgba(15, 15, 16, 0.85) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow:
+          0 8px 32px rgba(0, 0, 0, 0.45),
+          inset 0 1px 1px rgba(255, 255, 255, 0.08);
+
   &:hover {
     transform: scale(1.05);
+    background: rgba(20, 20, 22, 0.9) !important;
   }
 }
 
@@ -65,7 +75,11 @@
     padding: var(--gap-s);
   }
   .contactName, .contactRole { font-size: clamp(15px, 3.5vw, 18px); }
-  .contactPhone { justify-self: center; font-size: clamp(14px, 3vw, 16px); }
+  .contactPhone {
+    justify-self: center;
+    font-size: clamp(14px, 3vw, 16px);
+    background: rgba(15, 15, 16, 0.9) !important;
+  }
 }
 
 // ——— PHONE PILL ———
@@ -76,28 +90,23 @@
   gap: 8px;
   padding: 8px 12px 8px 16px;
   border-radius: 50px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-brd, rgba(255, 255, 255, 0.1));
-  box-shadow:
-          0 8px 32px rgba(0, 0, 0, 0.37),
-          inset 0 1px 1px rgba(255, 255, 255, 0.1);
-  transition: all var(--transition-normal);
+  background: transparent;
+  backdrop-filter: none;
+  border: none;
+  box-shadow: none;
+  transition: none;
   font-size: clamp(15px, 2.5vw, 17px);
   color: #ffffff;
   line-height: 1;
 
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow:
-            0 12px 40px rgba(0, 0, 0, 0.45),
-            inset 0 1px 1px rgba(255, 255, 255, 0.15);
-  }
+  &:hover { transform: none; }
 
   &.isCopied {
+    .copyToast {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-8px);
+    }
     .copyToast::before {
-      content: 'Скопировано!';
       opacity: 1;
       transform: translateY(0);
     }
@@ -156,29 +165,44 @@
 .phonePill__btn--copy,
 .phonePill__btn--call {}
 
-// Тост
+// ТОСТ — ПОЯВЛЯЕТСЯ СВЕРХУ
 .copyToast {
   position: absolute;
-  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.85);
+  bottom: 100%;
+  transform: translateX(-50%);
+  margin-bottom: 12px;
+  background: rgba(0, 0, 0, 0.92);
   color: #fff;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
-  padding: 4px 10px;
-  border-radius: 6px;
+  padding: 7px 14px;
+  border-radius: 8px;
   pointer-events: none;
   opacity: 0;
-  transition: all 0.2s ease;
+  transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   z-index: 1000;
   white-space: nowrap;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+  transform-origin: bottom center;
 
   &::before {
     content: 'Скопировано!';
     opacity: 0;
-    transform: translateY(4px);
-    transition: all 0.25s ease;
+    transform: translateY(6px);
+    transition: all 0.3s ease;
+    display: block;
+  }
+
+  // СТРЕЛОЧКА ВНИЗ
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.92);
   }
 }
 
@@ -194,4 +218,13 @@
     block-size: 40px;
     svg { width: 20px; height: 20px; }
   }
+
+  .copyToast {
+    font-size: 14px;
+    padding: 8px 16px;
+    margin-bottom: 14px;
+  }
 }
+
+// В КОНЕЦ ФАЙЛА:
+.isCopied { }
