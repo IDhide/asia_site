@@ -4,10 +4,10 @@ import { useEffect } from 'react';
 import styles from './style.module.scss';
 
 const CONTACTS = [
-    { id: 1, name: 'ЕКАТЕРИНА', role: 'реклама', phone: '+7 903 112 20 01' },
-    { id: 2, name: 'АЛЕКСАНДРА', role: 'реклама', phone: '+7 985 279 26 70' },
+    { id: 1, name: 'ЕКАТЕРИНА', role: 'РЕКЛАМА', phone: '+7 903 112 20 01' },
+    { id: 2, name: 'АЛЕКСАНДРА', role: 'РЕКЛАМА', phone: '+7 985 279 26 70' },
     { id: 3, name: 'ДЕНИС', role: 'КОНЦЕРТЫ', phone: '+7 916 669 11 11' },
-    { id: 4, name: 'АНАСТАСИЯ', role: 'PR-менеджер', phone: '+7 929 594 15 50' },
+    { id: 4, name: 'АНАСТАСИЯ', role: 'PR-МЕНЕДЖЕР', phone: '+7 929 594 15 50' },
 ];
 
 export default function ContactsPage() {
