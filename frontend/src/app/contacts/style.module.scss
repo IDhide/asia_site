@@ -67,18 +67,56 @@
 }
 
 @media (max-width: 768px) {
-  .contactsGrid { gap: var(--gap-s); }
+  .contactsGrid {
+    gap: var(--gap-s);
+  }
+
   .contactRow {
     grid-template-columns: 1fr;
     gap: var(--gap-xs);
     text-align: center;
-    padding: var(--gap-s);
+    padding: var(--gap-xs);
+    align-items: center;
   }
-  .contactName, .contactRole { font-size: clamp(15px, 3.5vw, 18px); }
+
+  .contactName,
+  .contactRole {
+    font-size: clamp(14px, 3.5vw, 16px);
+    display: inline;
+    margin: 0;
+  }
+
+  .contactName::after {
+    content: ' — ';
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 400;
+  }
+
   .contactPhone {
     justify-self: center;
-    font-size: clamp(14px, 3vw, 16px);
-    background: rgba(15, 15, 16, 0.9) !important;
+    font-size: clamp(15px, 4vw, 17px);
+    padding: 10px 14px 10px 16px !important;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    background: rgba(15, 15, 16, 0.92) !important;
+    border-radius: 50px;
+    gap: 10px;
+  }
+
+  .phonePill__btn {
+    inline-size: 36px;
+    block-size: 36px;
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .copyToast {
+    font-size: 13px;
+    padding: 6px 12px;
+    margin-bottom: 10px;
   }
 }
 
