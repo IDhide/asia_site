@@ -102,11 +102,13 @@ export function ReleasesSlider({ tracks, onSlideChange, onSlideClick }: Releases
     new Set(Array.from({ length: PRELOAD_CONFIG.initial }, (_, i) => i))
   );
   const [isDragging, setIsDragging] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const [coverflowConfig, setCoverflowConfig] = useState(getCoverflowConfig());
   const dragStartRef = useRef({ x: 0, scrollLeft: 0 });
   const velocityRef = useRef(0);
   const lastPosRef = useRef(0);
   const animationFrameRef = useRef<number | null>(null);
+  const animationTargetRef = useRef<number | null>(null);
   const { getMediaUrl } = useMediaUrl();
 
   // Обновляем конфиг при изменении размера окна
@@ -189,19 +191,35 @@ export function ReleasesSlider({ tracks, onSlideChange, onSlideClick }: Releases
     updateSlides();
   }, [updateSlides]);
 
-  // Инерционное движение
+  // Инерционное движение и snap анимация
   useEffect(() => {
     if (isDragging) return;
 
     const animate = () => {
-      if (Math.abs(velocityRef.current) > PHYSICS_CONFIG.velocityThreshold) {
+      // Приоритет: анимированный переход к целевому слайду
+      if (isAnimating && animationTargetRef.current !== null) {
+        const target = animationTargetRef.current;
+        const diff = target - scrollProgress;
+        
+        if (Math.abs(diff) > PHYSICS_CONFIG.snapThreshold) {
+          // Плавная и быстрая анимация к цели (увеличена скорость с 0.15 до 0.25)
+          setScrollProgress(scrollProgress + diff * 0.25);
+          animationFrameRef.current = requestAnimationFrame(animate);
+        } else {
+          // Достигли цели
+          setScrollProgress(target);
+          setIsAnimating(false);
+          animationTargetRef.current = null;
+        }
+      } else if (Math.abs(velocityRef.current) > PHYSICS_CONFIG.velocityThreshold) {
+        // Инерционное движение
         velocityRef.current *= PHYSICS_CONFIG.friction;
         const newProgress = scrollProgress + velocityRef.current;
         const clampedProgress = Math.max(0, Math.min(displayTracks.length - 1, newProgress));
         setScrollProgress(clampedProgress);
         animationFrameRef.current = requestAnimationFrame(animate);
       } else {
-        // Snap к ближайшему слайду
+        // Snap к ближайшему слайду с плавной анимацией
         const target = Math.round(scrollProgress);
         const diff = target - scrollProgress;
         if (Math.abs(diff) > PHYSICS_CONFIG.snapThreshold) {
@@ -219,7 +237,7 @@ export function ReleasesSlider({ tracks, onSlideChange, onSlideClick }: Releases
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [isDragging, scrollProgress, displayTracks.length]);
+  }, [isDragging, scrollProgress, displayTracks.length, isAnimating]);
 
   // Обработка мыши
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -304,21 +322,37 @@ export function ReleasesSlider({ tracks, onSlideChange, onSlideClick }: Releases
   const handleWheel = (e: React.WheelEvent) => {
     if (isLoading) return;
     
-    // Инвертируем направление для естественного скролла (как на Mac)
-    const delta = e.deltaY * SENSITIVITY_CONFIG.wheel * (SENSITIVITY_CONFIG.wheelInvert ? -1 : 1);
+    // Определяем тип устройства:
+    // Тачпад: deltaX != 0 (горизонтальный свайп)
+    // Мышь: deltaX == 0 (только вертикальный скролл)
+    const isTouchpad = Math.abs(e.deltaX) > 0;
+    const isMouseWheel = Math.abs(e.deltaX) === 0 && Math.abs(e.deltaY) > 0;
+    
+    let delta = 0;
+    
+    if (isTouchpad) {
+      // Тачпад: используем горизонтальный свайп (deltaX)
+      // Естественное направление: свайп вправо = листаем вправо
+      delta = e.deltaX * SENSITIVITY_CONFIG.wheel;
+    } else if (isMouseWheel) {
+      // Мышь: работают оба направления (вертикальный и горизонтальный)
+      delta = e.deltaY * SENSITIVITY_CONFIG.wheel * (SENSITIVITY_CONFIG.wheelInvert ? -1 : 1);
+    } else {
+      return; // Игнорируем другие события
+    }
+    
     const newProgress = scrollProgress + delta;
     const clampedProgress = Math.max(0, Math.min(displayTracks.length - 1, newProgress));
     
-    // Предотвращаем навигацию браузера ТОЛЬКО если:
-    // 1. Мы не на первом слайде И пытаемся листать назад (влево)
-    // 2. Мы не на последнем слайде И пытаемся листать вперед (вправо)
-    // При инверсии: положительный deltaY (скролл вниз) = движение влево (назад)
-    const scrollingBack = delta < 0; // уменьшаем progress = листаем назад (влево)
-    const scrollingForward = delta > 0; // увеличиваем progress = листаем вперед (вправо)
+    // Предотвращаем навигацию браузера (жест возврата на предыдущую страницу)
+    // ВСЕГДА блокируем для тачпада при горизонтальном свайпе
+    const scrollingBack = delta < 0;
+    const scrollingForward = delta > 0;
     const isAtStart = scrollProgress <= 0.1;
     const isAtEnd = scrollProgress >= displayTracks.length - 1.1;
     
-    const shouldPreventDefault = 
+    // Для тачпада блокируем жест возврата даже на первом слайде
+    const shouldPreventDefault = isTouchpad || 
       (scrollingBack && !isAtStart) || 
       (scrollingForward && !isAtEnd);
     
@@ -331,23 +365,72 @@ export function ReleasesSlider({ tracks, onSlideChange, onSlideClick }: Releases
     velocityRef.current = delta * 0.3;
   };
 
-  // Клавиатура
+  // Клавиатура с плавной анимацией
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (isLoading) return;
       
-      if (e.key === 'ArrowLeft') {
-        const target = Math.max(0, Math.floor(scrollProgress) - 1);
-        setScrollProgress(target);
-      } else if (e.key === 'ArrowRight') {
-        const target = Math.min(displayTracks.length - 1, Math.ceil(scrollProgress) + 1);
-        setScrollProgress(target);
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        // Если уже идет анимация, берем текущую цель, иначе текущую позицию
+        const currentTarget = isAnimating && animationTargetRef.current !== null 
+          ? animationTargetRef.current 
+          : Math.round(scrollProgress);
+        const target = Math.max(0, currentTarget - 1);
+        animationTargetRef.current = target;
+        setIsAnimating(true);
+        velocityRef.current = 0;
+      } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        const currentTarget = isAnimating && animationTargetRef.current !== null 
+          ? animationTargetRef.current 
+          : Math.round(scrollProgress);
+        const target = Math.min(displayTracks.length - 1, currentTarget + 1);
+        animationTargetRef.current = target;
+        setIsAnimating(true);
+        velocityRef.current = 0;
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        animationTargetRef.current = 0;
+        setIsAnimating(true);
+        velocityRef.current = 0;
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        animationTargetRef.current = displayTracks.length - 1;
+        setIsAnimating(true);
+        velocityRef.current = 0;
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [scrollProgress, displayTracks.length, isLoading]);
+  }, [scrollProgress, displayTracks.length, isLoading, isAnimating]);
+
+  // Обработчики для невидимых областей навигации с плавной анимацией
+  const handlePrevClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (isLoading) return;
+    // Если уже идет анимация, берем текущую цель, иначе текущую позицию
+    const currentTarget = isAnimating && animationTargetRef.current !== null 
+      ? animationTargetRef.current 
+      : Math.round(scrollProgress);
+    const target = Math.max(0, currentTarget - 1);
+    animationTargetRef.current = target;
+    setIsAnimating(true);
+    velocityRef.current = 0;
+  };
+
+  const handleNextClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (isLoading) return;
+    const currentTarget = isAnimating && animationTargetRef.current !== null 
+      ? animationTargetRef.current 
+      : Math.round(scrollProgress);
+    const target = Math.min(displayTracks.length - 1, currentTarget + 1);
+    animationTargetRef.current = target;
+    setIsAnimating(true);
+    velocityRef.current = 0;
+  };
 
   return (
     <div className={styles.releasesSlider}>
@@ -358,6 +441,24 @@ export function ReleasesSlider({ tracks, onSlideChange, onSlideClick }: Releases
         onTouchStart={handleTouchStart}
         onWheel={handleWheel}
       >
+        {/* Невидимая область слева для переключения на предыдущий трек */}
+        <button
+          className={`${styles.navArea} ${styles.navAreaLeft}`}
+          onClick={handlePrevClick}
+          disabled={isLoading || currentIndex === 0}
+          aria-label="Предыдущий трек"
+          tabIndex={-1}
+        />
+        
+        {/* Невидимая область справа для переключения на следующий трек */}
+        <button
+          className={`${styles.navArea} ${styles.navAreaRight}`}
+          onClick={handleNextClick}
+          disabled={isLoading || currentIndex === displayTracks.length - 1}
+          aria-label="Следующий трек"
+          tabIndex={-1}
+        />
+
         <div className={styles.coverflowStage}>
           {displayTracks.map((track, index) => {
             const shouldLoad = loadedImages.has(index);
